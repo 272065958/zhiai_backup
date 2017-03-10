@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/fab_margin"
+    android:paddingRight="@dimen/fab_margin"
+    android:paddingBottom="@dimen/auto_margin"
+    android:paddingTop="@dimen/auto_margin"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/expert_head"
+            android:layout_width="@dimen/tab_height"
+            android:layout_height="@dimen/tab_height"
+            android:src="@drawable/test_6"/>
+
+        <TextView
+            android:id="@+id/expert_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/expert_head"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_size_middle"
+            android:textColor="@color/text_main_color"
+            android:layout_marginLeft="@dimen/auto_margin"
+            android:text="名字"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/expert_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/auto_margin"
+        android:text="医生态度很好,也很专业"/>
+
+    <TextView
+        android:id="@+id/expert_comment_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/block_line_height"
+        android:textColor="@color/text_secondary_color"
+        android:textSize="@dimen/text_size_small"
+        android:text="2016-12-01 12:00"/>
+
+</LinearLayout>

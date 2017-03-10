@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_view" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/auto_margin"
+        android:paddingLeft="@dimen/fab_margin"
+        android:paddingTop="@dimen/auto_margin"
+        android:text="@string/describe_problem_advisory"
+        android:textColor="@color/text_main_color" />
+
+    <include layout="@layout/divider_view" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/auto_margin"
+        android:layout_height="170dp">
+        <EditText
+            android:id="@+id/advisory_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gray_rectangle_bg"
+            android:gravity="start"
+            android:hint="@string/describe_problem_hint"
+            android:padding="@dimen/auto_margin"
+            android:maxLength="300"
+            android:textColorHint="@color/text_secondary_color"
+            android:textSize="@dimen/text_size_middle" />
+
+        <TextView
+            android:id="@+id/advisory_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_secondary_color"
+            android:textSize="@dimen/text_size_more_small"
+            android:layout_gravity="right|bottom"
+            android:layout_margin="@dimen/auto_margin"
+            android:text="0/300"/>
+    </FrameLayout>
+
+    <com.cjx.zhiai.component.ImageInsertView
+        android:id="@+id/image_insert_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_height"
+        android:layout_marginTop="@dimen/auto_margin"
+        android:layout_marginBottom="@dimen/auto_margin"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/background_color"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/advisory_submit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_margin="@dimen/auto_margin"
+        android:background="@drawable/gray_solid_rectangle_bg"
+        android:gravity="center"
+        android:text="@string/button_submit"
+        android:onClick="submit"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_middle"/>
+</LinearLayout>

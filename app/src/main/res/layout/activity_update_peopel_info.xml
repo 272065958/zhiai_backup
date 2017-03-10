@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_view" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:background="@android:color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/update_head"
+            android:layout_width="@dimen/refresh_hight"
+            android:layout_height="@dimen/refresh_hight"
+            android:layout_margin="@dimen/fab_margin"
+            android:onClick="onClick"
+            android:background="@color/divider_color" />
+
+        <include layout="@layout/divider_view" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tab_height"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:text="@string/setting_info_true_name"
+                android:textSize="@dimen/text_size_middle" />
+
+            <EditText
+                android:id="@+id/update_true_name"
+                style="@style/edit_view_style"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:maxLength="13" />
+        </LinearLayout>
+
+        <include layout="@layout/divider_view" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tab_height"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:text="@string/setting_info_name"
+                android:textSize="@dimen/text_size_middle" />
+
+            <EditText
+                android:id="@+id/update_name"
+                style="@style/edit_view_style"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:maxLength="13" />
+        </LinearLayout>
+
+        <include layout="@layout/divider_view" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tab_height"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:text="@string/setting_info_sex"
+                android:textSize="@dimen/text_size_middle" />
+
+            <LinearLayout
+                android:id="@+id/update_sex_man"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/item_transparent_pressed_bg"
+                android:gravity="center_vertical"
+                android:onClick="viewClick"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/auto_margin"
+                android:paddingRight="@dimen/auto_margin">
+
+                <ImageView
+                    android:layout_width="@dimen/fab_margin"
+                    android:layout_height="@dimen/fab_margin"
+                    android:src="@drawable/round_bg" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/auto_margin"
+                    android:text="男"
+                    android:textColor="@color/text_main_color"
+                    android:textSize="@dimen/text_size_middle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/update_sex_women"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/auto_margin"
+                android:background="@drawable/item_transparent_pressed_bg"
+                android:gravity="center_vertical"
+                android:onClick="viewClick"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/auto_margin"
+                android:paddingRight="@dimen/auto_margin">
+
+                <ImageView
+                    android:layout_width="@dimen/fab_margin"
+                    android:layout_height="@dimen/fab_margin"
+                    android:src="@drawable/round_bg" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/auto_margin"
+                    android:text="女"
+                    android:textColor="@color/text_main_color"
+                    android:textSize="@dimen/text_size_middle" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <include layout="@layout/divider_view" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tab_height"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:text="@string/setting_info_address"
+                android:textSize="@dimen/text_size_middle" />
+
+            <EditText
+                android:id="@+id/update_address"
+                style="@style/edit_view_style"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:hint="@string/setting_info_address_hint" />
+        </LinearLayout>
+
+        <include layout="@layout/divider_view" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tab_height"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:text="@string/setting_info_email"
+                android:textSize="@dimen/text_size_middle" />
+
+            <EditText
+                android:id="@+id/update_email"
+                style="@style/edit_view_style"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:hint="@string/setting_info_email_hint" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:padding="@dimen/auto_margin">
+
+        <TextView
+            android:id="@+id/update_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:background="@drawable/red_rectangle_bg"
+            android:gravity="center"
+            android:onClick="viewClick"
+            android:text="@string/button_save_message"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_middle" />
+    </FrameLayout>
+
+</RelativeLayout>

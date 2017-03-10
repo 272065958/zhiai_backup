@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_divider">
+
+    <View
+        android:id="@+id/my_top_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/hundred_dp"
+        android:background="@color/colorPrimary" />
+
+    <ImageView
+        android:id="@+id/my_head"
+        android:layout_width="@dimen/refresh_hight"
+        android:layout_height="@dimen/refresh_hight"
+        android:layout_alignBottom="@id/my_top_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/f_lager_margin"
+        android:background="@color/divider_color" />
+
+    <RelativeLayout
+        android:id="@+id/my_income"
+        style="@style/my_select_content"
+        android:layout_marginTop="@dimen/item_height"
+        android:layout_below="@id/my_top_view">
+
+        <ImageView
+            android:id="@+id/my_income_icon"
+            android:layout_width="@dimen/half_tab_height"
+            android:layout_height="@dimen/half_tab_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/tab_height"
+            android:src="@drawable/money" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_toRightOf="@id/my_income_icon"
+            android:text="@string/my_income" />
+
+        <ImageView
+            android:layout_width="@dimen/fab_margin"
+            android:layout_height="@dimen/fab_margin"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:src="@drawable/next_gray" />
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/my_income_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/grid_spacing"
+        android:layout_below="@id/my_income"
+        layout="@layout/divider_view" />
+
+    <RelativeLayout
+        android:id="@+id/my_info"
+        style="@style/my_select_content"
+        android:layout_below="@id/my_income_line">
+
+        <ImageView
+            android:id="@+id/my_info_icon"
+            android:layout_width="@dimen/half_tab_height"
+            android:layout_height="@dimen/half_tab_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/tab_height"
+            android:src="@drawable/information" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_toRightOf="@id/my_info_icon"
+            android:text="@string/my_info" />
+
+        <ImageView
+            android:layout_width="@dimen/fab_margin"
+            android:layout_height="@dimen/fab_margin"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:src="@drawable/next_gray" />
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/my_info_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/grid_spacing"
+        android:layout_below="@id/my_info"
+        layout="@layout/divider_view" />
+
+    <RelativeLayout
+        android:id="@+id/my_help"
+        style="@style/my_select_content"
+        android:layout_below="@id/my_info_line" >
+
+        <ImageView
+            android:id="@+id/my_help_icon"
+            android:layout_width="@dimen/half_tab_height"
+            android:layout_height="@dimen/half_tab_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/tab_height"
+            android:src="@drawable/help" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_toRightOf="@id/my_help_icon"
+            android:text="@string/my_help" />
+
+        <ImageView
+            android:layout_width="@dimen/fab_margin"
+            android:layout_height="@dimen/fab_margin"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:src="@drawable/next_gray" />
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/my_help_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/grid_spacing"
+        android:layout_below="@id/my_help"
+        layout="@layout/divider_view" />
+
+    <RelativeLayout
+        android:id="@+id/my_setting"
+        style="@style/my_select_content"
+        android:layout_below="@id/my_help_line">
+
+        <ImageView
+            android:id="@+id/my_setting_icon"
+            android:layout_width="@dimen/half_tab_height"
+            android:layout_height="@dimen/half_tab_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/tab_height"
+            android:src="@drawable/set" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_toRightOf="@id/my_setting_icon"
+            android:text="@string/my_setting" />
+
+        <ImageView
+            android:layout_width="@dimen/fab_margin"
+            android:layout_height="@dimen/fab_margin"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:src="@drawable/next_gray" />
+    </RelativeLayout>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/grid_spacing"
+        android:layout_below="@id/my_setting"
+        layout="@layout/divider_view" />
+
+</RelativeLayout>

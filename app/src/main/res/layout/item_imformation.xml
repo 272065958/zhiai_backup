@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/text_margin"
+        android:layout_marginLeft="@dimen/auto_margin"
+        android:layout_marginRight="@dimen/auto_margin"
+        android:layout_marginTop="@dimen/text_margin"
+        android:background="@drawable/list_item_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/auto_margin">
+
+        <ImageView
+            android:id="@+id/imformation_icon"
+            android:layout_width="@dimen/tab_height"
+            android:layout_height="@dimen/tab_height" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/imformation_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="身上起湿疹了该怎么办好?"
+                android:textColor="@color/text_deep_color"
+                android:textSize="@dimen/text_size_normal" />
+
+            <TextView
+                android:id="@+id/imformation_describe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/block_line_height"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="湿疹,可能每个人都有过患湿疹的经历, 可能有..."
+                android:textColor="@color/text_main_color"
+                android:textSize="@dimen/text_size_small" />
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>

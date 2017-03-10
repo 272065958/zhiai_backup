@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_view" />
+
+    <include
+        layout="@layout/item_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:id="@+id/discover_comment_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tab_height"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:orientation="horizontal"
+        android:padding="@dimen/text_margin">
+
+        <EditText
+            android:id="@+id/discover_comment_edit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:textColor="@color/text_main_color"
+            android:textSize="@dimen/text_size_middle"
+            android:background="@drawable/gray_fragment_bg" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="回复"
+            android:background="@drawable/gray_frament_bg"
+            android:layout_marginLeft="@dimen/auto_margin"
+            android:layout_marginRight="@dimen/auto_margin"
+            android:paddingLeft="@dimen/auto_margin"
+            android:paddingRight="@dimen/auto_margin"
+            android:gravity="center"
+            android:onClick="submit" />
+
+    </LinearLayout>
+
+</LinearLayout>

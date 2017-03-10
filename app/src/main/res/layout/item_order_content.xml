@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/auto_margin"
+        android:background="@color/background_divider" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/auto_margin"
+        android:paddingLeft="@dimen/fab_margin"
+        android:paddingRight="@dimen/fab_margin"
+        android:paddingTop="@dimen/auto_margin">
+
+        <TextView
+            android:id="@+id/order_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="康爱多官方旗舰店"
+            android:textColor="@color/text_main_color"
+            android:textSize="@dimen/text_size_middle" />
+
+        <TextView
+            android:id="@+id/order_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/order_title"
+            android:layout_marginTop="@dimen/text_margin"
+            android:text="2016-12-05"
+            android:textColor="@color/text_main_color"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/order_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/order_title"
+            android:layout_marginLeft="@dimen/auto_margin"
+            android:text="已完成"
+            android:textColor="@color/text_main_color"
+            android:textSize="@dimen/text_size_small" />
+    </RelativeLayout>
+
+    <include layout="@layout/divider_view" />
+
+    <LinearLayout
+        android:id="@+id/order_item_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+
+    <include layout="@layout/divider_view" />
+
+    <TextView
+        android:id="@+id/order_all_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/auto_margin"
+        android:paddingLeft="@dimen/fab_margin"
+        android:paddingTop="@dimen/auto_margin"
+        android:text="总价：￥27.80"
+        android:textColor="@color/text_main_color"
+        android:textSize="@dimen/text_size_middle" />
+
+</LinearLayout>

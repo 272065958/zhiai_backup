@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/main_item_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bottom_gray_color"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/main_item_main"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="tabClick"
+            android:padding="@dimen/text_margin">
+
+            <ImageView
+                android:id="@+id/main_item_main_icon"
+                android:layout_width="@dimen/half_tab_height"
+                android:layout_height="@dimen/half_tab_height"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/main_home" />
+
+            <TextView
+                android:id="@+id/main_item_main_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/main_item_main_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/block_line_height"
+                android:text="@string/main_item_main"
+                android:textColor="@color/text_title_color"
+                android:textSize="@dimen/text_size_small" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/main_item_scan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="tabClick"
+            android:padding="@dimen/text_margin">
+
+            <ImageView
+                android:id="@+id/main_item_scan_icon"
+                android:layout_width="@dimen/half_tab_height"
+                android:layout_height="@dimen/half_tab_height"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/main_find" />
+
+            <TextView
+                android:id="@+id/main_item_scan_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/main_item_scan_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/block_line_height"
+                android:text="@string/main_item_scan"
+                android:textColor="@color/text_title_color"
+                android:textSize="@dimen/text_size_small" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/main_item_my"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="tabClick"
+            android:padding="@dimen/text_margin">
+
+            <ImageView
+                android:id="@+id/main_item_my_icon"
+                android:layout_width="@dimen/half_tab_height"
+                android:layout_height="@dimen/half_tab_height"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/main_me" />
+
+            <TextView
+                android:id="@+id/main_item_my_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/main_item_my_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/block_line_height"
+                android:text="@string/main_item_my"
+                android:textColor="@color/text_title_color"
+                android:textSize="@dimen/text_size_small" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/main_item_content"
+        android:background="@color/deep_divider_color" />
+
+    <com.cjx.zhiai.component.MyViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/main_item_content"
+        android:layout_marginBottom="1dp"
+        android:background="@color/background_color" />
+</RelativeLayout>

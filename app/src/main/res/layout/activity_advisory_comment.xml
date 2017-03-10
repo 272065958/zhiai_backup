@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_view" />
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/auto_margin"
+        android:layout_height="170dp">
+        <EditText
+            android:id="@+id/advisory_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gray_rectangle_bg"
+            android:gravity="start"
+            android:hint="@string/advisory_comment_hint"
+            android:padding="@dimen/auto_margin"
+            android:maxLength="300"
+            android:textColorHint="@color/text_secondary_color"
+            android:textSize="@dimen/text_size_middle" />
+
+        <TextView
+            android:id="@+id/advisory_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_secondary_color"
+            android:textSize="@dimen/text_size_more_small"
+            android:layout_gravity="right|bottom"
+            android:layout_margin="@dimen/auto_margin"
+            android:text="0/300"/>
+    </FrameLayout>
+
+    <com.cjx.zhiai.component.RatingView
+        android:id="@+id/rating_view"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="@dimen/icon_size"
+        android:layout_margin="@dimen/auto_margin"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/background_color"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/advisory_submit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_margin="@dimen/auto_margin"
+        android:background="@drawable/gray_solid_rectangle_bg"
+        android:gravity="center"
+        android:text="@string/button_submit"
+        android:onClick="submit"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_middle"/>
+</LinearLayout>

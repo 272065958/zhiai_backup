@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/pick_comfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/item_pressed_bg"
+        android:padding="12dp"
+        android:text="@string/button_sure"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_size_normal"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/pick_line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/pick_comfirm"
+        android:background="@color/colorPrimary" />
+
+    <com.cjx.zhiai.component.wheel.WheelLayout
+        android:id="@+id/pick_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pick_line"
+        android:layout_marginTop="@dimen/auto_margin"
+        android:orientation="horizontal" />
+</RelativeLayout>

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_view" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/bigger_margin"
+            android:layout_marginRight="@dimen/bigger_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/auto_margin"
+                android:layout_marginLeft="@dimen/icon_size"
+                android:layout_marginTop="@dimen/auto_margin"
+                android:text="@string/register_doctor_info_tip"
+                android:textColor="@color/text_main_color"
+                android:textSize="@dimen/text_size_small" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tab_height"
+                android:layout_marginBottom="@dimen/auto_margin"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/image_height"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/register_doctor_name"
+                    android:textColor="@color/text_main_color"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <EditText
+                    android:id="@+id/register_name"
+                    style="@style/edit_view_style"
+                    android:layout_marginLeft="@dimen/bigger_margin"
+                    android:background="@drawable/white_rectangle_bg"
+                    android:hint="@string/setting_info_true_name_hint" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tab_height"
+                android:layout_marginBottom="@dimen/auto_margin"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/image_height"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/register_doctor_hospital"
+                    android:textColor="@color/text_main_color"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <RelativeLayout
+                    android:id="@+id/register_hospital_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/bigger_margin"
+                    android:background="@drawable/white_rectangle_bg"
+                    android:onClick="onClick">
+
+                    <TextView
+                        android:id="@+id/register_hospital"
+                        style="@style/edit_view_style" />
+
+                    <ImageView
+                        android:layout_width="@dimen/fab_margin"
+                        android:layout_height="@dimen/fab_margin"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/auto_margin"
+                        android:src="@drawable/next_gray" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tab_height"
+                android:layout_marginBottom="@dimen/auto_margin"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/image_height"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/register_doctor_department"
+                    android:textColor="@color/text_main_color"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <RelativeLayout
+                    android:id="@+id/register_department_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/bigger_margin"
+                    android:background="@drawable/white_rectangle_bg"
+                    android:onClick="onClick">
+
+                    <TextView
+                        android:id="@+id/register_department"
+                        style="@style/edit_view_style" />
+
+                    <ImageView
+                        android:layout_width="@dimen/fab_margin"
+                        android:layout_height="@dimen/fab_margin"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/auto_margin"
+                        android:src="@drawable/next_gray" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tab_height"
+                android:layout_marginBottom="@dimen/auto_margin"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/image_height"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/register_doctor_post"
+                    android:textColor="@color/text_main_color"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <RelativeLayout
+                    android:id="@+id/register_post_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/bigger_margin"
+                    android:background="@drawable/white_rectangle_bg"
+                    android:onClick="onClick">
+
+                    <TextView
+                        android:id="@+id/register_post"
+                        style="@style/edit_view_style" />
+
+                    <ImageView
+                        android:layout_width="@dimen/fab_margin"
+                        android:layout_height="@dimen/fab_margin"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/auto_margin"
+                        android:src="@drawable/next_gray" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tab_height"
+                android:layout_marginBottom="@dimen/auto_margin"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/image_height"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/register_doctor_header"
+                    android:textColor="@color/text_main_color"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <EditText
+                    android:id="@+id/register_header"
+                    style="@style/edit_view_style"
+                    android:layout_marginLeft="@dimen/bigger_margin"
+                    android:background="@drawable/white_rectangle_bg"
+                    android:hint="@string/register_doctor_header_hint" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tab_height"
+                android:layout_marginBottom="@dimen/auto_margin"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/image_height"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/register_doctor_price"
+                    android:textColor="@color/text_main_color"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <EditText
+                    android:id="@+id/register_price"
+                    style="@style/edit_view_style"
+                    android:inputType="numberDecimal"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/bigger_margin"
+                    android:background="@drawable/white_rectangle_bg"
+                    android:hint="@string/register_doctor_price_hint2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_doctor_price_unit"
+                    android:textColor="@color/text_main_color"
+                    android:layout_marginLeft="@dimen/auto_margin"
+                    android:textSize="@dimen/text_size_middle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/auto_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/image_height"
+                    android:layout_height="@dimen/tab_height"
+                    android:gravity="right|center_vertical"
+                    android:layout_gravity="start"
+                    android:text="@string/register_doctor_profession"
+                    android:textColor="@color/text_main_color"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <EditText
+                    android:id="@+id/register_profession"
+                    style="@style/edit_view_style"
+                    android:padding="@dimen/auto_margin"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/bigger_margin"
+                    android:background="@drawable/white_rectangle_bg"
+                    android:singleLine="false"
+                    android:gravity="start"
+                    android:lines="6"
+                    android:maxLength="50"
+                    android:hint="@string/register_doctor_profession_hint" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button_register"
+        style="@style/submit_button_style"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:background="@drawable/red_rectangle_bg"
+        android:layout_marginBottom="@dimen/auto_margin"
+        android:layout_marginTop="@dimen/auto_margin"
+        android:onClick="onClick"
+        android:text="@string/button_feel" />
+
+</LinearLayout>

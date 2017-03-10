@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_view" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <com.cjx.zhiai.component.PagerPointView
+        android:id="@+id/pager_point_view"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/auto_margin"
+        android:layout_marginBottom="@dimen/auto_margin"
+        android:layout_height="@dimen/auto_margin"
+        android:layout_gravity="center_horizontal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/auto_margin"
+        android:background="@color/background_divider" />
+    
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_app_about"
+                android:padding="@dimen/fab_margin"
+                android:textColor="@color/text_main_color"
+                android:textSize="@dimen/text_size_big"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="介绍详细内容"
+                android:textColor="@color/text_main_color"
+                android:textSize="@dimen/text_size_middle"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#8cc5e0</color>
+    <color name="colorPrimaryDark">#8cc5e0</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- 页面背景色 -->
+    <color name="background_color">#f1eff0</color>
+    <!-- 分隔背景色 -->
+    <color name="background_divider">#f5f5f5</color>
+    <!-- 文字主色 -->
+    <color name="text_main_color">#717171</color>
+    <!-- 文字深色 -->
+    <color name="text_deep_color">#272727</color>
+    <!-- 文字辅助色 -->
+    <color name="text_secondary_color">#b3b3b3</color>
+    <!-- 标题未选中色 -->
+    <color name="text_title_color">#9e9e9f</color>
+    <!-- 分隔线色 -->
+    <color name="divider_color">#e4e4e4</color>
+    <!-- 点击效果 -->
+    <color name="item_pressed_color">#44bdbdbd</color>
+    <!-- 未选中的圆点 -->
+    <color name="point_gray">#c1c1c1</color>
+
+    <color name="main_color">#f79675</color>
+    <color name="pink_select_color">#fddfd5</color>
+    <color name="pay_color">#f8551e</color>
+    <color name="cart_color">#f8551e</color>
+
+    <color name="shadow_color">#33000000</color>
+    <color name="shadow_white_color">#44ffffff</color>
+    <color name="shadow_red_color">#44f2162d</color>
+    <color name="shadow_deep_color">#11000000</color>
+    <!-- 底部导航背景色 -->
+    <color name="bottom_gray_color">#efefef</color>
+    <!-- 深色分割线 -->
+    <color name="deep_divider_color">#d2d2d2</color>
+    <!-- 提醒颜色 -->
+    <color name="notice_color">#f2162d</color>
+</resources>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_view" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/half_tab_height"
+        android:layout_marginTop="@dimen/item_height"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择日期：" />
+
+        <TextView
+            android:id="@+id/time_date"
+            android:layout_width="@dimen/hundred_dp"
+            android:layout_height="@dimen/icon_size"
+            android:onClick="onClick"
+            android:layout_marginLeft="@dimen/icon_size"
+            android:background="@drawable/white_time_next_bg"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/auto_margin" />
+
+        <ImageView
+            android:id="@+id/time_date_select"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:background="@drawable/blue_time_next_bg"
+            android:onClick="onClick"
+            android:padding="@dimen/auto_margin"
+            android:src="@drawable/next_white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/half_tab_height"
+        android:layout_marginTop="@dimen/icon_size"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择时段：" />
+
+        <TextView
+            android:id="@+id/time_hour_from"
+            android:layout_width="@dimen/image_height"
+            android:layout_height="@dimen/icon_size"
+            android:onClick="onClick"
+            android:layout_marginLeft="@dimen/icon_size"
+            android:background="@drawable/white_time_next_bg"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/auto_margin" />
+
+        <ImageView
+            android:id="@+id/time_hour_from_select"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:background="@drawable/blue_time_next_bg"
+            android:onClick="onClick"
+            android:padding="@dimen/auto_margin"
+            android:src="@drawable/next_white" />
+
+        <View
+            android:layout_width="@dimen/fab_margin"
+            android:layout_height="@dimen/grid_spacing"
+            android:layout_marginLeft="@dimen/auto_margin"
+            android:layout_marginRight="@dimen/auto_margin"
+            android:background="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/time_hour_to"
+            android:layout_width="@dimen/image_height"
+            android:layout_height="@dimen/icon_size"
+            android:onClick="onClick"
+            android:background="@drawable/white_time_next_bg"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/auto_margin" />
+
+        <ImageView
+            android:id="@+id/time_hour_to_select"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:background="@drawable/blue_time_next_bg"
+            android:onClick="onClick"
+            android:padding="@dimen/auto_margin"
+            android:src="@drawable/next_white" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_height"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/icon_size"
+        android:background="@drawable/red_frament_bg"
+        android:text="@string/button_sure"
+        android:onClick="submit"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_middle" />
+</LinearLayout>

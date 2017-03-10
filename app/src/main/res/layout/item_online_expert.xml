@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/text_margin"
+        android:layout_marginLeft="@dimen/auto_margin"
+        android:layout_marginRight="@dimen/auto_margin"
+        android:layout_marginTop="@dimen/text_margin"
+        android:background="@drawable/list_item_bg">
+
+        <ImageView
+            android:id="@+id/expert_head"
+            android:layout_width="@dimen/item_height"
+            android:layout_height="@dimen/item_height"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/bigger_margin"
+            android:layout_marginLeft="@dimen/half_tab_height"
+            android:layout_marginTop="@dimen/bigger_margin"
+            android:src="@drawable/test_5" />
+
+        <LinearLayout
+            android:id="@+id/expert_price_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/bigger_margin"
+            android:layout_marginRight="@dimen/half_tab_height"
+            android:layout_marginTop="@dimen/bigger_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/expert_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/advisory_price_top"
+                android:gravity="center_horizontal"
+                android:paddingBottom="@dimen/bigger_margin"
+                android:paddingTop="@dimen/bigger_margin"
+                android:text="免费"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/advisory_price_bottom"
+                android:paddingTop="@dimen/text_margin"
+                android:paddingBottom="@dimen/text_margin"
+                android:paddingLeft="@dimen/auto_margin"
+                android:paddingRight="@dimen/auto_margin"
+                android:text="咨询价格"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_small" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/bigger_margin"
+            android:layout_marginLeft="@dimen/bigger_margin"
+            android:layout_marginTop="@dimen/bigger_margin"
+            android:layout_toRightOf="@id/expert_head"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/expert_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="李荣"
+                android:textColor="@color/text_main_color"
+                android:textSize="@dimen/text_size_middle" />
+
+            <TextView
+                android:id="@+id/expert_hospital"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/expert_name"
+                android:layout_marginTop="@dimen/grid_spacing"
+                android:text="绥阳市惠民医院"
+                android:textColor="@color/text_main_color"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/expert_department"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/expert_hospital"
+                android:layout_marginTop="@dimen/grid_spacing"
+                android:text="口腔科"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/expert_post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/expert_hospital"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginTop="@dimen/grid_spacing"
+                android:layout_toRightOf="@id/expert_department"
+                android:text="主任医师"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/expert_describe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/expert_department"
+                android:layout_marginTop="@dimen/grid_spacing"
+                android:text="全国著名口腔科医院教授"
+                android:textColor="@color/text_main_color"
+                android:textSize="@dimen/text_size_small" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</FrameLayout>

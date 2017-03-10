@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <LinearLayout
+        android:id="@+id/identity_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/identity_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:onClick="identityUser"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/refresh_hight"
+                android:layout_height="@dimen/refresh_hight"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/patient" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/text_margin"
+                android:text="@string/identity_user"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_normal" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/grid_spacing"
+            android:layout_height="@dimen/refresh_hight"
+            android:layout_marginLeft="@dimen/icon_size"
+            android:layout_marginRight="@dimen/icon_size"
+            android:background="#99cfe7" />
+
+        <LinearLayout
+            android:id="@+id/identity_doctor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:onClick="identityDoctor"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/refresh_hight"
+                android:layout_height="@dimen/refresh_hight"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/doctor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/text_margin"
+                android:text="@string/identity_doctor"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_normal" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/refresh_hight"
+        android:layout_height="@dimen/refresh_hight"
+        android:layout_above="@id/identity_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/fab_margin" />
+
+</RelativeLayout>

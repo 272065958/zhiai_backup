@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/select_icon"
+        android:layout_width="@dimen/block_line_height"
+        android:layout_height="@dimen/tab_height"
+        android:layout_centerVertical="true"
+        android:background="@color/main_color"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/item_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/tab_height"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_middle"
+        android:text="测试文字"
+        android:textColor="@color/text_main_color" />
+
+</RelativeLayout>

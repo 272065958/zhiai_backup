@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_divider">
+
+    <View
+        android:id="@+id/my_top_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/hundred_dp"
+        android:background="@color/colorPrimary" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/my_top_view"
+        android:layout_marginBottom="@dimen/f_bigger_margin"
+        android:layout_marginLeft="@dimen/tab_height">
+
+        <ImageView
+            android:id="@+id/my_head"
+            android:layout_width="@dimen/refresh_hight"
+            android:layout_height="@dimen/refresh_hight"
+            android:background="@color/divider_color" />
+
+        <LinearLayout
+            android:id="@+id/my_name_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_toRightOf="@id/my_head"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/my_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_normal" />
+
+            <ImageView
+                android:id="@+id/my_sex"
+                android:layout_width="@dimen/fab_margin"
+                android:layout_height="@dimen/fab_margin"
+                android:layout_marginLeft="@dimen/auto_margin" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/my_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/my_name_content"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginTop="@dimen/auto_margin"
+            android:layout_toRightOf="@id/my_head"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_normal" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/double_fab_margin"
+        android:layout_below="@id/my_top_view"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/my_history"
+            style="@style/my_select_content">
+
+            <ImageView
+                android:id="@+id/my_history_icon"
+                android:layout_width="@dimen/half_tab_height"
+                android:layout_height="@dimen/half_tab_height"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/tab_height"
+                android:src="@drawable/history" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_toRightOf="@id/my_history_icon"
+                android:text="@string/my_history" />
+
+            <ImageView
+                android:layout_width="@dimen/fab_margin"
+                android:layout_height="@dimen/fab_margin"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_centerVertical="true"
+                android:src="@drawable/next_gray" />
+        </RelativeLayout>
+
+        <include layout="@layout/divider_view" />
+
+        <RelativeLayout
+            android:id="@+id/my_appointment"
+            style="@style/my_select_content"
+            android:layout_below="@id/my_history">
+
+            <ImageView
+                android:id="@+id/my_appointment_icon"
+                android:layout_width="@dimen/half_tab_height"
+                android:layout_height="@dimen/half_tab_height"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/tab_height"
+                android:src="@drawable/appointment" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_toRightOf="@id/my_appointment_icon"
+                android:text="@string/my_appointment" />
+
+            <ImageView
+                android:layout_width="@dimen/fab_margin"
+                android:layout_height="@dimen/fab_margin"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_centerVertical="true"
+                android:src="@drawable/next_gray" />
+        </RelativeLayout>
+
+        <include layout="@layout/divider_view" />
+
+        <RelativeLayout
+            android:id="@+id/my_order"
+            style="@style/my_select_content"
+            android:layout_below="@id/my_appointment">
+
+            <ImageView
+                android:id="@+id/my_order_icon"
+                android:layout_width="@dimen/half_tab_height"
+                android:layout_height="@dimen/half_tab_height"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/tab_height"
+                android:src="@drawable/orders" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_toRightOf="@id/my_order_icon"
+                android:text="@string/my_order" />
+
+            <ImageView
+                android:layout_width="@dimen/fab_margin"
+                android:layout_height="@dimen/fab_margin"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_centerVertical="true"
+                android:src="@drawable/next_gray" />
+        </RelativeLayout>
+
+        <include layout="@layout/divider_view" />
+
+        <RelativeLayout
+            android:id="@+id/my_integration"
+            style="@style/my_select_content"
+            android:layout_below="@id/my_order">
+
+            <ImageView
+                android:id="@+id/my_integration_icon"
+                android:layout_width="@dimen/half_tab_height"
+                android:layout_height="@dimen/half_tab_height"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/tab_height"
+                android:src="@drawable/integration" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_toRightOf="@id/my_integration_icon"
+                android:text="@string/my_integration" />
+
+            <ImageView
+                android:layout_width="@dimen/fab_margin"
+                android:layout_height="@dimen/fab_margin"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_centerVertical="true"
+                android:src="@drawable/next_gray" />
+        </RelativeLayout>
+
+        <include layout="@layout/divider_view" />
+
+        <RelativeLayout
+            android:id="@+id/my_service"
+            style="@style/my_select_content"
+            android:layout_below="@id/my_integration">
+
+            <ImageView
+                android:id="@+id/my_service_icon"
+                android:layout_width="@dimen/half_tab_height"
+                android:layout_height="@dimen/half_tab_height"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/tab_height"
+                android:src="@drawable/service_agreement" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_toRightOf="@id/my_service_icon"
+                android:text="@string/my_service" />
+
+            <ImageView
+                android:layout_width="@dimen/fab_margin"
+                android:layout_height="@dimen/fab_margin"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_centerVertical="true"
+                android:src="@drawable/next_gray" />
+        </RelativeLayout>
+
+        <include layout="@layout/divider_view" />
+
+        <RelativeLayout
+            android:id="@+id/my_about"
+            style="@style/my_select_content"
+            android:layout_below="@id/my_service">
+
+            <ImageView
+                android:id="@+id/my_about_icon"
+                android:layout_width="@dimen/half_tab_height"
+                android:layout_height="@dimen/half_tab_height"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/tab_height"
+                android:src="@drawable/about" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_toRightOf="@id/my_about_icon"
+                android:text="@string/my_about" />
+
+            <ImageView
+                android:layout_width="@dimen/fab_margin"
+                android:layout_height="@dimen/fab_margin"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_centerVertical="true"
+                android:src="@drawable/next_gray" />
+        </RelativeLayout>
+
+        <include layout="@layout/divider_view" />
+
+        <RelativeLayout
+            android:id="@+id/my_setting"
+            style="@style/my_select_content"
+            android:layout_below="@id/my_about"
+            android:layout_marginTop="@dimen/fab_margin">
+
+            <ImageView
+                android:id="@+id/my_setting_icon"
+                android:layout_width="@dimen/half_tab_height"
+                android:layout_height="@dimen/half_tab_height"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/tab_height"
+                android:src="@drawable/setting" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_toRightOf="@id/my_setting_icon"
+                android:text="@string/my_setting" />
+
+            <ImageView
+                android:layout_width="@dimen/fab_margin"
+                android:layout_height="@dimen/fab_margin"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_centerVertical="true"
+                android:src="@drawable/next_gray" />
+        </RelativeLayout>
+
+        <include layout="@layout/divider_view" />
+    </LinearLayout>
+</RelativeLayout>

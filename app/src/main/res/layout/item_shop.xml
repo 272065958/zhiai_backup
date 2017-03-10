@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_pressed_bg"
+    android:padding="@dimen/auto_margin">
+
+    <ImageView
+        android:id="@+id/shop_select_icon"
+        android:layout_width="@dimen/fab_margin"
+        android:layout_height="@dimen/fab_margin"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/auto_margin"
+        android:src="@drawable/choice_orange_bg" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/shop_select_icon">
+
+        <ImageView
+            android:id="@+id/shop_detail_photo"
+            android:layout_width="@dimen/tab_height"
+            android:layout_height="@dimen/tab_height"
+            android:layout_marginRight="@dimen/fab_margin" />
+
+        <RelativeLayout
+            android:id="@+id/shop_detail_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/shop_detail_photo">
+
+            <TextView
+                android:id="@+id/medicine_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="诺得胜"
+                android:textColor="@color/text_deep_color"
+                android:textSize="@dimen/text_size_middle" />
+
+            <TextView
+                android:id="@+id/medicine_associator_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/medicine_name"
+                android:layout_marginTop="@dimen/block_line_height"
+                android:text="￥9.90"
+                android:textColor="@color/notice_color"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/medicine_market_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/medicine_name"
+                android:layout_marginLeft="@dimen/block_line_height"
+                android:layout_marginTop="@dimen/block_line_height"
+                android:layout_toRightOf="@id/medicine_associator_price"
+                android:text="￥16.80"
+                android:textColor="@color/text_main_color"
+                android:textSize="@dimen/text_size_small" />
+        </RelativeLayout>
+
+        <include
+            layout="@layout/item_shop_count_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/shop_detail_content"
+            android:layout_marginTop="@dimen/auto_margin"
+            android:layout_toRightOf="@id/shop_detail_photo" />
+    </RelativeLayout>
+</RelativeLayout>

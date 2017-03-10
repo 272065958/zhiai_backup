@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_view" />
+
+    <LinearLayout
+        android:id="@+id/shop_business_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="@dimen/auto_margin"
+        android:onClick="selectAll"
+        android:background="@drawable/item_pressed_bg"
+        android:gravity="center_vertical"
+        android:padding="@dimen/auto_margin">
+
+        <ImageView
+            android:layout_width="@dimen/fab_margin"
+            android:layout_height="@dimen/fab_margin"
+            android:src="@drawable/choice_orange_bg" />
+
+        <TextView
+            android:id="@+id/shop_cart_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/auto_margin"
+            android:text="康爱多官方旗舰店"
+            android:textSize="@dimen/text_size_normal"
+            android:textColor="@color/text_main_color" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/grid_spacing"
+        android:layout_below="@id/shop_business_content"
+        android:background="@color/divider_color" />
+
+    <RelativeLayout
+        android:id="@+id/bottom_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <include layout="@layout/divider_view" />
+
+        <TextView
+            android:id="@+id/shop_cart_pay"
+            android:layout_width="@dimen/hundred_dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/pay_color"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:textColor="@android:color/white" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/fab_margin">
+
+            <TextView
+                android:id="@+id/shop_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="合计："
+                android:textColor="@color/text_main_color"
+                android:textSize="@dimen/text_size_normal" />
+
+            <TextView
+                android:id="@+id/shop_all_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/shop_all"
+                android:text="￥19.80"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_size_normal" />
+
+            <TextView
+                android:id="@+id/shop_fare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/shop_all"
+                android:text="不含运费"
+                android:textColor="@color/text_main_color"
+                android:textSize="@dimen/text_size_small" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <include
+        layout="@layout/item_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_content"
+        android:layout_marginTop="@dimen/grid_spacing"
+        android:layout_below="@id/shop_business_content" />
+</RelativeLayout>

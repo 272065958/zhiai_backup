@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gray_fragment_bg"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/featured_image"
+        android:layout_width="@dimen/refresh_content_hight"
+        android:layout_height="@dimen/image_height"/>
+
+    <TextView
+        android:id="@+id/featured_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_small"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_marginRight="@dimen/text_margin"
+        android:layout_marginTop="@dimen/text_margin"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:text="为减肥不吃糖不吃肉,都错了?"/>
+
+    <TextView
+        android:id="@+id/featured_browse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_more_small"
+        android:textColor="@color/main_color"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_marginRight="@dimen/text_margin"
+        android:layout_marginBottom="@dimen/text_margin"
+        android:singleLine="true"
+        android:layout_marginTop="@dimen/block_line_height"
+        android:text="浏览 10303"/>
+</LinearLayout>

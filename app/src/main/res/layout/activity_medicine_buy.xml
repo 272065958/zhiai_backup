@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_view" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/medicine_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include layout="@layout/divider_view" />
+
+            <TextView
+                android:id="@+id/medicine_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/auto_margin"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_marginTop="@dimen/fab_margin"
+                android:text="诺得胜 麻仁丸 30g"
+                android:textColor="@color/text_deep_color"
+                android:textSize="@dimen/text_size_normal" />
+
+            <TextView
+                android:id="@+id/medicine_associator_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:text="￥9.90"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_size_normal" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/block_line_height"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_marginTop="@dimen/block_line_height">
+
+                <TextView
+                    android:id="@+id/medicine_market_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥16.80"
+                    android:textColor="@color/text_main_color"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <TextView
+                    android:id="@+id/medicine_sale_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="销量 65"
+                    android:textColor="@color/text_main_color"
+                    android:textSize="@dimen/text_size_middle" />
+
+            </RelativeLayout>
+
+            <include layout="@layout/divider_view" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/fab_margin"
+                android:paddingRight="@dimen/fab_margin">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/auto_margin"
+                    android:layout_marginTop="@dimen/auto_margin"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/fab_margin"
+                        android:layout_height="@dimen/fab_margin"
+                        android:src="@drawable/choice_orange_is" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/text_margin"
+                        android:text="正品保障"
+                        android:textColor="@color/text_main_color"
+                        android:textSize="@dimen/text_size_middle" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/auto_margin"
+                    android:layout_marginLeft="@dimen/fab_margin"
+                    android:layout_marginTop="@dimen/auto_margin"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/fab_margin"
+                        android:layout_height="@dimen/fab_margin"
+                        android:src="@drawable/choice_orange_is" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/text_margin"
+                        android:text="假一赔十"
+                        android:textColor="@color/text_main_color"
+                        android:textSize="@dimen/text_size_middle" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/auto_margin"
+                    android:layout_marginLeft="@dimen/fab_margin"
+                    android:layout_marginTop="@dimen/auto_margin"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/fab_margin"
+                        android:layout_height="@dimen/fab_margin"
+                        android:src="@drawable/choice_orange_is" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/text_margin"
+                        android:text="退换规则"
+                        android:textColor="@color/text_main_color"
+                        android:textSize="@dimen/text_size_middle" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <include layout="@layout/divider_view" />
+
+            <LinearLayout
+                android:id="@+id/store_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:background="@drawable/item_transparent_pressed_bg"
+                android:onClick="onClick"
+                android:paddingBottom="@dimen/auto_margin"
+                android:paddingLeft="@dimen/fab_margin"
+                android:paddingRight="@dimen/fab_margin"
+                android:paddingTop="@dimen/auto_margin">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/test_8" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/auto_margin"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="康爱多官方旗舰店"
+                        android:textColor="@color/text_main_color"
+                        android:textSize="@dimen/text_size_middle" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/red_stroke_frament_bg"
+                        android:padding="@dimen/block_line_height"
+                        android:text="全国配送"
+                        android:textColor="@color/text_main_color"
+                        android:textSize="@dimen/text_size_small" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/fab_margin"
+                    android:layout_height="@dimen/fab_margin"
+                    android:src="@drawable/next_gray" />
+
+            </LinearLayout>
+
+            <include layout="@layout/divider_view" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/refresh_content_hight"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="@dimen/auto_margin"
+                    android:paddingTop="@dimen/auto_margin"
+                    android:text="保质期"
+                    android:textColor="@color/text_main_color"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <View
+                    android:layout_width="@dimen/grid_spacing"
+                    android:layout_height="match_parent"
+                    android:background="@color/divider_color" />
+
+                <TextView
+                    android:id="@+id/medicine_guarantee_period"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/auto_margin"
+                    android:gravity="center_horizontal"
+                    android:text="36个月"
+                    android:textColor="@color/text_main_color"
+                    android:textSize="@dimen/text_size_middle" />
+
+            </LinearLayout>
+
+            <include layout="@layout/divider_view" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/refresh_content_hight"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="@dimen/auto_margin"
+                    android:paddingTop="@dimen/auto_margin"
+                    android:text="药准字"
+                    android:textColor="@color/text_main_color"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <View
+                    android:layout_width="@dimen/grid_spacing"
+                    android:layout_height="match_parent"
+                    android:background="@color/divider_color" />
+
+                <TextView
+                    android:id="@+id/medicine_ratify_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/auto_margin"
+                    android:gravity="center_horizontal"
+                    android:text="国药准字Z42020271"
+                    android:textColor="@color/text_main_color"
+                    android:textSize="@dimen/text_size_middle" />
+
+            </LinearLayout>
+
+            <include layout="@layout/divider_view" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="@dimen/refresh_content_hight"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="@dimen/auto_margin"
+                    android:paddingTop="@dimen/auto_margin"
+                    android:text="厂商"
+                    android:textColor="@color/text_main_color"
+                    android:textSize="@dimen/text_size_middle" />
+
+                <View
+                    android:layout_width="@dimen/grid_spacing"
+                    android:layout_height="match_parent"
+                    android:background="@color/divider_color" />
+
+                <TextView
+                    android:id="@+id/medicine_producer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/auto_margin"
+                    android:gravity="center_horizontal"
+                    android:text="湖北诺得胜制药有限公司"
+                    android:textColor="@color/text_main_color"
+                    android:textSize="@dimen/text_size_middle" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/divider_view" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height">
+
+        <ImageView
+            android:id="@+id/shop_cart_icon"
+            android:layout_width="@dimen/item_height"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:onClick="onClick"
+            android:padding="@dimen/bigger_margin"
+            android:src="@drawable/ic_shop" />
+
+        <TextView
+            android:id="@+id/shop_count"
+            android:layout_width="@dimen/fab_margin"
+            android:layout_height="@dimen/fab_margin"
+            android:layout_marginLeft="@dimen/button_height"
+            android:layout_marginTop="@dimen/block_line_height"
+            android:background="@drawable/red_dark_cricle_bg"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_more_small"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/shop_cart_pay"
+            android:layout_width="@dimen/hundred_dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/pay_color"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="@string/button_buy_now"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/shop_cart_add"
+            android:layout_width="@dimen/hundred_dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/shop_cart_pay"
+            android:background="@color/main_color"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="@string/button_add_cart"
+            android:textColor="@android:color/white" />
+
+    </RelativeLayout>
+
+</LinearLayout>

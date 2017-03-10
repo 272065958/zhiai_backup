@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="@android:color/white"
+    android:padding="@dimen/auto_margin">
+
+    <ImageView
+        android:id="@+id/shop_image"
+        android:layout_width="@dimen/item_height"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginLeft="@dimen/auto_margin"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/auto_margin"
+        android:layout_marginRight="@dimen/auto_margin">
+
+        <TextView
+            android:id="@+id/shop_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_deep_color"
+            android:textSize="@dimen/text_size_middle"
+            android:text="诺得胜 麻仁丸 30g"/>
+
+        <TextView
+            android:id="@+id/shop_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/shop_name"
+            android:layout_centerVertical="true"
+            android:text="￥9.9"
+            android:textColor="@color/notice_color"
+            android:layout_marginTop="@dimen/text_margin"
+            android:textSize="@dimen/text_size_middle" />
+
+        <TextView
+            android:id="@+id/shop_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/shop_name"
+            android:layout_centerVertical="true"
+            android:text="×2"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/text_main_color"
+            android:layout_marginTop="@dimen/text_margin"
+            android:textSize="@dimen/text_size_middle" />
+    </RelativeLayout>
+</LinearLayout>

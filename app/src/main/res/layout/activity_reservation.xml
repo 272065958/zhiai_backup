@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_view" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/bigger_margin"
+        android:text="@string/reservation_tip" />
+
+    <include layout="@layout/divider_view" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="@dimen/bigger_margin">
+
+        <TextView
+            android:id="@+id/reserve_doctor_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="医生名字"
+            android:textColor="@color/text_main_color"
+            android:textSize="@dimen/text_size_middle" />
+
+        <TextView
+            android:id="@+id/reserve_doctor_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reserve_doctor_name"
+            android:layout_marginTop="@dimen/block_line_height"
+            android:text="2016-12-13 08:00-09:00"
+            android:textColor="@color/text_main_color"
+            android:textSize="@dimen/text_size_middle" />
+
+        <View
+            android:id="@+id/reserve_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/grid_spacing"
+            android:layout_below="@id/reserve_doctor_time"
+            android:layout_marginTop="@dimen/bigger_margin"
+            android:layout_marginBottom="@dimen/bigger_margin"
+            android:background="@color/divider_color" />
+
+        <EditText
+            android:id="@+id/advisory_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reserve_line"
+            android:background="@drawable/gray_rectangle_bg"
+            android:gravity="start"
+            android:hint="@string/reservation_edit_hint"
+            android:lines="3"
+            android:maxLength="50"
+            android:padding="@dimen/auto_margin"
+            android:textColorHint="@color/text_secondary_color"
+            android:textSize="@dimen/text_size_middle" />
+
+    </RelativeLayout>
+
+    <Button
+        style="@style/submit_button_style"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:background="@drawable/red_rectangle_bg"
+        android:onClick="onClick"
+        android:text="@string/button_submit_reserve" />
+</LinearLayout>

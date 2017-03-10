@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cjx.zhiai">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--允许程序获取网络状态-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--允许程序设置内置sd卡的写权限-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--允许程序设置内置sd卡的读权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 这个权限用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 这个权限用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- SD卡读取权限，用户写入离线定位数据-->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
+    <!-- Required -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.GuideActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.WebActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.IdentitySelectActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.RegisterInfoActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.HospitalSelectActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.DepartmentSelectActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.PostSelectActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.ImageSelectActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.CropImageActivity"
+            android:hardwareAccelerated="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.PasswordFindActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.ImagesActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.AboutActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.FeaturedActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.CitySelectActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".manager.PatientActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".manager.PatientComfirmActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".manager.TimeManagerActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".manager.TimeAddActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".manager.ReserveManagerActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".manager.ReserveDayManagerActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".manager.PatientRecordActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.ChatActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ease.VideoCallActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ease.CallActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ease.VoiceCallActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.ImageAdvisoryActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.AdvisoryReplyActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.ExpertActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.AdvisoryActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.ExpertDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.ReservationActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.AdvisoryImageActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.HospitalActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.MedicineActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.MedicineRoomActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.CurePlanActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.CurePlanDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.MedicineRoomDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.MedicineDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.MedicineSearchActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.MedicineBuyActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.OrderActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.FlagStoreActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.ShopCartActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".advisory.ExpertReservationActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".scan.DiscoverDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".scan.LocationActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".scan.ScanCreateActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".scan.ScanSearchActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".my.AdvisoryHistoryActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".my.AdvisoryCommentActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".my.ReservationHistoryActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".my.SettingActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".my.OrderHistoryActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".my.OrderDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".my.LoginSettingActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".my.HelpActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".my.IncomeActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".my.WithDrawActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".my.BankAddActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".my.BankSelectActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".my.WithDrawDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".my.UpdatePeopleInfoActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".my.UpdateDoctorInfoActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".my.PasswordUpdateActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".my.UpdatePhoneActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- ======================================== -->
+        <!-- ==============  百度定位  ============== -->
+        <!-- ======================================== -->
+        <!--<service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"/>-->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="KNBWituQji6OyARDAAvnClu2ZMunvFo5" />
+
+        <!-- ======================================== -->
+        <!-- ==============  环信通讯  ============== -->
+        <!-- ======================================== -->
+        <!--环信 appkey 1113161016115082#weiai -->
+        <!-- 设置环信应用的 appkey 换成自己的-->
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="1113161016115082#weiai"/>
+        <!-- 声明sdk所需的service SDK核心功能-->
+        <service
+            android:name="com.hyphenate.chat.EMChatService"
+            android:exported="true"/>
+        <!-- 声明sdk所需的receiver -->
+        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+
+        <activity android:name="com.hyphenate.easeui.ui.EaseBaiduMapActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.hyphenate.easeui.ui.EaseShowBigImageActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.hyphenate.easeui.ui.EaseShowNormalFileActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.hyphenate.easeui.ui.EaseShowVideoActivity"
+            android:screenOrientation="portrait" />
+        <!-- ======================================== -->
+        <!-- ==============  mob 短信  ============== -->
+        <!-- ======================================== -->
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+
+        <!--================================================================-->
+        <!--========================   支付宝支付   ========================-->
+        <!--================================================================-->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
+
+        <!--================================================================-->
+        <!--========================+   微信支付   +========================-->
+        <!--================================================================-->
+
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"/>
+    </application>
+
+</manifest>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_view" />
+
+    <LinearLayout
+        android:id="@+id/search_view_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="@drawable/white_circle_line_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/search_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="请输入患者昵称"
+            android:paddingLeft="@dimen/fab_margin"
+            android:singleLine="true"
+            android:textColor="@color/text_deep_color"
+            android:textColorHint="@color/text_secondary_color"
+            android:textSize="@dimen/text_size_small" />
+
+        <ImageView
+            android:id="@+id/search_view_button"
+            android:layout_width="@dimen/tab_height"
+            android:layout_height="@dimen/tab_height"
+            android:onClick="search"
+            android:padding="@dimen/bigger_margin"
+            android:src="@drawable/search_1" />
+
+    </LinearLayout>
+
+    <include layout="@layout/item_list_view" />
+</LinearLayout>

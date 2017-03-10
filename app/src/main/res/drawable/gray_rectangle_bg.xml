@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@android:color/white" />
+    <stroke android:width="@dimen/grid_spacing"
+        android:color="@color/divider_color"/>
+    <padding android:bottom="@dimen/grid_spacing"
+        android:top="@dimen/grid_spacing"
+        android:left="@dimen/grid_spacing"
+        android:right="@dimen/grid_spacing" />
+</shape>

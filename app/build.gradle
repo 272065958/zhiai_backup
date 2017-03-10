@@ -1,0 +1,61 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        applicationId "com.cjx.zhiai"
+        minSdkVersion 10
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+    }
+    signingConfigs {
+        debug {
+            keyAlias 'zhiai'
+            keyPassword 'LKJHGFDSA'
+            storeFile file('LKJHGFDSA.jks')
+            storePassword 'LKJHGFDSA'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    buildTypes {
+        release {
+//            minifyEnabled true
+//            shrinkResources true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String','SERVER_API_URI','"http://apemoon.vicp.net:8083/apemoonZhiAi/"'
+            buildConfigField 'String','IMAGE_URI','"http://apemoon.vicp.net:"'
+        }
+        debug {
+            buildConfigField 'String','SERVER_API_URI','"http://apemoon.vicp.net:8083/apemoonZhiAi/"'
+            buildConfigField 'String','IMAGE_URI','"http://apemoon.vicp.net:"'
+        }
+    }
+}
+
+repositories{
+    flatDir{
+        dirs 'libs' //就是你放aar的目录地址
+    }
+}
+
+dependencies {
+    compile fileTree(include: '*.jar', exclude: 'android-support-*.jar', dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:25.2.0'
+    compile 'com.squareup.okhttp3:okhttp:3.4.2'
+    compile 'com.android.support:design:25.2.0'
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile files('libs/MobCommons-2016.1201.1839.jar')
+    compile files('libs/MobTools-2016.1201.1839.jar')
+    compile name: 'SMSSDK-2.1.3', ext: 'aar'
+    compile project(':easeui')
+    compile files('libs/alipaySdk-20161129.jar')
+    compile files('libs/libammsdk.jar')
+}

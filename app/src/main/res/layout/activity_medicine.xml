@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_divider"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_view" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/find_medicine_room"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/item_pressed_bg"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/half_tab_height"
+            android:paddingTop="@dimen/half_tab_height">
+
+            <ImageView
+                android:layout_width="@dimen/item_height"
+                android:layout_height="@dimen/item_height"
+                android:src="@drawable/chemist_shop" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_margin"
+                android:text="@string/find_medicine_room"
+                android:textColor="@color/text_deep_color"
+                android:textSize="@dimen/text_size_normal" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/grid_spacing"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/half_tab_height"
+            android:layout_marginTop="@dimen/half_tab_height"
+            android:background="@color/divider_color" />
+
+        <LinearLayout
+            android:id="@+id/find_medicine"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/item_pressed_bg"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/half_tab_height"
+            android:paddingTop="@dimen/half_tab_height">
+
+            <ImageView
+                android:layout_width="@dimen/item_height"
+                android:layout_height="@dimen/item_height"
+                android:src="@drawable/medcine_bottle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_margin"
+                android:text="@string/find_medicine"
+                android:textColor="@color/text_deep_color"
+                android:textSize="@dimen/text_size_normal" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <include layout="@layout/item_list_view" />
+
+</LinearLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/auto_margin"
+    android:paddingRight="@dimen/auto_margin"
+    android:paddingTop="@dimen/block_line_height"
+    android:paddingBottom="@dimen/block_line_height"
+    android:textSize="@dimen/text_size_middle"
+    android:background="@drawable/red_stroke_frament_bg"
+    android:textColor="@color/main_color"
+    android:text="湿疹"/>

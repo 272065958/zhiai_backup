@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <View
+        android:layout_width="@dimen/block_line_height"
+        android:layout_height="@dimen/fab_margin"
+        android:layout_centerVertical="true"
+        android:background="@color/main_color" />
+
+    <TextView
+        android:id="@+id/title_tip_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/auto_margin"
+        android:textColor="@color/text_main_color" />
+</RelativeLayout>

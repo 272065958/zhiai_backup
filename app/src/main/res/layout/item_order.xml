@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/auto_margin">
+
+    <ImageView
+        android:id="@+id/shop_detail_photo"
+        android:layout_width="@dimen/tab_height"
+        android:layout_height="@dimen/tab_height"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:src="@drawable/pic_medicin" />
+
+    <TextView
+        android:id="@+id/medicine_brand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/shop_detail_photo"
+        android:text="诺得胜 麻仁丸 30g"
+        android:textColor="@color/text_deep_color"
+        android:layout_centerVertical="true"
+        android:textSize="@dimen/text_size_middle" />
+
+    <TextView
+        android:id="@+id/medicine_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="共2件"
+        android:textColor="@color/text_main_color"
+        android:layout_centerVertical="true"
+        android:textSize="@dimen/text_size_middle" />
+</RelativeLayout>
