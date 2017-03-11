@@ -41,7 +41,7 @@ public class PayActivity extends BaseActivity {
     TextView payPriceView, payTipView;
 
     protected String currentPayType;
-    String id, sn; // 订单id和订单号
+    String id; // 订单id和订单号
 
 //    /**
 //     * 支付宝支付业务：入参app_id
@@ -66,12 +66,11 @@ public class PayActivity extends BaseActivity {
     private void initView() {
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
-        sn = intent.getStringExtra("sn");
         payAlipayView = findViewById(R.id.pay_alipay);
         payWeixinView = findViewById(R.id.pay_weixin);
         payPriceView = (TextView) findViewById(R.id.pay_price);
         payTipView = (TextView) findViewById(R.id.pay_tip);
-        payPriceView.setText(intent.getStringExtra("pay_price"));
+        payPriceView.setText(String.format(getString(R.string.price_format), intent.getStringExtra("pay_price")));
         payTipView.setText(intent.getStringExtra("pay_tip"));
     }
 
@@ -136,7 +135,16 @@ public class PayActivity extends BaseActivity {
             }
         };
         showLoadDislog();
-        HttpUtils.getInstance().postEnqueue(this, callbackInterface, "ec_order/pay", "payWay", currentPayType, "id", id);
+        String action = null;
+        switch (currentPayType){
+            case WEIXIN_PAY:
+                action = "pay/weixinPayRequest";
+                break;
+            case ALIPAY_PAY:
+                action = "pay/alipayRequest";
+                break;
+        }
+        HttpUtils.getInstance().postEnqueue(this, callbackInterface, action, "out_trade_no", id);
     }
 
     @Override
@@ -147,22 +155,23 @@ public class PayActivity extends BaseActivity {
 
     // 访问后台是否成功
     private void checkPayResult() {
-        MyCallbackInterface callbackInterface = new MyCallbackInterface() {
-            @Override
-            public void success(ResultBean response) {
-                dismissLoadDialog();
-                showToast(response.errorMsg);
-                finish();
-            }
-
-            @Override
-            public void error() {
-                dismissLoadDialog();
-            }
-        };
-        showLoadDislog();
-        HttpUtils.getInstance().postEnqueue(this, callbackInterface, "ec_order/getPaymentResult", "sn", sn,
-                "payWay", currentPayType);
+        finish();
+//        MyCallbackInterface callbackInterface = new MyCallbackInterface() {
+//            @Override
+//            public void success(ResultBean response) {
+//                dismissLoadDialog();
+//                showToast(response.errorMsg);
+//                finish();
+//            }
+//
+//            @Override
+//            public void error() {
+//                dismissLoadDialog();
+//            }
+//        };
+//        showLoadDislog();
+//        HttpUtils.getInstance().postEnqueue(this, callbackInterface, "ec_order/getPaymentResult", "sn", sn,
+//                "payWay", currentPayType);
     }
 
     /************************************/
@@ -184,7 +193,7 @@ public class PayActivity extends BaseActivity {
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-                        showToast("正在查询支付结果");
+                        showToast("支付成功");
                         checkPayResult();
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。

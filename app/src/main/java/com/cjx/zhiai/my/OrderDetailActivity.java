@@ -11,11 +11,13 @@ import android.widget.TextView;
 
 import com.cjx.zhiai.MyApplication;
 import com.cjx.zhiai.R;
+import com.cjx.zhiai.activity.PayActivity;
 import com.cjx.zhiai.base.BaseActivity;
 import com.cjx.zhiai.bean.OrderBean;
 import com.cjx.zhiai.bean.OrderItemBean;
 import com.cjx.zhiai.bean.ResultBean;
 import com.cjx.zhiai.bean.UserBean;
+import com.cjx.zhiai.dialog.TipDialog;
 import com.cjx.zhiai.http.HttpUtils;
 import com.cjx.zhiai.http.MyCallbackInterface;
 import com.cjx.zhiai.util.Tools;
@@ -40,15 +42,43 @@ public class OrderDetailActivity extends BaseActivity {
     public void onClick(View v){
         switch (v.getId()){
             case R.id.button_cancel: // 取消订单
-                cancel();
+                showCancelDialog();
                 break;
             case R.id.button_pay: // 立即支付
+                Intent intent = new Intent(this, PayActivity.class);
+                intent.putExtra("pay_price", orderBean.order_total);
+                intent.putExtra("pay_tip", "订单支付");
+                intent.putExtra("id", orderBean.order_mumber);
+                startActivity(intent);
                 break;
         }
     }
 
+    TipDialog tipDialog;
+    // 提示是否取消订单
+    private void showCancelDialog() {
+        if(tipDialog == null){
+            tipDialog = new TipDialog(this);
+            tipDialog.setText(getString(R.string.dialog_tip),
+                    "是否取消当前订单?", getString(R.string.button_sure), getString(R.string.button_cancel));
+            tipDialog.setTipComfirmListener(new TipDialog.ComfirmListener() {
+                @Override
+                public void comfirm() {
+                    tipDialog.dismiss();
+                    cancelOrder();
+                }
+
+                @Override
+                public void cancel() {
+                    tipDialog.dismiss();
+                }
+            });
+        }
+        tipDialog.show();
+    }
+
     // 取消订单
-    private void cancel() {
+    private void cancelOrder() {
         showLoadDislog();
         MyCallbackInterface callbackInterface = new MyCallbackInterface() {
             @Override

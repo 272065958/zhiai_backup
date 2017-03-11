@@ -120,6 +120,7 @@ public class UpdatePeopleInfoActivity extends BaseSelectImageActivity {
                 user.user_address = address;
                 user.mailbox = email;
                 sendBroadcast(new Intent(MyApplication.ACTION_USER_INFO_UPDATE));
+                setResult(RESULT_OK);
             }
 
             @Override

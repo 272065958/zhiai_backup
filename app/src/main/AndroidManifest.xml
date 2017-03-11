@@ -61,6 +61,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".activity.PayActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".activity.IdentitySelectActivity"
             android:screenOrientation="portrait" />
 

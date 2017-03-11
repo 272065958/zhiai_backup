@@ -6,66 +6,71 @@
 
     <include layout="@layout/toolbar_view" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/fab_margin"
-        android:paddingRight="@dimen/fab_margin"
-        android:paddingTop="@dimen/auto_margin">
-
-        <TextView
-            android:id="@+id/order_receive_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="媛媛"
-            android:textColor="@color/text_main_color"
-            android:textSize="@dimen/text_size_middle" />
-
-        <TextView
-            android:id="@+id/order_receive_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="13700137000"
-            android:textColor="@color/text_main_color"
-            android:textSize="@dimen/text_size_middle" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/order_receive_address_content"
+    <LinearLayout
+        android:onClick="setInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/item_transparent_pressed_bg"
-        android:paddingBottom="@dimen/auto_margin"
-        android:paddingLeft="@dimen/fab_margin"
-        android:paddingRight="@dimen/fab_margin"
-        android:paddingTop="@dimen/auto_margin">
-
-        <ImageView
-            android:id="@+id/address_icon"
-            android:layout_width="@dimen/fab_margin"
-            android:layout_height="@dimen/fab_margin"
-            android:layout_centerVertical="true"
-            android:src="@drawable/find_doctor_position" />
-
-        <TextView
-            android:id="@+id/order_receive_address"
-            android:layout_width="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/auto_margin"
-            android:layout_toRightOf="@id/address_icon"
-            android:text="广州市大德路111号"
-            android:textColor="@color/text_main_color"
-            android:textSize="@dimen/text_size_middle" />
+            android:paddingLeft="@dimen/fab_margin"
+            android:paddingRight="@dimen/fab_margin"
+            android:paddingTop="@dimen/auto_margin">
 
-        <ImageView
-            android:layout_width="@dimen/fab_margin"
-            android:layout_height="@dimen/fab_margin"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/next_gray" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/order_receive_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="媛媛"
+                android:textColor="@color/text_main_color"
+                android:textSize="@dimen/text_size_middle" />
+
+            <TextView
+                android:id="@+id/order_receive_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="13700137000"
+                android:textColor="@color/text_main_color"
+                android:textSize="@dimen/text_size_middle" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/auto_margin"
+            android:paddingLeft="@dimen/fab_margin"
+            android:paddingRight="@dimen/fab_margin"
+            android:paddingTop="@dimen/auto_margin">
+
+            <ImageView
+                android:id="@+id/address_icon"
+                android:layout_width="@dimen/fab_margin"
+                android:layout_height="@dimen/fab_margin"
+                android:layout_centerVertical="true"
+                android:src="@drawable/find_doctor_position" />
+
+            <TextView
+                android:id="@+id/order_receive_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/auto_margin"
+                android:layout_toRightOf="@id/address_icon"
+                android:text="广州市大德路111号"
+                android:textColor="@color/text_main_color"
+                android:textSize="@dimen/text_size_middle" />
+
+            <ImageView
+                android:layout_width="@dimen/fab_margin"
+                android:layout_height="@dimen/fab_margin"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/next_gray" />
+        </RelativeLayout>
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
