@@ -60,7 +60,7 @@ public class ReserveManagerActivity extends BaseListActivity implements View.OnC
 
     private void initView() {
         int itemWidth = getResources().getDimensionPixelOffset(R.dimen.button_height);
-        int width = ((MyApplication) getApplication()).getScreen_width();
+        int width = (MyApplication.getInstance()).getScreen_width();
         int margin = (int) ((width - itemWidth * 7) / 7f);
         LinearLayout dayContent = (LinearLayout) findViewById(R.id.manager_day_content);
         int paddint = margin / 2;

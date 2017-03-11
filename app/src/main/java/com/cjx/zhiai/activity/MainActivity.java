@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         scanFragment = new ScanFragment();
 
         fragments[1] = scanFragment;
-        MyApplication app = (MyApplication) getApplication();
+        MyApplication app = MyApplication.getInstance();
         if (app.userType.equals(app.USER_TYPE_DOCTOR)) {
             mainDoctorFragment = new MainDoctorFragment();
             fragments[0] = mainDoctorFragment;
@@ -287,7 +287,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         } else if (myDoctorFragment != null) {
             myDoctorFragment.updateInfo();
         }
-        ((MyApplication) getApplication()).saveUserCache();
+        (MyApplication.getInstance()).saveUserCache();
     }
 
 }

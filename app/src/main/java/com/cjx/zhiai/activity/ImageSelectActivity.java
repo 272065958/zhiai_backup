@@ -92,7 +92,7 @@ public class ImageSelectActivity extends BaseActivity implements OnClickListener
             uploadTv.setVisibility(View.VISIBLE);
             uploadTv.setText(String.format(getString(R.string.select_photo_upload), 0));
         }
-        screenWidth = ((MyApplication) getApplication()).getScreen_width();
+        screenWidth = (MyApplication.getInstance()).getScreen_width();
 
         loadImage();
     }

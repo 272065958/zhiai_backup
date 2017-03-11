@@ -74,7 +74,7 @@ public class ExpertReservationActivity extends BaseActivity implements AdapterVi
         hospitalView.setText(doctor.hospital_name);
         departmentView.setText(doctor.office_name);
         postView.setText(doctor.position);
-        priceView.setText(String.format(getString(R.string.expert_reservation_format), doctor.price));
+        priceView.setText(String.format(getString(R.string.expert_reservation_format), String.valueOf(doctor.price)));
         expertView.setText(String.format(getString(R.string.expert_be_expert_format), doctor.skilled));
         return linearLayout;
     }
@@ -117,7 +117,7 @@ public class ExpertReservationActivity extends BaseActivity implements AdapterVi
     }
 
     class TimeAdapter extends MyBaseAdapter {
-        public TimeAdapter(ArrayList<?> list, BaseActivity context){
+        TimeAdapter(ArrayList<?> list, BaseActivity context){
             super(list, context);
         }
 
@@ -159,9 +159,7 @@ public class ExpertReservationActivity extends BaseActivity implements AdapterVi
             @Override
             public void onClick(View v) {
                 ReserveTimeBean rtb = (ReserveTimeBean) v.getTag();
-                if(rtb == null){
-                    return ;
-                }else{
+                if(rtb != null){
                     showSelectDialog(rtb);
                 }
             }

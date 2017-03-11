@@ -55,7 +55,7 @@ public class UpdatePhoneActivity extends BaseGetCodeActivity {
             public void success(ResultBean response) {
                 dismissLoadDialog();
                 Toast.makeText(UpdatePhoneActivity.this, response.errorMsg, Toast.LENGTH_SHORT).show();
-                MyApplication app = (MyApplication) getApplication();
+                MyApplication app = MyApplication.getInstance();
                 app.user.user_phone = phone;
                 sendBroadcast(new Intent(MyApplication.ACTION_USER_INFO_UPDATE));
                 setResult(RESULT_OK);

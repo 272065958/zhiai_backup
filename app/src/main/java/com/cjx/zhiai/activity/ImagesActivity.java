@@ -41,7 +41,7 @@ public class ImagesActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_images);
-		MyApplication app = (MyApplication) getApplication();
+		MyApplication app = MyApplication.getInstance();
 		screenWidth = app.getScreen_width();
 
 		setToolBar(true, null, -1);

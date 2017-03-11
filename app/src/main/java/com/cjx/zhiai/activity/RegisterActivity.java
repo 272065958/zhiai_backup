@@ -145,7 +145,7 @@ public class RegisterActivity extends BaseGetCodeActivity {
             }
         };
         HttpUtils.getInstance().postEnqueue(this, callbackInterface, "user/register", "username", name,
-                "user_phone", phone, "sex", sex, "user_pwd", password, "user_type", ((MyApplication) getApplication()).userType);
+                "user_phone", phone, "sex", sex, "user_pwd", password, "user_type", (MyApplication.getInstance()).userType);
     }
 
     private void register() {

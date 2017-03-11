@@ -46,7 +46,7 @@ public class HospitalActivity extends BaseFilterActivity {
         leftFilterString = sharedPreferences.getString("province", "广东省");
 
         // 初始化界面
-        int popupWidth = (((MyApplication) getApplication()).getScreen_width() - showYOff) / 2 - 2 * padding;
+        int popupWidth = ((MyApplication.getInstance()).getScreen_width() - showYOff) / 2 - 2 * padding;
         setLeftFilterText(leftFilterString, padding, showYOff, popupWidth);
         setRightFilterText(getString(R.string.online_expert_sort), padding, showYOff, popupWidth);
         loadData();

@@ -86,7 +86,10 @@ public class MyPeopleFragment extends Fragment implements View.OnClickListener {
     }
 
     public void updateInfo() {
-        UserBean user = ((MyApplication) getActivity().getApplication()).user;
+        UserBean user = MyApplication.getInstance().user;
+        if (user == null) {
+            return;
+        }
         ((TextView) view.findViewById(R.id.my_name)).setText(user.user_name);
         ((TextView) view.findViewById(R.id.my_phone)).setText(user.user_phone);
         ((ImageView) view.findViewById(R.id.my_sex)).setImageResource(user.sex.equals("f") ? R.drawable.woman : R.drawable.man);

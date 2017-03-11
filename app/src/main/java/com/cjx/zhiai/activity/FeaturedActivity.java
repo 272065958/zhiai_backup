@@ -70,7 +70,7 @@ public class FeaturedActivity extends BaseActivity {
 
     private void initView(NewBean newBean) {
         findViewById(R.id.featured_content).setVisibility(View.VISIBLE);
-        int width = ((MyApplication) getApplication()).getScreen_width();
+        int width = (MyApplication.getInstance()).getScreen_width();
         int height = (int) (width * 299 / 627f);
         ImageView imageView = (ImageView) findViewById(R.id.featured_image);
         ViewGroup.LayoutParams lp = imageView.getLayoutParams();

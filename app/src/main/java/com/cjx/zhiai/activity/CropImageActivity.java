@@ -73,7 +73,7 @@ public class CropImageActivity extends BaseActivity {
         mOutputY = extras.getInt("outputY");
         mScale = extras.getBoolean("scale", true);
         savePath = extras.getString("savePath");
-        app = (MyApplication) getApplication();
+        app = MyApplication.getInstance();
         if(screenOrientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE){
             sWidth = app.getScreen_height()*1.0f;
             sHeight = app.getScreen_width()*1.0f;

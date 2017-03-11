@@ -27,7 +27,7 @@ public class MyApplication extends Application {
     public static final String ACTION_ORDER_OPERATE = "action_order_operate_zhiai";
     public static final String ACTION_WEIXIN_PAY = "action_weixin_pay_zhiai";
 
-    public static final String WEIXIN_APPID = "";
+    public static final String WEIXIN_APPID = "wx27a093c76a578141";
 
     private int SCREEN_WIDTH = 0, SCREEN_HEIGHT = 0;
 

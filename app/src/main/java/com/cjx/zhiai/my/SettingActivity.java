@@ -22,7 +22,7 @@ public class SettingActivity extends BaseActivity {
         setContentView(R.layout.activity_setting);
         setToolBar(true, null, R.string.my_setting);
 
-        MyApplication app = (MyApplication) getApplication();
+        MyApplication app = MyApplication.getInstance();
         if (app.userType.equals(app.USER_TYPE_DOCTOR)) {
             findViewById(R.id.my_setting_info_line).setVisibility(View.GONE);
             findViewById(R.id.my_setting_info).setVisibility(View.GONE);
@@ -57,7 +57,7 @@ public class SettingActivity extends BaseActivity {
                 @Override
                 public void comfirm() {
                     logoutDialog.dismiss();
-                    ((MyApplication) getApplication()).setLogin(null);
+                    (MyApplication.getInstance()).setLogin(null);
                     setResult(RESULT_OK);
                     finish();
                     Intent intent = new Intent(SettingActivity.this, LoginActivity.class);

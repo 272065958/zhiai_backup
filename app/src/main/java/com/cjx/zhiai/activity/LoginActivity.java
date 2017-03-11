@@ -33,7 +33,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        app = (MyApplication) getApplication();
+        app = MyApplication.getInstance();
         if (app.isLogin()) {
             startMain();
             return;
@@ -138,7 +138,7 @@ public class LoginActivity extends BaseActivity {
                 editor.putString("account", acc);
                 editor.putString("password", pwd);
                 editor.apply();
-                MyApplication app = (MyApplication) getApplication();
+                MyApplication app = MyApplication.getInstance();
                 app.setLogin(response.datas);
                 if (app.isLogin()) {
                     startMain();

@@ -9,11 +9,15 @@ import android.widget.TextView;
 
 import com.cjx.zhiai.MyApplication;
 import com.cjx.zhiai.R;
+import com.cjx.zhiai.activity.PayActivity;
 import com.cjx.zhiai.base.BaseActivity;
 import com.cjx.zhiai.bean.DoctorBean;
 import com.cjx.zhiai.bean.ResultBean;
 import com.cjx.zhiai.http.HttpUtils;
 import com.cjx.zhiai.http.MyCallbackInterface;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by cjx on 2017-01-04.
@@ -38,15 +42,15 @@ public class ReservationActivity extends BaseActivity {
         date = intent.getStringExtra("date");
         time = intent.getStringExtra("time");
         officeId = intent.getStringExtra("office_id");
-        ((TextView)findViewById(R.id.reserve_doctor_name)).setText(doctorBean.user_real_name);
-        ((TextView)findViewById(R.id.reserve_doctor_time)).setText(date+"  "+time);
+        ((TextView) findViewById(R.id.reserve_doctor_name)).setText(doctorBean.user_real_name);
+        ((TextView) findViewById(R.id.reserve_doctor_time)).setText(date + "  " + time);
         remarkView = (EditText) findViewById(R.id.advisory_content);
     }
 
-    public void onClick(View v){
+    public void onClick(View v) {
         // 提交挂号需求
         String content = remarkView.getText().toString();
-        if(TextUtils.isEmpty(content)){
+        if (TextUtils.isEmpty(content)) {
             showToast(getString(R.string.reservation_edit_hint));
             return;
         }
@@ -55,8 +59,28 @@ public class ReservationActivity extends BaseActivity {
             @Override
             public void success(ResultBean response) {
                 dismissLoadDialog();
-                showToast(response.errorMsg);
-                finish();
+                String bespeakNumber = null;
+                try {
+                    if (!TextUtils.isEmpty(response.datas)) {
+                        JSONObject object = new JSONObject(response.datas);
+                        if (object.has("bespeakNumber")) {
+                            bespeakNumber = object.getString("bespeakNumber");
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (bespeakNumber != null) {
+                    Intent intent = new Intent(ReservationActivity.this, PayActivity.class);
+                    intent.putExtra("pay_price", String.valueOf(doctorBean.price));
+                    intent.putExtra("pay_tip", "预约支付");
+                    intent.putExtra("id", bespeakNumber);
+                    startActivity(intent);
+                    setResult(RESULT_OK);
+                    finish();
+                } else {
+                    showToast("数据异常");
+                }
             }
 
             @Override
@@ -66,6 +90,6 @@ public class ReservationActivity extends BaseActivity {
         };
         HttpUtils.getInstance().postEnqueue(this, callbackInterface, "base/saveConsultInfo", "patient_id",
                 MyApplication.getInstance().user.user_id, "doctor_id", doctorBean.user_id, "type", "1",
-                "content", content, "bespeak_time", date+"="+time, "money", String.valueOf(doctorBean.price), "office_id", officeId);
+                "content", content, "bespeak_time", date + "=" + time, "money", String.valueOf(doctorBean.price), "office_id", officeId);
     }
 }

@@ -45,7 +45,7 @@ public class ExpertActivity extends BaseFilterActivity {
         int showYOff = getResources().getDimensionPixelOffset(R.dimen.grid_spacing);
         setListViweDivider(null, 0);
 
-        int popupWidth = (((MyApplication) getApplication()).getScreen_width() - showYOff) / 2 - 2 * padding;
+        int popupWidth = ((MyApplication.getInstance()).getScreen_width() - showYOff) / 2 - 2 * padding;
         leftPopupWidth = (int) (popupWidth * 1.5f);
         setLeftFilterText(getString(R.string.online_expert_subject), padding, showYOff, leftPopupWidth);
         setRightFilterText(getString(R.string.online_expert_sort), padding, showYOff, popupWidth);
