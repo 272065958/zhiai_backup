@@ -39,11 +39,11 @@ public class HospitalActivity extends BaseFilterActivity {
         setListViweDivider(null, 0);
 
         sortType = "1";
-        canFilter = false;
+        canFilter = true;
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
         latitude = sharedPreferences.getString("latitude", "");
         longitude = sharedPreferences.getString("longitude", "");
-        leftFilterString = sharedPreferences.getString("province", "广东省");
+        leftFilterString = sharedPreferences.getString("province", "广州市");
 
         // 初始化界面
         int popupWidth = ((MyApplication.getInstance()).getScreen_width() - showYOff) / 2 - 2 * padding;
@@ -78,7 +78,7 @@ public class HospitalActivity extends BaseFilterActivity {
         intent.putExtra("title", getString(R.string.hospital_filter_address));
         intent.putExtra("view", R.layout.activity_tree_select);
         intent.putExtra("tab_name", "中国");
-        intent.putExtra("level", 1);
+        intent.putExtra("level", 2);
         startActivityForResult(intent, 1);
     }
 

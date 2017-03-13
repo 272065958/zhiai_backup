@@ -150,7 +150,6 @@ public class ExpertActivity extends BaseFilterActivity {
                     leftAdapter.currentSelect = position;
                     leftAdapter.notifyDataSetChanged();
                     DepartmentBean db = (DepartmentBean) view.getTag(R.id.department_name);
-                    rightAdapter.currentSelect = 0;
                     rightAdapter.notifyDataSetChanged(db.officeChList);
                 }
             }
@@ -162,11 +161,11 @@ public class ExpertActivity extends BaseFilterActivity {
         rightListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (rightAdapter.currentSelect != position) {
-                    rightAdapter.currentSelect = position;
+                DepartmentBean db = (DepartmentBean) view.getTag(R.id.department_name);
+                if (!rightAdapter.currentSelectId.equals(db.office_id)) {
+                    rightAdapter.currentSelectId = db.office_id;
                     rightAdapter.notifyDataSetChanged();
                     hideLeftPopopWindow();
-                    DepartmentBean db = (DepartmentBean) view.getTag(R.id.department_name);
                     setOfficesId(db);
                 }
             }
@@ -225,8 +224,8 @@ public class ExpertActivity extends BaseFilterActivity {
     }
 
     class DepartParentAdapter extends MyBaseAdapter {
-        public int currentSelect = 0;
-        public DepartParentAdapter(ArrayList<?> list, BaseActivity context) {
+        int currentSelect = 0;
+        DepartParentAdapter(ArrayList<?> list, BaseActivity context) {
             super(list, context);
         }
 
@@ -270,9 +269,10 @@ public class ExpertActivity extends BaseFilterActivity {
     }
 
     class DepartChildAdapter extends MyBaseAdapter {
-        public int currentSelect = 0;
-        public DepartChildAdapter(ArrayList<?> list, BaseActivity context) {
+        String currentSelectId;
+        DepartChildAdapter(ArrayList<?> list, BaseActivity context) {
             super(list, context);
+            currentSelectId = leftFilterString;
         }
 
         @Override
@@ -290,7 +290,7 @@ public class ExpertActivity extends BaseFilterActivity {
             DepartmentBean db = (DepartmentBean) getItem(position);
             ViewHolder ho = (ViewHolder) holder;
             View v = ho.getView();
-            if(position == currentSelect){
+            if(db.office_id.equals(currentSelectId)){
                 v.setBackgroundColor(ContextCompat.getColor(context, R.color.pink_select_color));
                 ho.textView.setTextColor(ContextCompat.getColor(context, R.color.main_color));
             }else{

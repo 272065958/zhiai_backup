@@ -14,152 +14,157 @@
         android:text="@string/main_item_main"
         android:textColor="@android:color/white" />
 
-    <LinearLayout
+    <ScrollView
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/main_title_view"
         android:visibility="gone"
-        android:orientation="vertical">
-        <FrameLayout
-            android:id="@+id/view_pager_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipChildren="false">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="@color/colorPrimary" />
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="@dimen/half_tab_height"
-                android:layout_marginRight="@dimen/half_tab_height"/>
-        </FrameLayout>
-
-        <com.cjx.zhiai.component.PagerPointView
-            android:id="@+id/pager_point_view"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="@dimen/auto_margin"
-            android:layout_height="@dimen/auto_margin"
-            android:layout_gravity="center_horizontal" />
-
+        android:scrollbars="none">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/fab_margin"
-            android:layout_marginBottom="@dimen/fab_margin"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+            <FrameLayout
+                android:id="@+id/view_pager_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@color/colorPrimary" />
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="@dimen/half_tab_height"
+                    android:layout_marginRight="@dimen/half_tab_height"/>
+            </FrameLayout>
+
+            <com.cjx.zhiai.component.PagerPointView
+                android:id="@+id/pager_point_view"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/auto_margin"
+                android:layout_height="@dimen/auto_margin"
+                android:layout_gravity="center_horizontal" />
 
             <LinearLayout
-                android:id="@+id/main_app_about"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/item_pressed_bg"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="@dimen/auto_margin">
+                android:layout_marginTop="@dimen/fab_margin"
+                android:layout_marginBottom="@dimen/fab_margin"
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="@dimen/item_height"
-                    android:layout_height="@dimen/item_height"
-                    android:src="@drawable/introduce" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/main_app_about"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/text_margin"
-                    android:text="@string/main_app_about"
-                    android:textSize="@dimen/text_size_middle" />
+                    android:layout_weight="1"
+                    android:background="@drawable/item_pressed_bg"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/auto_margin">
+
+                    <ImageView
+                        android:layout_width="@dimen/item_height"
+                        android:layout_height="@dimen/item_height"
+                        android:src="@drawable/introduce" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/text_margin"
+                        android:text="@string/main_app_about"
+                        android:textSize="@dimen/text_size_middle" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/main_find_expert"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/item_pressed_bg"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/auto_margin">
+
+                    <ImageView
+                        android:layout_width="@dimen/item_height"
+                        android:layout_height="@dimen/item_height"
+                        android:src="@drawable/expert" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/text_margin"
+                        android:text="@string/main_find_expert"
+                        android:textSize="@dimen/text_size_middle" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/main_find_hospital"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/item_pressed_bg"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/auto_margin">
+
+                    <ImageView
+                        android:layout_width="@dimen/item_height"
+                        android:layout_height="@dimen/item_height"
+                        android:src="@drawable/hospital" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/text_margin"
+                        android:text="@string/main_find_hospital"
+                        android:textSize="@dimen/text_size_middle" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/main_medicine"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/item_pressed_bg"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/auto_margin">
+
+                    <ImageView
+                        android:layout_width="@dimen/item_height"
+                        android:layout_height="@dimen/item_height"
+                        android:src="@drawable/medicine"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/text_margin"
+                        android:text="@string/main_medicine"
+                        android:textSize="@dimen/text_size_middle" />
+                </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/main_find_expert"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/item_pressed_bg"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="@dimen/auto_margin">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/auto_margin"
+                android:background="@color/background_divider" />
 
-                <ImageView
-                    android:layout_width="@dimen/item_height"
-                    android:layout_height="@dimen/item_height"
-                    android:src="@drawable/expert" />
+            <include
+                layout="@layout/title_view" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/text_margin"
-                    android:text="@string/main_find_expert"
-                    android:textSize="@dimen/text_size_middle" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/main_find_hospital"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/item_pressed_bg"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="@dimen/auto_margin">
-
-                <ImageView
-                    android:layout_width="@dimen/item_height"
-                    android:layout_height="@dimen/item_height"
-                    android:src="@drawable/hospital" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/text_margin"
-                    android:text="@string/main_find_hospital"
-                    android:textSize="@dimen/text_size_middle" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/main_medicine"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/item_pressed_bg"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="@dimen/auto_margin">
-
-                <ImageView
-                    android:layout_width="@dimen/item_height"
-                    android:layout_height="@dimen/item_height"
-                    android:src="@drawable/medicine"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/text_margin"
-                    android:text="@string/main_medicine"
-                    android:textSize="@dimen/text_size_middle" />
-            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/auto_margin"
-            android:background="@color/background_divider" />
-
-        <include
-            layout="@layout/title_view" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycle_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+    </ScrollView>
 
     <include
         android:id="@+id/empty_view"

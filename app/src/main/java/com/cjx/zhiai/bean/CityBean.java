@@ -20,9 +20,4 @@ public class CityBean extends TreeBean{
     public String getId() {
         return id;
     }
-
-    @Override
-    public boolean isChild() {
-        return false;
-    }
 }

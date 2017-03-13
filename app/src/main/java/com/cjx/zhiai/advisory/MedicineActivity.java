@@ -37,6 +37,7 @@ public class MedicineActivity extends BaseListActivity {
                 break;
             case R.id.find_medicine_room: // 找药房
                 Intent roomIntent = new Intent(this, MedicineRoomActivity.class);
+                roomIntent.putExtra("title", R.string.find_medicine_room);
                 startActivity(roomIntent);
                 break;
         }

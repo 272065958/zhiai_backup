@@ -3,6 +3,7 @@ package com.cjx.zhiai.advisory;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,7 +12,6 @@ import android.widget.TextView;
 
 import com.cjx.zhiai.MyApplication;
 import com.cjx.zhiai.R;
-import com.cjx.zhiai.activity.PayActivity;
 import com.cjx.zhiai.base.BaseActivity;
 import com.cjx.zhiai.bean.MedicineBean;
 import com.cjx.zhiai.bean.ResultBean;
@@ -59,12 +59,12 @@ public class OrderActivity extends BaseActivity {
             @Override
             public void success(ResultBean response) {
                 try {
-                    response.datas = "100";
                     ((TextView) findViewById(R.id.integral)).setText(response.datas);
                     int integral = Integer.parseInt(response.datas);
                     if (integral > 0) {
                         integralView.setClickable(true);
                         integralView.setTag(response.datas);
+                        integralView.setTag(R.id.tag_view, response.datas);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -150,15 +150,28 @@ public class OrderActivity extends BaseActivity {
     public void selectIntegral(View view) {
         boolean isSelect = !view.isSelected();
         view.setSelected(isSelect);
+
+        float allPrice = Float.parseFloat((String) allPriceView.getTag());
+        float allIntegral = Float.parseFloat((String) integralView.getTag(R.id.tag_view));
         BigDecimal price = new BigDecimal((String) allPriceView.getTag());
+        BigDecimal integral = new BigDecimal((String) integralView.getTag(R.id.tag_view));
+        BigDecimal multiple = new BigDecimal("10");
+        String priceStr;
         if (isSelect) {
-            price = price.subtract(new BigDecimal((String) integralView.getTag()).divide(new BigDecimal(10)));
+            if (allPrice > allIntegral / 10) { // 总价大于积分价
+                priceStr = price.subtract(integral.divide(multiple)).toString();
+                integralView.setTag(integralView.getTag(R.id.tag_view));
+            } else {
+                priceStr = "0";
+                integralView.setTag(price.multiply(multiple).toString());
+            }
         } else {
-            price = price.add(new BigDecimal((String) integralView.getTag()).divide(new BigDecimal(10)));
+            priceStr = price.add(new BigDecimal((String)integralView.getTag()).divide(multiple)).toString();
+            integralView.setTag("0");
         }
-        String priceStr = price.toString();
         allPriceView.setText(String.format(getString(R.string.price_format), priceStr));
         allPriceView.setTag(priceStr);
+
     }
 
     // 提交订单
@@ -171,27 +184,29 @@ public class OrderActivity extends BaseActivity {
         final String order_total = (String) allPriceView.getTag(); // 合计
         String subtotal = (String) totalPriceView.getTag(); // 小计
         String integral = integralView.isSelected() ? (String) integralView.getTag() : "0"; // 积分
-        showLoadDislog();
-        MyCallbackInterface callbackInterface = new MyCallbackInterface() {
-            @Override
-            public void success(ResultBean response) {
-                dismissLoadDialog();
-                showToast(response.errorMsg);
-                sendBroadcast(new Intent(MyApplication.ACTION_ORDER));
-                finish();
-                Intent payIntent = new Intent(OrderActivity.this, PayActivity.class);
-                payIntent.putExtra("pay_price", order_total);
-                payIntent.putExtra("pay_tip", "购买药品");
-                payIntent.putExtra("id", "");
-                startActivity(payIntent);
-            }
-
-            @Override
-            public void error() {
-                dismissLoadDialog();
-            }
-        };
-        HttpUtils.getInstance().postEnqueue(this, callbackInterface, "HealingDrugs/saveOrder", "orderItemList", orderItemList,
-                "order_total", order_total, "subtotal", subtotal, "integral", integral);
+        Log.e("TAG", "order_total = " + order_total);
+        Log.e("TAG", "integral = " + integral);
+//        showLoadDislog();
+//        MyCallbackInterface callbackInterface = new MyCallbackInterface() {
+//            @Override
+//            public void success(ResultBean response) {
+//                dismissLoadDialog();
+//                showToast(response.errorMsg);
+//                sendBroadcast(new Intent(MyApplication.ACTION_ORDER));
+//                finish();
+//                Intent payIntent = new Intent(OrderActivity.this, PayActivity.class);
+//                payIntent.putExtra("pay_price", order_total);
+//                payIntent.putExtra("pay_tip", "购买药品");
+//                payIntent.putExtra("id", "");
+//                startActivity(payIntent);
+//            }
+//
+//            @Override
+//            public void error() {
+//                dismissLoadDialog();
+//            }
+//        };
+//        HttpUtils.getInstance().postEnqueue(this, callbackInterface, "HealingDrugs/saveOrder", "orderItemList", orderItemList,
+//                "order_total", order_total, "subtotal", subtotal, "integral", integral);
     }
 }

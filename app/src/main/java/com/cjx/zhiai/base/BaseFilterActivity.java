@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Created by cjx on 2016-11-27.
  * 包含筛选的listview界面
  */
-public abstract class BaseFilterActivity extends BaseListActivity implements PopupWindow.OnDismissListener {
+public abstract class BaseFilterActivity extends BaseListActivity {
     protected boolean canFilter = false;
     protected String sortType;
     protected String leftFilterString;
@@ -48,18 +48,13 @@ public abstract class BaseFilterActivity extends BaseListActivity implements Pop
 
     /**
      * 设置窗口的透明度
+     *
      * @param alpha 1.0f ~ 0.0f
      */
-    private void setWindowAlpha(float alpha){
+    private void setWindowAlpha(float alpha) {
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.alpha = alpha;
         getWindow().setAttributes(lp);
-    }
-
-    @Override
-    public void onDismiss(){
-        // popupwindow 消失时回调
-        setWindowAlpha(1.0f);
     }
 
     private void initView() {
@@ -97,8 +92,8 @@ public abstract class BaseFilterActivity extends BaseListActivity implements Pop
     }
 
     public void onClick(View v) {
-        if(!canFilter){
-            return ;
+        if (!canFilter) {
+            return;
         }
         switch (v.getId()) {
             case R.id.filter_left:
@@ -123,9 +118,10 @@ public abstract class BaseFilterActivity extends BaseListActivity implements Pop
                 @Override
                 public void onDismiss() {
                     ((View) leftPopupView.getTag()).setSelected(false);
+                    // popupwindow 消失时回调
+                    setWindowAlpha(1.0f);
                 }
             });
-            leftPopupWindow.setOnDismissListener(this);
         }
         leftPopupWindow.showAsDropDown(v, leftXOff, leftYOff);
         v.setSelected(true);
@@ -139,15 +135,16 @@ public abstract class BaseFilterActivity extends BaseListActivity implements Pop
         if (rightPopupWindow == null) {
             rightPopupView = createRightPopupView();
             rightPopupView.setTag(v);
-            rightPopupView.setBackgroundColor(Color.TRANSPARENT);
             rightPopupWindow = createPopupWindow(rightPopupView, rightPopupWidth);
+            rightPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             rightPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
                     ((View) rightPopupView.getTag()).setSelected(false);
+                    // popupwindow 消失时回调
+                    setWindowAlpha(1.0f);
                 }
             });
-            rightPopupWindow.setOnDismissListener(this);
         }
         rightPopupWindow.showAsDropDown(v, rightXOff, rightYOff);
         v.setSelected(true);
@@ -180,7 +177,7 @@ public abstract class BaseFilterActivity extends BaseListActivity implements Pop
                 return;
             }
             TextView textView = (TextView) v.findViewById(R.id.item_text_view);
-            itemSelect((ViewGroup)rightPopupView, v);
+            itemSelect((ViewGroup) rightPopupView, v);
             hideRightPopupWindow();
             setRightFilterText(textView.getText());
             sortType = (String) textView.getTag();
@@ -260,18 +257,15 @@ public abstract class BaseFilterActivity extends BaseListActivity implements Pop
         return popupWindow;
     }
 
-    FilterCallbackInterface callbackInterface;
-    protected MyCallbackInterface getMycallback(Type type){
-        if(callbackInterface == null){
-            callbackInterface = new FilterCallbackInterface(type, leftFilterString, sortType);
-        }
-        return callbackInterface;
+    protected MyCallbackInterface getMycallback(Type type) {
+        return new FilterCallbackInterface(type, leftFilterString, sortType);
     }
 
-    class FilterCallbackInterface implements MyCallbackInterface{
+    class FilterCallbackInterface implements MyCallbackInterface {
         Type type;
         String leftPar, rightPar;
-        FilterCallbackInterface(Type type, String leftPar, String rightPar){
+
+        FilterCallbackInterface(Type type, String leftPar, String rightPar) {
             this.type = type;
             this.leftPar = leftPar;
             this.rightPar = rightPar;
@@ -279,7 +273,7 @@ public abstract class BaseFilterActivity extends BaseListActivity implements Pop
 
         @Override
         public void success(ResultBean response) {
-            if(leftPar.equals(leftFilterString) && rightPar.equals(sortType)){
+            if (leftPar.equals(leftFilterString) && rightPar.equals(sortType)) {
                 ArrayList<?> list = JsonParser.getInstance().fromJson(response.datas, type);
                 onLoadResult(list);
             }

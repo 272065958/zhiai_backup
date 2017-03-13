@@ -50,6 +50,8 @@ public class MainPeopleFragment extends Fragment implements ViewPager.OnPageChan
     PagerPointView pagerPointView;
     View viewPagerContent;
 
+    FeaturedAdapter featuredAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
@@ -147,7 +149,8 @@ public class MainPeopleFragment extends Fragment implements ViewPager.OnPageChan
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycle_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new FeaturedAdapter(list));
+        featuredAdapter = new FeaturedAdapter(list);
+        recyclerView.setAdapter(featuredAdapter);
     }
 
     @Override
@@ -180,6 +183,7 @@ public class MainPeopleFragment extends Fragment implements ViewPager.OnPageChan
                 break;
             case R.id.main_find_hospital: // 找医院
                 Intent hospitalIntent = new Intent(getActivity(), HospitalActivity.class);
+                hospitalIntent.putExtra("title", R.string.main_find_hospital);
                 startActivity(hospitalIntent);
                 break;
             case R.id.main_medicine: // 找药
@@ -191,7 +195,7 @@ public class MainPeopleFragment extends Fragment implements ViewPager.OnPageChan
 
     class FeaturedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
         ArrayList<NewBean> list;
-        public FeaturedAdapter(ArrayList<NewBean> list) {
+        FeaturedAdapter(ArrayList<NewBean> list) {
             this.list = list;
         }
 
@@ -216,7 +220,7 @@ public class MainPeopleFragment extends Fragment implements ViewPager.OnPageChan
             Tools.setImageInView(activity, nb.min_image, ho.imageView);
             ho.titleView.setText(nb.title);
             ho.browseView.setText(String.format(getString(R.string.main_browser_count_format), nb.page_view));
-            ho.itemView.setTag(R.id.featured_image, nb.news_id);
+            ho.itemView.setTag(R.id.featured_image, nb);
         }
 
         @Override
@@ -232,7 +236,13 @@ public class MainPeopleFragment extends Fragment implements ViewPager.OnPageChan
         @Override
         public void onClick(View v) {
             Intent featuredIntent = new Intent(activity, FeaturedActivity.class);
-            featuredIntent.setAction((String)v.getTag(R.id.featured_image));
+            NewBean nb = (NewBean) v.getTag(R.id.featured_image);
+            int count = Integer.parseInt(nb.page_view);
+            count ++;
+            nb.page_view = String.valueOf(count);
+            ((TextView)v.findViewById(R.id.featured_browse)).setText(String.format(getString(R.string.main_browser_count_format),
+                    nb.page_view));
+            featuredIntent.setAction(nb.news_id);
             startActivity(featuredIntent);
         }
 

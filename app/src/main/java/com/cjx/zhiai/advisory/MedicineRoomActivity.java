@@ -41,9 +41,9 @@ public class MedicineRoomActivity extends BaseFilterActivity {
         latitude = sharedPreferences.getString("latitude", "");
         longitude = sharedPreferences.getString("longitude", "");
 
-        leftFilterString = sharedPreferences.getString("province", "广东省");
+        leftFilterString = "";
         int popupWidth = (((MyApplication)getApplication()).getScreen_width() - showYOff) / 2 - 2*padding;
-        setLeftFilterText(leftFilterString, padding, showYOff, popupWidth);
+        setLeftFilterText("全国", padding, showYOff, popupWidth);
         setRightFilterText(getString(R.string.online_expert_sort), padding, showYOff, popupWidth);
         loadData();
     }
@@ -66,6 +66,7 @@ public class MedicineRoomActivity extends BaseFilterActivity {
         Intent intent = new Intent(this, CitySelectActivity.class);
         intent.putExtra("title", getString(R.string.hospital_filter_address));
         intent.putExtra("view", R.layout.activity_tree_select);
+        intent.putExtra("level", 3);
         intent.putExtra("tab_name", "中国");
         startActivityForResult(intent, 1);
     }

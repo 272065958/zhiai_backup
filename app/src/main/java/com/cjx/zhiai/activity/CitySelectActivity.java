@@ -23,6 +23,7 @@ import java.util.ArrayList;
  * intent.putExtra("title", "");
  * intent.putExtra("view", R.layout.activity_tree_select);
  * intent.putExtra("tab_name", "中国");
+ * intent.putExtra("level", 3);
  * startActivityForResult(intent, 1);
  *
  */
@@ -69,7 +70,7 @@ public class CitySelectActivity extends BaseTreeActivity {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TreeBean tb = (TreeBean) adapter.getItem(position);
-        if (tabLayout.getTabCount() == maxLevel || tb.isChild()) {
+        if (tb.isChild() || tabLayout.getTabCount() == maxLevel) {
             returnPosition(tb);
         } else {
             TabLayout.Tab tab = tabLayout.newTab().setText(tb.getName());
