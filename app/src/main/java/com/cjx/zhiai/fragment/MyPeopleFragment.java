@@ -87,7 +87,7 @@ public class MyPeopleFragment extends Fragment implements View.OnClickListener {
 
     public void updateInfo() {
         UserBean user = MyApplication.getInstance().user;
-        if (user == null) {
+        if (user == null || view == null) {
             return;
         }
         ((TextView) view.findViewById(R.id.my_name)).setText(user.user_name);

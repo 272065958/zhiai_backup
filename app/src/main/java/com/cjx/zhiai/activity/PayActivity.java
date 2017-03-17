@@ -18,6 +18,7 @@ import com.cjx.zhiai.base.BaseActivity;
 import com.cjx.zhiai.bean.ResultBean;
 import com.cjx.zhiai.http.HttpUtils;
 import com.cjx.zhiai.http.MyCallbackInterface;
+import com.cjx.zhiai.util.OrderInfoUtil2_0;
 import com.cjx.zhiai.util.PayResult;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -46,12 +47,16 @@ public class PayActivity extends BaseActivity {
 //    /**
 //     * 支付宝支付业务：入参app_id
 //     */
-//    public static final String APPID = "2016121904424419";
-
+    public static final String APPID = "2016073100135668";
+    /** 支付宝账户登录授权业务：入参pid值 */
+    public static final String PID = "";
+    /** 支付宝账户登录授权业务：入参target_id值 */
+    public static final String TARGET_ID = "2088521540525430";
 //    /**
 //     * 商户私钥，pkcs8格式
 //     */
-//    public static final String RSA_PRIVATE = "MIICeQIBADANBgkqhkiG9w0BAQEFAASCAmMwggJfAgEAAoGBAKgyIBx5Jk3q/Eq8eZMc+BYalvgzzjSTXyKV+ihmbxRzxat1+YTqN5lut1ayq5MIUBbhiq8VoQB3VQcylcD2t14tmB2LoSuvmjYbM5EpUJ+m+LjL4Opb8zndMdn25LWpAk6mZ9MhKUEjkqrTToxSLWVOp9dcZhlc03ahwmyIry//AgMBAAECgYEAi+f2EfksRY/7gGc6cYadTjWb8qWVFuKnNeuvBEAAkfCjMjaV8VuqF/SiiHligpFdnUrKw0yoeezJS41mR/ZxG4pXtu4y2dMjVtRjMru5Y3h3Ar3OsxtFuXv/w09yC8dOAcOtAXZjR2SbaeeWtDz8HoAahivNdHJ8lWu1uHVnxgECQQDVII0uu0ZSqJNinu9Q+Z1WqVAcpd5XFZA4XQ2M19JaH6uHYS72fHf9k+9TqvpaWuXyt0Ce2UMH9b/rt6FQMLJ/AkEAyge8XX2iY187Y/7QV0he3S4GF4qwAUFiXmAYgNRERmomiWWlb/6SsZOOlLin/nOOK15X6k4gCA2CrXY6pJ/CgQJBAJ3VS3juK7gPK4b/mM9o7AI/xRpSJARt7a4wC1bgheFETu0lJXhY2SuroLNfjaPYaS6EU5DP6Po+HnFcPlR6m9UCQQCuth/kbbhX3Uw7/mlngdNfzORByZLJkyShXtLx3h8pEbU/zqJSBsIPRP7hiArnlkDVKmI24tb6f8yJe5vdL7eBAkEAtInDe6dD+DpP65P4lfkj/Gub5kNONn3m4DqhlpJoVomf6kvU2edyI3tqaG/KW1W7ukeNoGq4DNhArRiBbgdNGA==";
+    public static final String RSA2_PRIVATE = "";
+    public static final String RSA_PRIVATE = "MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBALn/B+MGSYeoKs9GvJ/5ugWjjcGzt/bQ5rjuRRjpJNF0VQBVmh4yGY3SmWkQ1/s9qUdwUnID+W9rPgdp0Fm3MYvX/GZMJT0Smw+e1+T9wiV9EWiV4SnI7jplaNTXtuB1UPBqmtHFJ6ZGdVdGEQnCGDYxFFU+D5pYFZ0TX+gObG1BAgMBAAECgYBuErkXKQRhDSvwqTs+LatiZO2iwfpQTkcNEK3B1VBdyMv5O6/OyPWIkicKH9bCMDa7OYUBRsranowCFSQhxCHET9D5M6MovH6YqSpJ19EKvr+q1oums6l4uCypN/NwLPULC/N9itSgre45uF5jyBJZjG5NY9R8kHc818ZhV8agAQJBANut1qDn50l4Wr7mzfidnM5i5HCvywCS1x/VXNhS/mpwYfFj/pb32MaUDOvQJ0kaQhqh5R6tW6V2cM6oLsEE2YECQQDYv4dJ8ixAR2C6CRUodnLqUi2VxjCagkMcJGtkq5wTHqdnURJidHN4xZ3sjXZpt7T7Wl3/LJfxesM4t20Qz/PBAkAZu7JhpOi9/YA7zpOgJO5iaskxvhX8mjbi/r5ihM5Sr5l5imofSyc0k9Ezqm1/rbjCn+ZUAqCysD4kpyTa7XOBAkBK1IT+sI86eeoZED2vxIUUBN8cEFqDXWmR87jn/p9ZsoGVF9ZDC3U6Qu+s1YIGKZhgFujQyjKC+iEgGaOb5E+BAkAQ6CAx9rQ4ibUBADLKEv4Aibw3kKgbE0pmiRNJM8iOcnDkH0zEPSZ8zPTc9bXp4V9IJiFzadYKGP6ehsXJkbQ3";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,12 +105,15 @@ public class PayActivity extends BaseActivity {
                 break;
             case R.id.pay_button:
                 if (currentPayType != null) {
-                    pay();
-//                    Map<String, String> params = OrderInfoUtil2_0.buildOrderParamMap(APPID);
-//                    String orderParam = OrderInfoUtil2_0.buildOrderParam(params);
-//                    String sign = OrderInfoUtil2_0.getSign(params, RSA_PRIVATE);
-//                    final String orderInfo = orderParam + "&" + sign;
-//                    alipayPay(orderInfo);
+//                    pay();
+                    boolean rsa2 = (RSA2_PRIVATE.length() > 0);
+                    Map<String, String> authInfoMap = OrderInfoUtil2_0.buildAuthInfoMap(PID, APPID, TARGET_ID, rsa2);
+                    String info = OrderInfoUtil2_0.buildOrderParam(authInfoMap);
+
+                    String privateKey = rsa2 ? RSA2_PRIVATE : RSA_PRIVATE;
+                    String sign = OrderInfoUtil2_0.getSign(authInfoMap, privateKey, rsa2);
+                    final String authInfo = info + "&" + sign;
+                    alipayPay(authInfo);
                 }else{
                     showToast("请选择支付方式");
                 }
@@ -211,7 +219,6 @@ public class PayActivity extends BaseActivity {
      * 支付宝支付
      */
     protected void alipayPay(final String orderInfo) {
-
         Runnable payRunnable = new Runnable() {
 
             @Override
