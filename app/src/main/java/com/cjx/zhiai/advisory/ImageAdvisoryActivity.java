@@ -47,6 +47,19 @@ public class ImageAdvisoryActivity extends BaseListActivity {
                 "page", "1", "limit", "100");
     }
 
+    // 加载数据完成后调用
+    @Override
+    protected void onLoadResult(ArrayList<?> list) {
+        if(list == null || list.isEmpty()){
+            showToast("数据异常");
+            return ;
+        }
+        for(Object obj : list){
+            ((AdvisoryBean)obj).format();
+        }
+        super.onLoadResult(list);
+    }
+
     @Override
     protected MyBaseAdapter getAdapter(ArrayList<?> list) {
         return new AdvisoryAdapter(list, this);

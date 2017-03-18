@@ -163,7 +163,7 @@ public class DiscoverDetailActivity extends BaseListActivity implements View.OnC
         }
 
         Tools.setImageInView(this, discoverBean.head_image, headView);
-        nameView.setText(discoverBean.user_real_name);
+        nameView.setText(TextUtils.isEmpty(discoverBean.user_name) ? discoverBean.user_real_name : discoverBean.user_name);
         if (TextUtils.isEmpty(discoverBean.sex)) {
             sexView.setVisibility(View.GONE);
         } else {

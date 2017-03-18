@@ -117,7 +117,9 @@ public class AdvisoryHistoryActivity extends BaseListActivity {
                 replyView = v.findViewById(R.id.advisory_reply);
                 replyView.setOnClickListener(this);
                 commentView = v.findViewById(R.id.advisory_comment);
+                commentView.setOnClickListener(this);
                 praiseView = v.findViewById(R.id.advisory_praise);
+                praiseView.setOnClickListener(this);
                 statusView = (TextView) v.findViewById(R.id.advisory_status);
                 nameView = (TextView) v.findViewById(R.id.advisory_doctor);
                 timeView = (TextView) v.findViewById(R.id.advisory_time);

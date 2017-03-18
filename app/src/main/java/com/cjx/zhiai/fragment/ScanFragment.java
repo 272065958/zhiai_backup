@@ -203,7 +203,7 @@ public class ScanFragment extends Fragment implements View.OnClickListener, Swip
             DiscoverBean db = (DiscoverBean) getItem(position);
             ViewHolder ho = (ViewHolder) holder;
             Tools.setImageInView(context, db.head_image, ho.headView);
-            ho.nameView.setText(db.user_real_name);
+            ho.nameView.setText(TextUtils.isEmpty(db.user_name) ? db.user_real_name : db.user_name);
             if (TextUtils.isEmpty(db.sex)) {
                 ho.sexView.setVisibility(View.GONE);
             } else {

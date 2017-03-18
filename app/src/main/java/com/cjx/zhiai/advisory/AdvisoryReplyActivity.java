@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class AdvisoryReplyActivity extends BaseListActivity {
     String bespeakId;
     EditText commentView;
-
+    View commentContentView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,10 +63,13 @@ public class AdvisoryReplyActivity extends BaseListActivity {
         for(Object obj : list){
             ((AdvisoryCommentBean)obj).format();
         }
-        AdvisoryCommentBean acb = (AdvisoryCommentBean) list.get(0);
+        if(commentContentView == null){
+            AdvisoryCommentBean acb = (AdvisoryCommentBean) list.get(0);
+            addHeaderView(getHeader(acb));
+            commentContentView = findViewById(R.id.advisory_comment_content);
+            commentContentView.setVisibility(View.VISIBLE);
+        }
         list.remove(0);
-        addHeaderView(getHeader(acb));
-        findViewById(R.id.advisory_comment_content).setVisibility(View.VISIBLE);
         super.onLoadResult(list);
     }
 
@@ -91,7 +94,7 @@ public class AdvisoryReplyActivity extends BaseListActivity {
         MyCallbackInterface callbackInterface = new MyCallbackInterface() {
             @Override
             public void success(ResultBean response) {
-                showLoadDislog();
+                dismissLoadDialog();
                 showToast(response.errorMsg);
                 commentView.setText(null);
                 onRefresh();
@@ -99,7 +102,7 @@ public class AdvisoryReplyActivity extends BaseListActivity {
 
             @Override
             public void error() {
-                showLoadDislog();
+                dismissLoadDialog();
             }
         };
         HttpUtils.getInstance().postEnqueue(this, callbackInterface, "base/replyQuestion", "bespeak_id", bespeakId,

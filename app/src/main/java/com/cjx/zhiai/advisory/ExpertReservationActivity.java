@@ -167,14 +167,11 @@ public class ExpertReservationActivity extends BaseActivity implements AdapterVi
     }
 
     ItemSelectDialog selectDialog;
+    ItemSelectDialog.OnItemClickListener listener;
     private void showSelectDialog(ReserveTimeBean rtb){
         if(selectDialog == null){
             selectDialog = new ItemSelectDialog(this);
-            ArrayList<String> times = new ArrayList<>();
-            for(TimeBean tb : rtb.times){
-                times.add(tb.time);
-            }
-            selectDialog.setItems(times, new ItemSelectDialog.OnItemClickListener() {
+            listener = new ItemSelectDialog.OnItemClickListener() {
                 @Override
                 public void click(int position) {
                     ReserveTimeBean objs = (ReserveTimeBean) selectDialog.getTag();
@@ -182,8 +179,13 @@ public class ExpertReservationActivity extends BaseActivity implements AdapterVi
                     selectTime(objs.date, item);
                     selectDialog.dismiss();
                 }
-            });
+            };
         }
+        ArrayList<String> times = new ArrayList<>();
+        for(TimeBean tb : rtb.times){
+            times.add(tb.time);
+        }
+        selectDialog.setItems(times, listener);
         selectDialog.setTag(rtb);
         selectDialog.show();
     }

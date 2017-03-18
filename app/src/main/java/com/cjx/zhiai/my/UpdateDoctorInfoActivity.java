@@ -88,27 +88,32 @@ public class UpdateDoctorInfoActivity extends BaseActivity {
     }
 
     private void save(){
-        String header = headerView.getText().toString();
+        final String header = headerView.getText().toString();
         if (TextUtils.isEmpty(header)) {
             Toast.makeText(this, getString(R.string.register_doctor_header_hint2), Toast.LENGTH_SHORT).show();
             return;
         }
-        String price = priceView.getText().toString();
+        final String price = priceView.getText().toString();
         if (TextUtils.isEmpty(price)) {
             Toast.makeText(this, getString(R.string.register_doctor_price_hint2), Toast.LENGTH_SHORT).show();
             return;
         }
-        String profession = professionView.getText().toString();
+        final String profession = professionView.getText().toString();
         if (TextUtils.isEmpty(profession)) {
             Toast.makeText(this, getString(R.string.register_doctor_profession_hint2), Toast.LENGTH_SHORT).show();
             return;
         }
-        String info = infoView.getText().toString();
+        final String info = infoView.getText().toString();
         MyCallbackInterface callbackInterface = new MyCallbackInterface() {
             @Override
             public void success(ResultBean response) {
                 dismissLoadDialog();
                 Toast.makeText(UpdateDoctorInfoActivity.this, response.errorMsg, Toast.LENGTH_SHORT).show();
+                UserBean user = ((MyApplication)getApplication()).user;
+                user.honor = header;
+                user.price = price;
+                user.skilled = profession;
+                user.doctor_summary = info;
                 sendBroadcast(new Intent(MyApplication.ACTION_USER_INFO_UPDATE));
             }
 
