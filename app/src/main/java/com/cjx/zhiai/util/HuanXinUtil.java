@@ -53,40 +53,40 @@ public class HuanXinUtil {
 
     // 初始化
     public void init(Context context) {
-//        if(appContext != null){
-//            return ;
-//        }
-//        // 初始化环信
-//        appContext = context;
-//        handler = new Handler(new Handler.Callback() {
-//            @Override
-//            public boolean handleMessage(Message msg) {
-//                Toast.makeText(appContext, "登录聊天服务器失败!", Toast.LENGTH_SHORT).show();
-//                return false;
-//            }
-//        });
-//        //初始化
-//        if (EaseUI.getInstance().init(context, initOptions())) {
-//
-//            // 设置开启debug模式
-////            EMClient.getInstance().setDebugMode(true);
-//            easeUI = EaseUI.getInstance();
-//            easeUI.setUserProfileProvider(new EaseUI.EaseUserProfileProvider() {
-//
-//                @Override
-//                public EaseUser getUser(String username) {
-//                    return getUserInfo(username);
-//                }
-//            });
-//
-//            IntentFilter callFilter = new IntentFilter(EMClient.getInstance().callManager().getIncomingCallBroadcastAction());
-//            if(callReceiver == null){
-//                callReceiver = new CallReceiver();
-//            }
-//
-//            //register incoming call receiver
-//            appContext.registerReceiver(callReceiver, callFilter);
-//        }
+        if(appContext != null){
+            return ;
+        }
+        // 初始化环信
+        appContext = context;
+        handler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message msg) {
+                Toast.makeText(appContext, "登录聊天服务器失败!", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+        //初始化
+        if (EaseUI.getInstance().init(context, initOptions())) {
+
+            // 设置开启debug模式
+//            EMClient.getInstance().setDebugMode(true);
+            easeUI = EaseUI.getInstance();
+            easeUI.setUserProfileProvider(new EaseUI.EaseUserProfileProvider() {
+
+                @Override
+                public EaseUser getUser(String username) {
+                    return getUserInfo(username);
+                }
+            });
+
+            IntentFilter callFilter = new IntentFilter(EMClient.getInstance().callManager().getIncomingCallBroadcastAction());
+            if(callReceiver == null){
+                callReceiver = new CallReceiver();
+            }
+
+            //register incoming call receiver
+            appContext.registerReceiver(callReceiver, callFilter);
+        }
     }
 
     /**
@@ -120,44 +120,44 @@ public class HuanXinUtil {
 
     // 登录环信
     public void login(String acc) {
-//        EMClient.getInstance().login(acc, "1", new EMCallBack() {//回调
-//            @Override
-//            public void onSuccess() {
-//                Log.e("TAG", "登录聊天服务器成功！");
-//                isLogin = true;
-//            }
-//
-//            @Override
-//            public void onProgress(int progress, String status) {
-//
-//            }
-//
-//            @Override
-//            public void onError(int code, String message) {
-//                handler.sendEmptyMessage(0);
-//            }
-//        });
+        EMClient.getInstance().login(acc, "1", new EMCallBack() {//回调
+            @Override
+            public void onSuccess() {
+                Log.e("TAG", "登录聊天服务器成功！");
+                isLogin = true;
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                handler.sendEmptyMessage(0);
+            }
+        });
     }
 
     // 退出登录
     public void logout(){
-//        EMClient.getInstance().logout(true, new EMCallBack() {
-//
-//            @Override
-//            public void onSuccess() {
-//                Log.e("TAG", "登出服务器成功！");
-//            }
-//
-//            @Override
-//            public void onProgress(int progress, String status) {
-//
-//            }
-//
-//            @Override
-//            public void onError(int code, String message) {
-//                Log.e("TAG", "登出服务器失败！");
-//            }
-//        });
+        EMClient.getInstance().logout(true, new EMCallBack() {
+
+            @Override
+            public void onSuccess() {
+                Log.e("TAG", "登出服务器成功！");
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                Log.e("TAG", "登出服务器失败！");
+            }
+        });
     }
 
     //注册一个监听连接状态的listener

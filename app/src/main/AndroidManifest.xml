@@ -278,6 +278,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".my.IntegralActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".my.OrderHistoryActivity"
             android:screenOrientation="portrait" />
 

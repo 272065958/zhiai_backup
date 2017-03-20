@@ -15,6 +15,7 @@ import com.cjx.zhiai.base.BaseActivity;
 import com.cjx.zhiai.base.BaseListActivity;
 import com.cjx.zhiai.base.MyBaseAdapter;
 import com.cjx.zhiai.bean.ResultBean;
+import com.cjx.zhiai.dialog.TipDialog;
 import com.cjx.zhiai.http.HttpUtils;
 import com.cjx.zhiai.http.MyCallbackInterface;
 
@@ -80,7 +81,32 @@ public class BankSelectActivity extends BaseListActivity {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String number = (String) parent.getAdapter().getItem(position);
-        withdraw(number);
+        showWithdrawDialog(number);
+    }
+
+    TipDialog tipDialog;
+    private void showWithdrawDialog(String number){
+        if(tipDialog == null){
+            tipDialog = new TipDialog(this);
+            tipDialog.setText("提示", "是否提现"+getIntent().getAction()+"元到卡号"+number+"上?",
+                    getString(R.string.button_sure), getString(R.string.button_cancel));
+            tipDialog.setTipComfirmListener(new TipDialog.ComfirmListener() {
+                @Override
+                public void comfirm() {
+                    tipDialog.dismiss();
+                    withdraw((String)tipDialog.getTag());
+                }
+
+                @Override
+                public void cancel() {
+                    tipDialog.dismiss();
+                }
+            });
+        }else{
+            tipDialog.setText("提示", "是否提现"+getIntent().getAction()+"元到卡号"+number+"上?");
+        }
+        tipDialog.setTag(number);
+        tipDialog.show();
     }
 
     public void addCard(View v){

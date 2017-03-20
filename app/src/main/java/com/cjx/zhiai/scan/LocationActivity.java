@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -46,7 +45,6 @@ public class LocationActivity extends BaseListActivity {
                     "latitude", sharedPreferences.getString("longitude", ""));
         } else {
             ArrayList<String> list = new ArrayList<>();
-            list.add("不显示位置");
             onLoadResult(list);
         }
     }

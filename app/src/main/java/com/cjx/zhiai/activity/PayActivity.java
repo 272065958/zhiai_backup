@@ -105,15 +105,15 @@ public class PayActivity extends BaseActivity {
                 break;
             case R.id.pay_button:
                 if (currentPayType != null) {
-//                    pay();
-                    boolean rsa2 = (RSA2_PRIVATE.length() > 0);
-                    Map<String, String> authInfoMap = OrderInfoUtil2_0.buildAuthInfoMap(PID, APPID, TARGET_ID, rsa2);
-                    String info = OrderInfoUtil2_0.buildOrderParam(authInfoMap);
-
-                    String privateKey = rsa2 ? RSA2_PRIVATE : RSA_PRIVATE;
-                    String sign = OrderInfoUtil2_0.getSign(authInfoMap, privateKey, rsa2);
-                    final String authInfo = info + "&" + sign;
-                    alipayPay(authInfo);
+                    pay();
+//                    boolean rsa2 = (RSA2_PRIVATE.length() > 0);
+//                    Map<String, String> authInfoMap = OrderInfoUtil2_0.buildAuthInfoMap(PID, APPID, TARGET_ID, rsa2);
+//                    String info = OrderInfoUtil2_0.buildOrderParam(authInfoMap);
+//
+//                    String privateKey = rsa2 ? RSA2_PRIVATE : RSA_PRIVATE;
+//                    String sign = OrderInfoUtil2_0.getSign(authInfoMap, privateKey, rsa2);
+//                    final String authInfo = info + "&" + sign;
+//                    alipayPay(authInfo);
                 }else{
                     showToast("请选择支付方式");
                 }

@@ -5,18 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.cjx.zhiai.MyApplication;
 import com.cjx.zhiai.R;
 import com.cjx.zhiai.bean.UserBean;
 import com.cjx.zhiai.my.AdvisoryHistoryActivity;
+import com.cjx.zhiai.my.IntegralActivity;
 import com.cjx.zhiai.my.OrderHistoryActivity;
 import com.cjx.zhiai.my.ReservationHistoryActivity;
 import com.cjx.zhiai.my.SettingActivity;
@@ -63,6 +62,8 @@ public class MyPeopleFragment extends Fragment implements View.OnClickListener {
                 startActivity(orderIntent);
                 break;
             case R.id.my_integration: // 积分
+                Intent integralIntent = new Intent(getActivity(), IntegralActivity.class);
+                startActivity(integralIntent);
                 break;
             case R.id.my_service: // 协议
                 break;

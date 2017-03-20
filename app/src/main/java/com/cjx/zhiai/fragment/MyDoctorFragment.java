@@ -47,6 +47,7 @@ public class MyDoctorFragment extends Fragment implements View.OnClickListener, 
     View view;
     ImageView headView;
     UploadImageTool uploadTools;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,7 +84,11 @@ public class MyDoctorFragment extends Fragment implements View.OnClickListener, 
                 uploadTools.upload(new String[]{cropPath});
                 break;
             case RESULT_SETTING:
-                getActivity().finish();
+                Activity activity = getActivity();
+                if(activity != null){
+                    activity.finish();
+                }
+
                 break;
         }
     }
@@ -171,6 +176,7 @@ public class MyDoctorFragment extends Fragment implements View.OnClickListener, 
     }
 
     ItemSelectDialog selectDialog;
+
     private void showSelectDialog() {
         if (selectDialog == null) {
             selectDialog = new ItemSelectDialog(getContext());
@@ -187,7 +193,9 @@ public class MyDoctorFragment extends Fragment implements View.OnClickListener, 
     }
 
     public void updateInfo() {
-        UserBean user = ((MyApplication) getActivity().getApplication()).user;
-        Tools.setImageInView(getActivity(), user.head_image, headView);
+        UserBean user = MyApplication.getInstance().user;
+        if (user != null) {
+            Tools.setImageInView(getActivity(), user.head_image, headView);
+        }
     }
 }
