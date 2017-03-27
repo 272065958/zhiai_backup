@@ -92,6 +92,11 @@ public class ReservationHistoryActivity extends BaseListActivity {
                 ho.videoView.setVisibility(View.VISIBLE);
                 ho.videoView.setTag(rb.doctor_id);
                 ho.videoView.setTag(R.string.title_user_profile, ho.nameView.getText().toString());
+            } else if(rb.state.equals("4")){
+                ho.statusView.setText(R.string.patient_is_cancel);
+                ho.statusView.setTextColor(ContextCompat.getColor(context, R.color.text_secondary_color));
+                ho.videoView.setVisibility(View.VISIBLE);
+                ho.videoView.setText("金额去向");
             } else {
                 ho.statusView.setTextColor(ContextCompat.getColor(context, R.color.text_main_color));
                 ho.videoView.setVisibility(View.GONE);
@@ -101,7 +106,7 @@ public class ReservationHistoryActivity extends BaseListActivity {
 
         class ViewHolder extends MyViewHolder implements View.OnClickListener {
             TextView statusView, timeView, nameView, contentView;
-            View videoView;
+            TextView videoView;
 
             public ViewHolder(View v) {
                 super(v);
@@ -109,18 +114,22 @@ public class ReservationHistoryActivity extends BaseListActivity {
                 timeView = (TextView) v.findViewById(R.id.reservation_time);
                 nameView = (TextView) v.findViewById(R.id.reservation_department);
                 contentView = (TextView) v.findViewById(R.id.reservation_content);
-                videoView = v.findViewById(R.id.reservation_video);
+                videoView = (TextView) v.findViewById(R.id.reservation_video);
                 videoView.setOnClickListener(this);
             }
 
             @Override
             public void onClick(View v) {
-                String title = (String) v.getTag(R.string.title_user_profile);
                 String id = (String) v.getTag();
-                Intent chatIntent = new Intent(context, ChatActivity.class);
-                chatIntent.putExtra("title", title);
-                chatIntent.putExtra(EaseConstant.EXTRA_USER_ID, id);
-                startActivity(chatIntent);
+                if(id == null){
+                    showToast("金额已原路退回,请注意查收");
+                }else{
+                    String title = (String) v.getTag(R.string.title_user_profile);
+                    Intent chatIntent = new Intent(context, ChatActivity.class);
+                    chatIntent.putExtra("title", title);
+                    chatIntent.putExtra(EaseConstant.EXTRA_USER_ID, id);
+                    startActivity(chatIntent);
+                }
             }
         }
     }

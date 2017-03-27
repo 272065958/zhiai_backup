@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.cjx.zhiai.MyApplication;
 import com.cjx.zhiai.R;
 import com.cjx.zhiai.base.BaseSelectImageActivity;
@@ -17,6 +16,7 @@ import com.cjx.zhiai.bean.UserBean;
 import com.cjx.zhiai.http.HttpUtils;
 import com.cjx.zhiai.http.MyCallbackInterface;
 import com.cjx.zhiai.util.Tools;
+import com.cjx.zhiai.util.UploadImageTool;
 
 /**
  * Created by cjx on 2016-12-07.
@@ -32,7 +32,7 @@ public class UpdatePeopleInfoActivity extends BaseSelectImageActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_peopel_info);
         setToolBar(true, null, R.string.my_setting_info);
-        selectType = IMAGE_TYPE_USER;
+        selectType = UploadImageTool.IMAGE_TYPE_USER;
         findViewById();
     }
 

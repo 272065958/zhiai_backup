@@ -73,6 +73,23 @@ public class AdvisoryReplyActivity extends BaseListActivity {
         super.onLoadResult(list);
     }
 
+    // 显示列表数据
+    protected void displayData(ArrayList<?> list) {
+        if (adapter == null) {
+            adapter = getAdapter(list);
+            listView.setAdapter(adapter);
+        } else {
+            adapter.notifyDataSetChanged(list);
+        }
+        if (list == null) {
+            emptyView.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
+        } else {
+            emptyView.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+        }
+    }
+
     @Override
     protected MyBaseAdapter getAdapter(ArrayList<?> list) {
         return new CommentAdapter(list, this);

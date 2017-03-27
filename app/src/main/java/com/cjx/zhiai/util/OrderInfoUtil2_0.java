@@ -23,7 +23,7 @@ public class OrderInfoUtil2_0 {
 	 * @param target_id
 	 * @return
 	 */
-	public static Map<String, String> buildAuthInfoMap(String pid, String app_id, String target_id, boolean rsa2) {
+	public static Map<String, String> buildAuthInfoMap(String pid, String app_id, String target_id) {
 		Map<String, String> keyValues = new HashMap<String, String>();
 
 		// 商户签约拿到的app_id，如：2013081700024223
@@ -54,7 +54,7 @@ public class OrderInfoUtil2_0 {
 		keyValues.put("auth_type", "AUTHACCOUNT");
 
 		// 签名类型
-		keyValues.put("sign_type", rsa2 ? "RSA2" : "RSA");
+		keyValues.put("sign_type", "RSA");
 
 		return keyValues;
 	}
@@ -64,22 +64,24 @@ public class OrderInfoUtil2_0 {
 	 * @param app_id
 	 * @return
 	 */
-	public static Map<String, String> buildOrderParamMap(String app_id, boolean rsa2) {
+	public static Map<String, String> buildOrderParamMap(String app_id) {
 		Map<String, String> keyValues = new HashMap<String, String>();
 
 		keyValues.put("app_id", app_id);
 
-		keyValues.put("biz_content", "{\"timeout_express\":\"30m\",\"product_code\":\"QUICK_MSECURITY_PAY\",\"total_amount\":\"0.01\",\"subject\":\"1\",\"body\":\"我是测试数据\",\"out_trade_no\":\"" + getOutTradeNo() +  "\"}");
+		keyValues.put("biz_content", "{\"product_code\":\"QUICK_MSECURITY_PAY\",\"total_amount\":\"334.5\",\"subject\":\"博物管-日常清洁代下单付款\",\"body\":\"博物管-日常清洁代下单付款\",\"out_trade_no\":\"EC2016122109390054\"}");
 
 		keyValues.put("charset", "utf-8");
 
 		keyValues.put("method", "alipay.trade.app.pay");
 
-		keyValues.put("sign_type", rsa2 ? "RSA2" : "RSA");
+		keyValues.put("sign_type", "RSA");
 
-		keyValues.put("timestamp", "2016-07-29 16:55:53");
+		keyValues.put("timestamp", "2017-03-30 16:23:58");
 
 		keyValues.put("version", "1.0");
+		keyValues.put("format", "JSON");
+		keyValues.put("notify_url", "http://oms.kamfat.net/api/ec_order/alipayPaymentNotify");
 
 		return keyValues;
 	}
@@ -141,7 +143,7 @@ public class OrderInfoUtil2_0 {
 	 *
 	 * @return
 	 */
-	public static String getSign(Map<String, String> map, String rsaKey, boolean rsa2) {
+	public static String getSign(Map<String, String> map, String rsaKey) {
 		List<String> keys = new ArrayList<String>(map.keySet());
 		// key排序
 		Collections.sort(keys);
@@ -158,7 +160,9 @@ public class OrderInfoUtil2_0 {
 		String tailValue = map.get(tailKey);
 		authInfo.append(buildKeyValue(tailKey, tailValue, false));
 
-		String oriSign = SignUtils.sign(authInfo.toString(), rsaKey, rsa2);
+		String oriSign = SignUtils.sign(authInfo.toString(), rsaKey);
+//		String temp = "app_id=2016121904424419&biz_content={\"body\":\"博物管-日常清洁代下单付款\",\"product_code\":\"QUICK_MSECURITY_PAY\",\"subject\":\"博物管-日常清洁代下单付款\",\"total_amount \":\"334.5\",\"out_trade_no\":\"EC2016122109390054\"}&charset=utf-8&format=JSON&method=alipay.trade.app.pay&notify_url=http://oms.kamfat.net/api/ec_order/alipayPaymentNotify&sign_type=RSA&timestamp=2017-01-16 16:23:58&version=1.0";
+//		String oriSign = SignUtils.sign(temp, rsaKey);
 		String encodedSign = "";
 
 		try {

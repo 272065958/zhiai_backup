@@ -55,8 +55,10 @@ public class BankSelectActivity extends BaseListActivity {
             @Override
             public void success(ResultBean response) {
                 hideLoadView();
-                if(!TextUtils.isEmpty(response.datas)){
-                    String[] items = response.datas.split(",");
+                if(!TextUtils.isEmpty(response.datas) && response.datas.length() > 2){
+                    String data = response.datas.substring(1, response.datas.length() -1);
+//                    String[] items = response.datas.split(",");
+                    String[] items = data.split(",");
                     ArrayList<String> list = new ArrayList<>();
                     for (String s : items){
                         list.add(s);

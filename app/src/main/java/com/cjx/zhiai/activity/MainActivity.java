@@ -1,14 +1,20 @@
 package com.cjx.zhiai.activity;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +39,7 @@ import java.io.File;
  * 程序主界面
  */
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
-
+    final int REQUEST_LOCATION_PERMISSION = 10;
     MainPeopleFragment mainPeopleFragment;
     MainDoctorFragment mainDoctorFragment;
     ScanFragment scanFragment;
@@ -66,7 +72,9 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         super.onResume();
         if (viewPager == null) {
             init();
-            LocationUtil.getInstance().startLocation(getApplicationContext()); // 获取定位
+            if(checkPermission()){
+                LocationUtil.getInstance().startLocation(getApplicationContext()); // 获取定位
+            }
             MyApplication.getInstance().initHuanXin(); // 初始化环信
         }
     }
@@ -277,6 +285,52 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             currentRefreshFragment = this.l[index];
             this.l[index] = fragment;
             notifyDataSetChanged();
+        }
+    }
+
+    // 检查是否有读写文件到sdcard
+    private boolean checkPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                explainDialog();
+            } else {
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        REQUEST_LOCATION_PERMISSION);
+            }
+            return false;
+        }
+        return true;
+    }
+
+    // 显示获取权限说明
+    private void explainDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("程序多处需要用到位置权限,是否授权？")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //请求权限
+                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                REQUEST_LOCATION_PERMISSION);
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        showToast("您不允许获取自己当前位置");
+                    }
+                })
+                .create().show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_LOCATION_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                showToast("您将无法正常使用图片缓存功能");
+            } else {
+                LocationUtil.getInstance().startLocation(getApplicationContext()); // 获取定位
+            }
         }
     }
 

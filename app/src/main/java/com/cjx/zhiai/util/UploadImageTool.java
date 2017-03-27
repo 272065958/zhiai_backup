@@ -16,9 +16,7 @@ import com.cjx.zhiai.http.HttpUtils;
 import com.cjx.zhiai.http.MyCallbackInterface;
 import com.cjx.zhiai.http.ProgressRequestHandler;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import okhttp3.Call;
 
@@ -26,7 +24,7 @@ import okhttp3.Call;
  * Created by cjx on 2016-12-25.
  */
 public class UploadImageTool implements DialogInterface.OnCancelListener {
-
+    public static final String IMAGE_TYPE_USER = "1", IMAGE_TYPE_DOCTOR = "2", IMAGE_TYPE_OTHER = "3";
     Call call;
     AsyncTask<String, Void, ArrayList<String>> task;
     BaseActivity activity;
@@ -88,9 +86,16 @@ public class UploadImageTool implements DialogInterface.OnCancelListener {
                         activity.dismissLoadDialog();
                     }
                 };
-                call = HttpUtils.getInstance().upload(activity,
-                        new ProgressRequestHandler(activity, activity.loadDialog.getTipView()),
-                        callbackInterface, images, "picture/uploadHeadImages", "imageType", selectType);
+                if(selectType.equals(IMAGE_TYPE_DOCTOR)){
+                    call = HttpUtils.getInstance().upload(activity,
+                            new ProgressRequestHandler(activity, activity.loadDialog.getTipView()),
+                            callbackInterface, images, "user/uploadHeadImages");
+                }else{
+                    call = HttpUtils.getInstance().upload(activity,
+                            new ProgressRequestHandler(activity, activity.loadDialog.getTipView()),
+                            callbackInterface, images, "picture/uploadHeadImages", "imageType", selectType);
+                }
+
             }
         };
         task.execute(photos);

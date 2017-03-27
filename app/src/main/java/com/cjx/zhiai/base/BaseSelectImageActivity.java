@@ -3,7 +3,9 @@ package com.cjx.zhiai.base;
 import android.content.Intent;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.Toast;
 
@@ -22,10 +24,8 @@ import java.io.File;
 public abstract class BaseSelectImageActivity extends BaseActivity implements View.OnClickListener, ItemSelectDialog.OnItemClickListener {
     final int RESULT_IMAGE_SELECT = 102, REQUEST_IMAGE_CAPTURE = 101, REQUEST_IMAGE_CROP = 103;
 
-    protected final String IMAGE_TYPE_USER = "1", IMAGE_TYPE_OTHER = "3";
-
     String mCurrentPhotoPath, cropPath;
-    protected String selectType = IMAGE_TYPE_OTHER;
+    protected String selectType = UploadImageTool.IMAGE_TYPE_OTHER;
     ItemSelectDialog selectDialog;
     UploadImageTool uploadTools;
     @Override
@@ -38,10 +38,10 @@ public abstract class BaseSelectImageActivity extends BaseActivity implements Vi
                     String[] photos = data.getStringArrayExtra("photo");
                     if (photos != null) {
                         switch (selectType) {
-                            case IMAGE_TYPE_OTHER:
+                            case UploadImageTool.IMAGE_TYPE_OTHER:
                                 uploadTools.upload(photos);
                                 break;
-                            case IMAGE_TYPE_USER:
+                            case UploadImageTool.IMAGE_TYPE_USER:
                                 startCropIntent(photos[0]);
                                 break;
                         }
@@ -50,10 +50,10 @@ public abstract class BaseSelectImageActivity extends BaseActivity implements Vi
                 break;
             case REQUEST_IMAGE_CAPTURE:
                 switch (selectType) {
-                    case IMAGE_TYPE_OTHER:
+                    case UploadImageTool.IMAGE_TYPE_OTHER:
                         uploadTools.upload(new String[]{mCurrentPhotoPath});
                         break;
-                    case IMAGE_TYPE_USER:
+                    case UploadImageTool.IMAGE_TYPE_USER:
                         startCropIntent(mCurrentPhotoPath);
                         break;
                 }
@@ -93,7 +93,15 @@ public abstract class BaseSelectImageActivity extends BaseActivity implements Vi
                     mCurrentPhotoPath = Tools.getTempPath(BaseSelectImageActivity.this) +
                             "IMG_" + System.currentTimeMillis() + ".jpg";
                 }
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mCurrentPhotoPath)));
+                File file = new File(mCurrentPhotoPath);
+                Uri uri;
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+                    uri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider",
+                            file);
+                }else{
+                    uri = Uri.fromFile(file);
+                }
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             } else {
                 Toast.makeText(BaseSelectImageActivity.this, "no system camera find", Toast.LENGTH_SHORT).show();
@@ -101,7 +109,7 @@ public abstract class BaseSelectImageActivity extends BaseActivity implements Vi
         } else {
             Intent intent = new Intent(this, ImageSelectActivity.class);
             switch (selectType) {
-                case IMAGE_TYPE_USER:
+                case UploadImageTool.IMAGE_TYPE_USER:
                     intent.setAction("");
                     break;
             }

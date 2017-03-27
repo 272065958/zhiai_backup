@@ -18,7 +18,6 @@ import com.cjx.zhiai.base.BaseActivity;
 import com.cjx.zhiai.bean.ResultBean;
 import com.cjx.zhiai.http.HttpUtils;
 import com.cjx.zhiai.http.MyCallbackInterface;
-import com.cjx.zhiai.util.OrderInfoUtil2_0;
 import com.cjx.zhiai.util.PayResult;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -26,6 +25,9 @@ import com.tencent.mm.sdk.constants.Build;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,16 +49,12 @@ public class PayActivity extends BaseActivity {
 //    /**
 //     * 支付宝支付业务：入参app_id
 //     */
-    public static final String APPID = "2016073100135668";
-    /** 支付宝账户登录授权业务：入参pid值 */
-    public static final String PID = "";
-    /** 支付宝账户登录授权业务：入参target_id值 */
-    public static final String TARGET_ID = "2088521540525430";
+//    public static final String APPID = "2017010504869775";
 //    /**
 //     * 商户私钥，pkcs8格式
 //     */
-    public static final String RSA2_PRIVATE = "";
-    public static final String RSA_PRIVATE = "MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBALn/B+MGSYeoKs9GvJ/5ugWjjcGzt/bQ5rjuRRjpJNF0VQBVmh4yGY3SmWkQ1/s9qUdwUnID+W9rPgdp0Fm3MYvX/GZMJT0Smw+e1+T9wiV9EWiV4SnI7jplaNTXtuB1UPBqmtHFJ6ZGdVdGEQnCGDYxFFU+D5pYFZ0TX+gObG1BAgMBAAECgYBuErkXKQRhDSvwqTs+LatiZO2iwfpQTkcNEK3B1VBdyMv5O6/OyPWIkicKH9bCMDa7OYUBRsranowCFSQhxCHET9D5M6MovH6YqSpJ19EKvr+q1oums6l4uCypN/NwLPULC/N9itSgre45uF5jyBJZjG5NY9R8kHc818ZhV8agAQJBANut1qDn50l4Wr7mzfidnM5i5HCvywCS1x/VXNhS/mpwYfFj/pb32MaUDOvQJ0kaQhqh5R6tW6V2cM6oLsEE2YECQQDYv4dJ8ixAR2C6CRUodnLqUi2VxjCagkMcJGtkq5wTHqdnURJidHN4xZ3sjXZpt7T7Wl3/LJfxesM4t20Qz/PBAkAZu7JhpOi9/YA7zpOgJO5iaskxvhX8mjbi/r5ihM5Sr5l5imofSyc0k9Ezqm1/rbjCn+ZUAqCysD4kpyTa7XOBAkBK1IT+sI86eeoZED2vxIUUBN8cEFqDXWmR87jn/p9ZsoGVF9ZDC3U6Qu+s1YIGKZhgFujQyjKC+iEgGaOb5E+BAkAQ6CAx9rQ4ibUBADLKEv4Aibw3kKgbE0pmiRNJM8iOcnDkH0zEPSZ8zPTc9bXp4V9IJiFzadYKGP6ehsXJkbQ3";
+//    public static final String RSA_PRIVATE = "MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBALn/B+MGSYeoKs9GvJ/5ugWjjcGzt/bQ5rjuRRjpJNF0VQBVmh4yGY3SmWkQ1/s9qUdwUnID+W9rPgdp0Fm3MYvX/GZMJT0Smw+e1+T9wiV9EWiV4SnI7jplaNTXtuB1UPBqmtHFJ6ZGdVdGEQnCGDYxFFU+D5pYFZ0TX+gObG1BAgMBAAECgYBuErkXKQRhDSvwqTs+LatiZO2iwfpQTkcNEK3B1VBdyMv5O6/OyPWIkicKH9bCMDa7OYUBRsranowCFSQhxCHET9D5M6MovH6YqSpJ19EKvr+q1oums6l4uCypN/NwLPULC/N9itSgre45uF5jyBJZjG5NY9R8kHc818ZhV8agAQJBANut1qDn50l4Wr7mzfidnM5i5HCvywCS1x/VXNhS/mpwYfFj/pb32MaUDOvQJ0kaQhqh5R6tW6V2cM6oLsEE2YECQQDYv4dJ8ixAR2C6CRUodnLqUi2VxjCagkMcJGtkq5wTHqdnURJidHN4xZ3sjXZpt7T7Wl3/LJfxesM4t20Qz/PBAkAZu7JhpOi9/YA7zpOgJO5iaskxvhX8mjbi/r5ihM5Sr5l5imofSyc0k9Ezqm1/rbjCn+ZUAqCysD4kpyTa7XOBAkBK1IT+sI86eeoZED2vxIUUBN8cEFqDXWmR87jn/p9ZsoGVF9ZDC3U6Qu+s1YIGKZhgFujQyjKC+iEgGaOb5E+BAkAQ6CAx9rQ4ibUBADLKEv4Aibw3kKgbE0pmiRNJM8iOcnDkH0zEPSZ8zPTc9bXp4V9IJiFzadYKGP6ehsXJkbQ3";
+//    public static final String RSA_PRIVATE = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC5/wfjBkmHqCrPRryf+boFo43Bs7f20Oa47kUY6STRdFUAVZoeMhmN0plpENf7PalHcFJyA/lvaz4HadBZtzGL1/xmTCU9EpsPntfk/cIlfRFoleEpyO46ZWjU17bgdVDwaprRxSemRnVXRhEJwhg2MRRVPg+aWBWdE1/oDmxtQQIDAQAB";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,14 +104,11 @@ public class PayActivity extends BaseActivity {
             case R.id.pay_button:
                 if (currentPayType != null) {
                     pay();
-//                    boolean rsa2 = (RSA2_PRIVATE.length() > 0);
-//                    Map<String, String> authInfoMap = OrderInfoUtil2_0.buildAuthInfoMap(PID, APPID, TARGET_ID, rsa2);
-//                    String info = OrderInfoUtil2_0.buildOrderParam(authInfoMap);
-//
-//                    String privateKey = rsa2 ? RSA2_PRIVATE : RSA_PRIVATE;
-//                    String sign = OrderInfoUtil2_0.getSign(authInfoMap, privateKey, rsa2);
-//                    final String authInfo = info + "&" + sign;
-//                    alipayPay(authInfo);
+//                    Map<String, String> params = OrderInfoUtil2_0.buildOrderParamMap(APPID);
+//                    String orderParam = OrderInfoUtil2_0.buildOrderParam(params);
+//                    String sign = OrderInfoUtil2_0.getSign(params, RSA_PRIVATE);
+//                    final String orderInfo = orderParam + "&" + sign;
+//                    alipayPay(orderInfo);
                 }else{
                     showToast("请选择支付方式");
                 }
@@ -132,7 +127,13 @@ public class PayActivity extends BaseActivity {
                         weixinPay(response.datas);
                         break;
                     case ALIPAY_PAY: // 支付宝支付
-                        alipayPay(response.datas);
+                        try {
+                            JSONObject object = new JSONObject(response.datas);
+                            alipayPay(object.getString("orderString"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            showToast(e.getMessage());
+                        }
                         break;
                 }
             }

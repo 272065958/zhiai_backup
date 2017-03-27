@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +16,6 @@ import android.widget.TextView;
 
 import com.cjx.zhiai.MyApplication;
 import com.cjx.zhiai.R;
-import com.cjx.zhiai.activity.FeaturedActivity;
 import com.cjx.zhiai.adapter.AdverPagerAdapter;
 import com.cjx.zhiai.advisory.ImageAdvisoryActivity;
 import com.cjx.zhiai.base.BaseActivity;
@@ -91,6 +88,14 @@ public class MainDoctorFragment extends Fragment implements View.OnClickListener
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(canLoadNew){
+            loadNews();
+        }
+    }
+
     // 加载首页轮播图
     private void loadData() {
         MyCallbackInterface callbackInterface = new MyCallbackInterface() {
@@ -150,6 +155,7 @@ public class MainDoctorFragment extends Fragment implements View.OnClickListener
 
     // 加载每日精选
     private void loadNews(){
+        canLoadNew = false;
         MyCallbackInterface callbackInterface = new MyCallbackInterface() {
             @Override
             public void success(ResultBean response) {
@@ -168,70 +174,14 @@ public class MainDoctorFragment extends Fragment implements View.OnClickListener
                 "page", "1", "limit", "100", "day", sdf.format(new Date()));
     }
 
+    boolean canLoadNew = false;
     // 显示每日精选
     private void displayNews(ArrayList<?> list) {
         if(activity.isFinishing()){
             return ;
         }
+        canLoadNew = true;
         listView.setAdapter(new MessageAdapter(list, activity));
-//        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycle_view);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
-//        recyclerView.setLayoutManager(layoutManager);
-//        recyclerView.setAdapter(new NewsAdapter(list));
-    }
-
-    class TestNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
-        ArrayList<?> list;
-        public TestNewsAdapter(ArrayList<?> list) {
-            this.list = list;
-        }
-
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            Log.e("TAG", "create item view");
-            View view = View.inflate(getActivity(), R.layout.item_system_message, null);
-            view.setOnClickListener(this);
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            ViewHolder ho = (ViewHolder) holder;
-            if(position == 0){
-                ho.topLineView.setVisibility(View.INVISIBLE);
-            }else{
-                ho.topLineView.setVisibility(View.VISIBLE);
-            }
-        }
-
-        @Override
-        public int getItemViewType(int position) {
-            return position;
-        }
-
-        @Override
-        public int getItemCount() {
-            return list == null ? 0 : list.size();
-        }
-
-        @Override
-        public void onClick(View v) {
-            Intent featuredIntent = new Intent(activity, FeaturedActivity.class);
-            featuredIntent.setAction((String)v.getTag(R.id.featured_image));
-            startActivity(featuredIntent);
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            View topLineView;
-            TextView timeView, contentView;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                topLineView = itemView.findViewById(R.id.message_top_line);
-                timeView = (TextView) itemView.findViewById(R.id.message_time);
-                contentView = (TextView) itemView.findViewById(R.id.message_content);
-            }
-        }
     }
 
     class MessageAdapter extends MyBaseAdapter {

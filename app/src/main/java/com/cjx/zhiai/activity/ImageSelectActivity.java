@@ -1,9 +1,12 @@
 package com.cjx.zhiai.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -11,7 +14,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.MediaColumns;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -45,6 +51,8 @@ import java.util.List;
  * Created by cjx  选择手机图片界面
  */
 public class ImageSelectActivity extends BaseActivity implements OnClickListener {
+    final int REQUEST_STORE_PERMISSION = 8;
+
     List<FileBean> folderList;
     GridView folderGrid, imageGrid;
     TextView uploadTv;
@@ -64,37 +72,11 @@ public class ImageSelectActivity extends BaseActivity implements OnClickListener
                 onBackPressed();
             }
         }, -1);
-        // 一个显示文件夹的gridview 一个显示图片列表的gridview
-        folderGrid = (GridView) findViewById(R.id.photo_select_folder);
-        imageGrid = (GridView) findViewById(R.id.photo_select_image);
-        imageGrid.setOnItemClickListener(new OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                if (uploadTv != null) {
-                    uploadTv.setText(String.format(getString(R.string.select_photo_upload),
-                            imageAdapter.clickAt(view, position)));
-                } else {
-                    String path = (String) view.getTag(R.id.photo_select_image);
-                    Intent data = new Intent();
-                    data.putExtra("photo", new String[]{path});
-                    setResult(RESULT_OK, data);
-                    finish();
-                }
-            }
-        });
-
-        String action = getIntent().getAction();
-        if (action == null) { // 这里控制是否多选图片  没有action表示可以多选
-            uploadTv = (TextView) findViewById(R.id.photo_select_tip);
-            uploadTv.setOnClickListener(this);
-            uploadTv.setVisibility(View.VISIBLE);
-            uploadTv.setText(String.format(getString(R.string.select_photo_upload), 0));
+        if(checkPermission()){
+            initView();
         }
-        screenWidth = (MyApplication.getInstance()).getScreen_width();
 
-        loadImage();
     }
 
     @Override
@@ -152,6 +134,87 @@ public class ImageSelectActivity extends BaseActivity implements OnClickListener
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_STORE_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                showToast("您将无法正常使用图片缓存功能");
+            } else {
+                initView();
+            }
+        }
+    }
+
+    private void initView(){
+        // 一个显示文件夹的gridview 一个显示图片列表的gridview
+        folderGrid = (GridView) findViewById(R.id.photo_select_folder);
+        imageGrid = (GridView) findViewById(R.id.photo_select_image);
+        imageGrid.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                if (uploadTv != null) {
+                    uploadTv.setText(String.format(getString(R.string.select_photo_upload),
+                            imageAdapter.clickAt(view, position)));
+                } else {
+                    String path = (String) view.getTag(R.id.photo_select_image);
+                    Intent data = new Intent();
+                    data.putExtra("photo", new String[]{path});
+                    setResult(RESULT_OK, data);
+                    finish();
+                }
+            }
+        });
+
+        String action = getIntent().getAction();
+        if (action == null) { // 这里控制是否多选图片  没有action表示可以多选
+            uploadTv = (TextView) findViewById(R.id.photo_select_tip);
+            uploadTv.setOnClickListener(this);
+            uploadTv.setVisibility(View.VISIBLE);
+            uploadTv.setText(String.format(getString(R.string.select_photo_upload), 0));
+        }
+        screenWidth = (MyApplication.getInstance()).getScreen_width();
+
+        loadImage();
+    }
+
+    // 检查是否有读写文件到sdcard
+    private boolean checkPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                explainDialog();
+            } else {
+                ActivityCompat.requestPermissions(ImageSelectActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        REQUEST_STORE_PERMISSION);
+            }
+            return false;
+        }
+        return true;
+    }
+
+    // 显示获取权限说明
+    private void explainDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("此功能需要获取读取手机内存,是否授权？")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //请求权限
+                        ActivityCompat.requestPermissions(ImageSelectActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                REQUEST_STORE_PERMISSION);
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        showToast("您不允许使用此功能");
+                        finish();
+                    }
+                })
+                .create().show();
     }
 
     private void showFolderView() {

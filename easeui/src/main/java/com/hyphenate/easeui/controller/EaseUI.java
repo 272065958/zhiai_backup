@@ -111,7 +111,7 @@ public final class EaseUI {
         }else{
             EMClient.getInstance().init(context, options);
         }
-        
+        EMClient.getInstance().setDebugMode(false);
         initNotifier();
         registerMessageListener();
         
@@ -182,7 +182,7 @@ public final class EaseUI {
     
     /**
      * set user profile provider
-     * @param provider
+     * @param userProvider
      */
     public void setUserProfileProvider(EaseUserProfileProvider userProvider){
         this.userProvider = userProvider;

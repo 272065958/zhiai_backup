@@ -104,6 +104,11 @@ public class ExpertReservationActivity extends BaseActivity implements AdapterVi
 
     private void displayData(ArrayList<?> list){
         adapter.notifyDataSetChanged(list);
+        if(list == null || list.size() == 0){
+            TextView emptyView = (TextView) findViewById(R.id.empty_view);
+            emptyView.setText("没有可预约时间");
+            emptyView.setVisibility(View.VISIBLE);
+        }
     }
 
     public void select(View v){

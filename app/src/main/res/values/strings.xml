@@ -139,6 +139,7 @@
     <string name="patient_is_comfirm">已确认</string>
     <string name="patient_is_timeout">已过期</string>
     <string name="patient_is_cancel">已取消</string>
+    <string name="patient_pre_pay">待付款</string>
     <string name="time_add_title">添加时间</string>
     <string name="time_manager_title">管理时间</string>
 

@@ -69,7 +69,7 @@
 -keep class sun.misc.Unsafe { *; }
 #-keep class com.google.gson.stream.** { *; }
 # Application classes that will be serialized/deserialized over Gson
--keep class net.kamfat.kamfatoa.bean.** { *; }
+-keep class com.cjx.zhiai.bean.** { *; }
 ##---------------End: proguard configuration for Gson  ----------
 
 ### okhttp3
@@ -91,3 +91,32 @@
 ### 百度定位
 -keep class com.baidu.** {*;}
 -dontwarn  com.baidu.**
+
+### alipay
+-keep class com.alipay.{*;}
+-dontwarn com.alipay.**
+
+### weixin
+-keep class com.tencent.{*;}
+-dontwarn com.tencent.**
+
+### mob
+-keep class com.mob.{*;}
+-dontwarn com.mob.**
+
+### google-play
+-keep class com.google.android.gms.{*;}
+-dontwarn com.google.android.gms.**
+
+### hyphenatechat
+-keep class internal.org.apache.{*;}
+-dontwarn internal.org.apache.**
+
+### apache
+-keep class com.android.internal.http.{*;}
+-dontwarn com.android.internal.http.**
+-keep class android.net.{*;}
+-dontwarn android.net.**
+-keep class org.apache.http.{*;}
+-dontwarn org.apache.http.**
+

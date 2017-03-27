@@ -72,7 +72,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/reservation_department_tip"
-        android:text="预约成功"
         android:textColor="@color/main_color"
         android:textSize="@dimen/text_size_small" />
 

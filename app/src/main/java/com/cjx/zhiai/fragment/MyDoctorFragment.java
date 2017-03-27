@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +23,8 @@ import com.cjx.zhiai.activity.ImageSelectActivity;
 import com.cjx.zhiai.base.BaseActivity;
 import com.cjx.zhiai.bean.UserBean;
 import com.cjx.zhiai.dialog.ItemSelectDialog;
-import com.cjx.zhiai.my.AdvisoryHistoryActivity;
 import com.cjx.zhiai.my.HelpActivity;
 import com.cjx.zhiai.my.IncomeActivity;
-import com.cjx.zhiai.my.OrderHistoryActivity;
-import com.cjx.zhiai.my.ReservationHistoryActivity;
 import com.cjx.zhiai.my.SettingActivity;
 import com.cjx.zhiai.my.UpdateDoctorInfoActivity;
 import com.cjx.zhiai.util.Tools;
@@ -41,7 +40,6 @@ public class MyDoctorFragment extends Fragment implements View.OnClickListener, 
     final int RESULT_IMAGE_SELECT = 102, REQUEST_IMAGE_CAPTURE = 101, REQUEST_IMAGE_CROP = 103;
 
     final int RESULT_SETTING = 1;
-    final String IMAGE_TYPE_DOCTOR = "2";
 
     String mCurrentPhotoPath, cropPath;
     View view;
@@ -127,7 +125,15 @@ public class MyDoctorFragment extends Fragment implements View.OnClickListener, 
                 if (mCurrentPhotoPath == null) {
                     mCurrentPhotoPath = Tools.getTempPath(getActivity()) + "IMG_" + System.currentTimeMillis() + ".jpg";
                 }
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mCurrentPhotoPath)));
+                File file = new File(mCurrentPhotoPath);
+                Uri uri;
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+                    uri = FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName() + ".provider",
+                            file);
+                }else{
+                    uri = Uri.fromFile(file);
+                }
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             } else {
                 Toast.makeText(getActivity(), "no system camera find", Toast.LENGTH_SHORT).show();
@@ -181,7 +187,7 @@ public class MyDoctorFragment extends Fragment implements View.OnClickListener, 
         if (selectDialog == null) {
             selectDialog = new ItemSelectDialog(getContext());
             selectDialog.setItemsByArray(new String[]{"拍照", "选择照片"}, this);
-            uploadTools = new UploadImageTool((BaseActivity) getActivity(), IMAGE_TYPE_DOCTOR, new UploadImageTool.UploadResult() {
+            uploadTools = new UploadImageTool((BaseActivity) getActivity(), UploadImageTool.IMAGE_TYPE_DOCTOR, new UploadImageTool.UploadResult() {
                 @Override
                 public void onResult(String string) {
                     Tools.setImageInView(getActivity(), string, headView);

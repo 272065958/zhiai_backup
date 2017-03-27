@@ -166,6 +166,9 @@ public class Tools {
             case "4":
                 textView.setText(R.string.patient_is_cancel);
                 break;
+            case "5":
+                textView.setText(R.string.patient_pre_pay);
+                break;
         }
     }
 }

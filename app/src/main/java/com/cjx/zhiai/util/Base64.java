@@ -61,7 +61,7 @@ public final class Base64 {
 
 	/**
 	 * Encodes hex octects into Base64
-	 * 
+	 *
 	 * @param binaryData
 	 *            Array containing binaryData
 	 * @return Encoded Base64 array
@@ -115,7 +115,7 @@ public final class Base64 {
 		if (fewerThan24bits == EIGHTBIT) {
 			b1 = binaryData[dataIndex];
 			k = (byte) (b1 & 0x03);
-			
+
 			byte val1 = ((b1 & SIGN) == 0) ? (byte) (b1 >> 2)
 					: (byte) ((b1) >> 2 ^ 0xc0);
 			encodedData[encodedIndex++] = lookUpBase64Alphabet[val1];
@@ -144,7 +144,7 @@ public final class Base64 {
 
 	/**
 	 * Decodes Base64 data into octects
-	 * 
+	 *
 	 * @param encoded
 	 *            string containing Base64 data
 	 * @return Array containind decoded data.
@@ -245,7 +245,7 @@ public final class Base64 {
 
 	/**
 	 * remove WhiteSpace from MIME containing encoded Base64 data.
-	 * 
+	 *
 	 * @param data
 	 *            the byte array of base64 data (with WS)
 	 * @return the new length
