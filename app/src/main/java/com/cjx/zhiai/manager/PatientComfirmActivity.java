@@ -3,6 +3,7 @@ package com.cjx.zhiai.manager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cjx.zhiai.R;
@@ -12,6 +13,7 @@ import com.cjx.zhiai.bean.PatientBean;
 import com.cjx.zhiai.bean.ResultBean;
 import com.cjx.zhiai.http.HttpUtils;
 import com.cjx.zhiai.http.MyCallbackInterface;
+import com.cjx.zhiai.util.Tools;
 import com.hyphenate.easeui.EaseConstant;
 
 /**
@@ -42,6 +44,21 @@ public class PatientComfirmActivity extends BaseActivity {
                 findViewById(R.id.patient_update).setVisibility(View.GONE);
                 break;
         }
+        initView();
+    }
+
+    private void initView() {
+        ImageView headView = (ImageView) findViewById(R.id.discover_head);
+        ImageView sexView = (ImageView) findViewById(R.id.discover_sex);
+        TextView nameView = (TextView) findViewById(R.id.discover_name);
+        TextView timeView = (TextView) findViewById(R.id.patient_content);
+        TextView reseanView = (TextView) findViewById(R.id.patient_resean);
+
+        Tools.setImageInView(this, patientBean.head_image, headView);
+        nameView.setText(patientBean.user_name);
+        sexView.setImageResource(patientBean.sex.equals("f") ? R.drawable.woman : R.drawable.man);
+        timeView.setText(String.format(getString(R.string.advisort_time_format), patientBean.bespeak_time.replace("=", " ")));
+        reseanView.setText(patientBean.bespeak_content);
     }
 
     public void onClick(View v){

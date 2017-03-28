@@ -164,6 +164,7 @@ public class PayActivity extends BaseActivity {
 
     // 访问后台是否成功
     private void checkPayResult() {
+        setResult(RESULT_OK);
         finish();
 //        MyCallbackInterface callbackInterface = new MyCallbackInterface() {
 //            @Override

@@ -98,6 +98,7 @@ public class PatientRecordActivity extends BaseActivity implements TextWatcher {
                 dismissLoadDialog();
                 button.setText(R.string.button_update);
                 showToast(response.errorMsg);
+                setResult(RESULT_OK);
             }
 
             @Override
@@ -106,7 +107,6 @@ public class PatientRecordActivity extends BaseActivity implements TextWatcher {
             }
         };
         HttpUtils.getInstance().postEnqueue(this, callbackInterface, "base/updateNotes", "bespeak_id", pb.bespeak_id, "notes", content);
-//        HttpUtils.getInstance().postEnqueue(this, callbackInterface, "base/addRecipe", "bespeak_id", pb.bespeak_id, "recipe_content", content);
     }
 
     // 提交诊断方案

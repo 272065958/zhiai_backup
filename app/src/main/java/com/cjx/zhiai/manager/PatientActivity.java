@@ -44,6 +44,14 @@ public class PatientActivity extends BaseListActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK && requestCode == 1){
+            loadData();
+        }
+    }
+
+    @Override
     protected void loadData() {
         HttpUtils.getInstance().postEnqueue(this, getMycallback(new TypeToken<ArrayList<PatientBean>>() {
                 }.getType()), "base/getHistory", "user_id", MyApplication.getInstance().user.user_id, "query_type", "4",
@@ -85,7 +93,7 @@ public class PatientActivity extends BaseListActivity {
     class PatientAdapter extends MyBaseAdapter implements Filterable {
         ArrayList<?> autoList;
         Filter filter;
-        public PatientAdapter(ArrayList<?> list, BaseActivity context) {
+        PatientAdapter(ArrayList<?> list, BaseActivity context) {
             super(list, context);
             autoList = list;
         }
@@ -129,13 +137,20 @@ public class PatientActivity extends BaseListActivity {
                     @Override
                     protected void publishResults(CharSequence constraint, FilterResults results) {
                         notifyDataSetChanged((ArrayList<PatientBean>)results.values);
+                        if (list == null || list.isEmpty()) {
+                            emptyView.setVisibility(View.VISIBLE);
+                            listView.setVisibility(View.GONE);
+                        } else {
+                            emptyView.setVisibility(View.GONE);
+                            listView.setVisibility(View.VISIBLE);
+                        }
                     }
                 };
             }
             return filter;
         }
 
-        protected ArrayList<?> listFiltering(ArrayList<?> autoList, CharSequence constraint) {
+        ArrayList<?> listFiltering(ArrayList<?> autoList, CharSequence constraint) {
             final ArrayList<PatientBean> filterList = new ArrayList<>();
             for(Object obj : autoList){
                 PatientBean ob = (PatientBean) obj;
@@ -147,8 +162,15 @@ public class PatientActivity extends BaseListActivity {
         }
 
         // 清除筛选条件
-        public void clearTextFilter() {
+        void clearTextFilter() {
             notifyDataSetChanged(autoList);
+            if (list == null || list.isEmpty()) {
+                emptyView.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
+            } else {
+                emptyView.setVisibility(View.GONE);
+                listView.setVisibility(View.VISIBLE);
+            }
         }
 
         class ViewHolder extends MyViewHolder implements View.OnClickListener {
@@ -171,7 +193,7 @@ public class PatientActivity extends BaseListActivity {
                 PatientBean pb = (PatientBean) v.getTag(R.id.patient_content);
                 Intent intent = new Intent(context, PatientRecordActivity.class);
                 intent.putExtra("patient", pb);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         }
     }

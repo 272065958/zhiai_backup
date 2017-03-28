@@ -39,6 +39,15 @@ public class OrderDetailActivity extends BaseActivity {
         initView();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK && requestCode == 1){
+            setResult(RESULT_OK);
+            finish();
+        }
+    }
+
     public void onClick(View v){
         switch (v.getId()){
             case R.id.button_cancel: // 取消订单
@@ -49,7 +58,7 @@ public class OrderDetailActivity extends BaseActivity {
                 intent.putExtra("pay_price", orderBean.order_total);
                 intent.putExtra("pay_tip", "订单支付");
                 intent.putExtra("id", orderBean.order_mumber);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 break;
         }
     }

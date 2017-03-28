@@ -81,11 +81,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/reservation_time_tip"
-        android:background="@drawable/red_frament_bg"
         android:gravity="center"
         android:paddingBottom="@dimen/block_line_height"
         android:paddingTop="@dimen/block_line_height"
         android:text="视频诊断"
-        android:textColor="@android:color/white"
         android:textSize="@dimen/text_size_small" />
 </RelativeLayout>

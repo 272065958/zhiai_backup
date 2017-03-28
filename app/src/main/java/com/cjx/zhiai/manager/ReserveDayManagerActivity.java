@@ -42,7 +42,8 @@ public class ReserveDayManagerActivity extends BaseListActivity {
     @Override
     protected void loadData() {
         HttpUtils.getInstance().postEnqueue(this, getMycallback(new TypeToken<ArrayList<PatientBean>>() {
-        }.getType()), "base/oneDayBespeak", "day", action, "page", "1", "limit", "100");
+        }.getType()), "base/oneDayBespeak", "day", action,
+                "page", "1", "limit", "100");
     }
 
     @Override

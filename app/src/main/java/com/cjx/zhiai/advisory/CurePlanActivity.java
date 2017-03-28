@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 /**
  * Created by cjx on 2016-12-07.
+ * 治疗方案
  */
 public class CurePlanActivity extends BaseListActivity {
     @Override
@@ -33,8 +34,16 @@ public class CurePlanActivity extends BaseListActivity {
 
     @Override
     protected void loadData() {
-        HttpUtils.getInstance().postEnqueue(this, getMycallback(new TypeToken<CurePlanBean>() {
+        HttpUtils.getInstance().postEnqueue(this, getMycallback(new TypeToken<ArrayList<CurePlanBean>>() {
         }.getType()), "base/selectRecipeList", "patient_id", MyApplication.getInstance().user.user_id, "page", "1", "limit", "100");
+    }
+
+    @Override
+    protected void onLoadResult(ArrayList<?> list) {
+        for(Object obj : list){
+            ((CurePlanBean)obj).format();
+        }
+        super.onLoadResult(list);
     }
 
     @Override
@@ -52,7 +61,7 @@ public class CurePlanActivity extends BaseListActivity {
 
     class PlanAdapter extends MyBaseAdapter {
 
-        public PlanAdapter(ArrayList<?> list, BaseActivity context) {
+        PlanAdapter(ArrayList<?> list, BaseActivity context) {
             super(list, context);
         }
 

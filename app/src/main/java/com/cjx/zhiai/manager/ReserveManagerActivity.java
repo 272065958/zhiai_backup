@@ -25,6 +25,8 @@ import java.util.Calendar;
  */
 public class ReserveManagerActivity extends BaseListActivity implements View.OnClickListener {
 
+    String currentDay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,15 +90,7 @@ public class ReserveManagerActivity extends BaseListActivity implements View.OnC
             tv.setBackgroundResource(R.drawable.red_cricle_bg);
         }
         getDayStr(year, month, dayCount, day, tv);
-//        int pointWidth = getResources().getDimensionPixelOffset(R.dimen.auto_margin);
-//        margin = (int) ((width - pointWidth * 7) / 7f);
-//        LinearLayout pointContent = (LinearLayout) findViewById(R.id.manager_point_content);
-//        paddint = margin / 2;
-//        pointContent.setPadding(paddint, 0, paddint, 0);
-//        for (int i = 0; i < 6; i++) {
-//            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) pointContent.getChildAt(i).getLayoutParams();
-//            lp.rightMargin = margin;
-//        }
+        currentDay = year + "-" + (month > 9 ? month : "0" + month) + "-" + (day > 9 ? day : "0" + day);
     }
 
     @Override
@@ -110,7 +104,8 @@ public class ReserveManagerActivity extends BaseListActivity implements View.OnC
     @Override
     protected void loadData() {
         HttpUtils.getInstance().postEnqueue(this, getMycallback(new TypeToken<ArrayList<PatientBean>>() {
-        }.getType()), "base/getHistory", "user_id", MyApplication.getInstance().user.user_id, "query_type", "5", "page", "1", "limit", "100");
+                }.getType()), "base/oneDayBespeak", "day", currentDay,
+                "page", "1", "limit", "100");
     }
 
     @Override
@@ -177,7 +172,7 @@ public class ReserveManagerActivity extends BaseListActivity implements View.OnC
             day = day - maxCount;
         }
         tv.setText(String.valueOf(day));
-        tv.setTag(year + "-" + month + "-" + day);
+        tv.setTag(year + "-" + (month > 9 ? month : "0" + month) + "-" + (day > 9 ? day : "0" + day));
         tv.setOnClickListener(this);
     }
 }

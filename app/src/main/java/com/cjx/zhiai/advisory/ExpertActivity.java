@@ -27,6 +27,7 @@ import com.cjx.zhiai.util.Tools;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 /**
@@ -199,10 +200,11 @@ public class ExpertActivity extends BaseFilterActivity {
             ho.departmentView.setText(doctor.office_name);
             ho.postView.setText(doctor.position);
             ho.describeView.setText(doctor.honor);
-            if (doctor.price == 0) {
+            if (doctor.price.equals("0")) {
                 ho.priceView.setText(R.string.expert_price_free);
             } else {
-                ho.priceView.setText(String.format(getString(R.string.expert_price_format), doctor.price));
+                String price = (new BigDecimal(doctor.price).divide(new BigDecimal("100"))).toString();
+                ho.priceView.setText(String.format(getString(R.string.expert_price_format), price));
             }
         }
 

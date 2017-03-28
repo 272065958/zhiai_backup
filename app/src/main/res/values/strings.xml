@@ -124,7 +124,7 @@
     <string name="add_image">添加图片</string>
     <string name="add_image_hint">病症不菲,检查报告或者其他病情资料</string>
     <string name="expert_price_free">免费</string>
-    <string name="expert_price_format">%d/h</string>
+    <string name="expert_price_format">%s/h</string>
     <string name="expert_advisory_null">请输入咨询内容</string>
     <string name="expert_reservation_format">咨询费用：%s/h</string>
     <string name="expert_reservation_time_format">预约时间：%s</string>

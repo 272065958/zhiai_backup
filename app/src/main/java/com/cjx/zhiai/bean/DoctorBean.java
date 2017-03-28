@@ -13,7 +13,7 @@ public class DoctorBean implements Serializable{
     public String position;
     public String hospital_name;
     public String honor;
-    public int price;
+    public String price;
     public String skilled;
     public String doctor_summary;
     public String user_real_name;

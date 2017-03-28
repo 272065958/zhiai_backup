@@ -1,9 +1,11 @@
 package com.cjx.zhiai.scan;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -14,6 +16,7 @@ import com.cjx.zhiai.base.BaseActivity;
 import com.cjx.zhiai.base.BaseListActivity;
 import com.cjx.zhiai.base.MyBaseAdapter;
 import com.cjx.zhiai.http.HttpUtils;
+import com.cjx.zhiai.util.LocationUtil;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -38,12 +41,16 @@ public class LocationActivity extends BaseListActivity {
 
     @Override
     protected void loadData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
-        if (sharedPreferences.contains("latitude")) {
-            HttpUtils.getInstance().postEnqueue(this, getMycallback(new TypeToken<ArrayList<String>>() {
-            }.getType()), "article/getAddress", "longitude", sharedPreferences.getString("latitude", ""),
-                    "latitude", sharedPreferences.getString("longitude", ""));
-        } else {
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            LocationUtil.getInstance().setLocationCallback(new LocationUtil.LocationCallback() {
+                @Override
+                public void callback(String lat, String lon) {
+                    HttpUtils.getInstance().postEnqueue(LocationActivity.this, getMycallback(new TypeToken<ArrayList<String>>() {
+                            }.getType()), "article/getAddress", "longitude", lat,
+                            "latitude", lon);
+                }
+            }).startLocation(this);
+        }else{
             ArrayList<String> list = new ArrayList<>();
             onLoadResult(list);
         }

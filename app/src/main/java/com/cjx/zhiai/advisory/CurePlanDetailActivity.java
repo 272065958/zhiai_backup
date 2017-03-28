@@ -9,6 +9,7 @@ import com.cjx.zhiai.bean.CurePlanBean;
 
 /**
  * Created by cjx on 2017/1/19.
+ * 治疗方案详情
  */
 public class CurePlanDetailActivity extends BaseActivity {
     @Override

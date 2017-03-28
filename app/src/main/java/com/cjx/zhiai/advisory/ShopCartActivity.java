@@ -32,7 +32,7 @@ public class ShopCartActivity extends BaseListActivity {
     TextView priceView, payView;
     String allPrice = "0";
     int buyCount;
-
+    BigDecimal multiplyDecimal = new BigDecimal("100");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +77,7 @@ public class ShopCartActivity extends BaseListActivity {
             BigDecimal decimal = new BigDecimal("0");
             for (MedicineBean mb : cartList) {
                 mb.isSelect = true;
-                decimal = decimal.add(new BigDecimal(mb.associator_price).multiply(new BigDecimal(mb.buyCount)));
+                decimal = decimal.add(new BigDecimal(mb.associator_price).divide(multiplyDecimal).multiply(new BigDecimal(mb.buyCount)));
                 buyCount += Integer.parseInt(mb.buyCount);
             }
             allPrice = decimal.toString();
@@ -135,7 +135,7 @@ public class ShopCartActivity extends BaseListActivity {
         }
         selectView.setSelected(mb.isSelect);
         BigDecimal decimal1 = new BigDecimal(allPrice);
-        BigDecimal decimal2 = new BigDecimal(mb.associator_price).multiply(new BigDecimal(mb.buyCount));
+        BigDecimal decimal2 = new BigDecimal(mb.associator_price).divide(multiplyDecimal).multiply(new BigDecimal(mb.buyCount));
         if (mb.isSelect) {
             allPrice = decimal1.add(decimal2).toString();
             buyCount += Integer.parseInt(mb.buyCount);
@@ -189,8 +189,8 @@ public class ShopCartActivity extends BaseListActivity {
             Tools.setImageInView(context, mb.min_picture, ho.iconView);
             ho.nameView.setText(mb.medicine_name);
             ho.countView.setText(mb.buyCount);
-            ho.nowPriceView.setText(String.format(getString(R.string.price_format), mb.associator_price));
-            ho.oldPriceView.setText(String.format(getString(R.string.price_format), mb.market_price));
+            ho.nowPriceView.setText(String.format(getString(R.string.price_format), new BigDecimal(mb.associator_price).divide(multiplyDecimal)));
+            ho.oldPriceView.setText(String.format(getString(R.string.price_format), new BigDecimal(mb.market_price).divide(multiplyDecimal)));
             ho.addView.setTag(mb);
             ho.minusView.setTag(mb);
             if (mb.isSelect) {
@@ -256,7 +256,7 @@ public class ShopCartActivity extends BaseListActivity {
                     mb.buyCount = count;
                     if (mb.isSelect) {
                         BigDecimal decimal1 = new BigDecimal(allPrice);
-                        BigDecimal decimal2 = new BigDecimal(mb.associator_price);
+                        BigDecimal decimal2 = new BigDecimal(mb.associator_price).divide(multiplyDecimal);
                         if (isAdd) {
                             allPrice = decimal1.add(decimal2).toString();
                             buyCount++;

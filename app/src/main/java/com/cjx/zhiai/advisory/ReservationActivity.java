@@ -19,6 +19,8 @@ import com.cjx.zhiai.http.MyCallbackInterface;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
+
 /**
  * Created by cjx on 2017-01-04.
  */
@@ -72,7 +74,8 @@ public class ReservationActivity extends BaseActivity {
                 }
                 if (bespeakNumber != null) {
                     Intent intent = new Intent(ReservationActivity.this, PayActivity.class);
-                    intent.putExtra("pay_price", String.valueOf(doctorBean.price));
+                    String price = (new BigDecimal(doctorBean.price).divide(new BigDecimal("100"))).toString();
+                    intent.putExtra("pay_price", price);
                     intent.putExtra("pay_tip", "预约支付");
                     intent.putExtra("id", bespeakNumber);
                     startActivity(intent);

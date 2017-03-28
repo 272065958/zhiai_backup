@@ -79,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/shop_all"
-                android:text="￥19.80"
+                android:text="￥0.00"
                 android:textColor="@color/main_color"
                 android:textSize="@dimen/text_size_normal" />
 

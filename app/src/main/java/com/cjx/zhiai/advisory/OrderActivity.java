@@ -38,7 +38,7 @@ public class OrderActivity extends BaseActivity {
     //    final String transportPrice = "8";
     View integralView;
     TextView totalPriceView, allPriceView;
-
+    BigDecimal decimal = new BigDecimal("100");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +106,7 @@ public class OrderActivity extends BaseActivity {
                         new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                 getResources().getDimensionPixelOffset(R.dimen.grid_spacing)));
             }
-            price = price.add(new BigDecimal(mb.associator_price).multiply(new BigDecimal(mb.buyCount)));
+            price = price.add(new BigDecimal(mb.associator_price).divide(decimal).multiply(new BigDecimal(mb.buyCount)));
         }
         String priceStr = price.toString();
         totalPriceView.setText(String.format(getString(R.string.price_format), priceStr));
@@ -138,7 +138,7 @@ public class OrderActivity extends BaseActivity {
 
         Tools.setImageInView(this, mb.min_picture, imageView);
         nameView.setText(mb.medicine_name);
-        priceView.setText(String.format(getString(R.string.price_format), mb.associator_price));
+        priceView.setText(String.format(getString(R.string.price_format), new BigDecimal(mb.associator_price).divide(decimal)));
         countView.setText(String.format(getString(R.string.count_format), mb.buyCount));
         return view;
     }
@@ -158,18 +158,18 @@ public class OrderActivity extends BaseActivity {
         float allIntegral = Float.parseFloat((String) integralView.getTag(R.id.tag_view));
         BigDecimal price = new BigDecimal((String) allPriceView.getTag());
         BigDecimal integral = new BigDecimal((String) integralView.getTag(R.id.tag_view));
-        BigDecimal multiple = new BigDecimal("10");
+
         String priceStr;
         if (isSelect) {
-            if (allPrice > allIntegral / 10) { // 总价大于积分价
-                priceStr = price.subtract(integral.divide(multiple)).toString();
+            if (allPrice > allIntegral) { // 总价大于积分价
+                priceStr = price.subtract(integral).toString();
                 integralView.setTag(integralView.getTag(R.id.tag_view));
             } else {
                 priceStr = "0";
-                integralView.setTag(price.multiply(multiple).toString());
+                integralView.setTag(price.toString());
             }
         } else {
-            priceStr = price.add(new BigDecimal((String)integralView.getTag()).divide(multiple)).toString();
+            priceStr = price.add(new BigDecimal((String)integralView.getTag())).toString();
             integralView.setTag("0");
         }
         allPriceView.setText(String.format(getString(R.string.price_format), priceStr));
@@ -224,7 +224,11 @@ public class OrderActivity extends BaseActivity {
                 dismissLoadDialog();
             }
         };
+        int orderTotal = new BigDecimal(order_total).multiply(decimal).intValue();
+        int subTotal = new BigDecimal(subtotal).multiply(decimal).intValue();
         HttpUtils.getInstance().postEnqueue(this, callbackInterface, "HealingDrugs/saveOrder", "orderItemList", orderItemList,
-                "order_total", order_total, "subtotal", subtotal, "integral", integral);
+                "order_total", String.valueOf(orderTotal),
+                "subtotal", String.valueOf(subTotal),
+                "integral", integral);
     }
 }

@@ -2,6 +2,7 @@ package com.cjx.zhiai.my;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -15,7 +16,10 @@ import com.cjx.zhiai.base.BaseActivity;
 import com.cjx.zhiai.base.BaseListActivity;
 import com.cjx.zhiai.base.MyBaseAdapter;
 import com.cjx.zhiai.bean.ReservationBean;
+import com.cjx.zhiai.bean.ResultBean;
+import com.cjx.zhiai.dialog.TipDialog;
 import com.cjx.zhiai.http.HttpUtils;
+import com.cjx.zhiai.http.MyCallbackInterface;
 import com.cjx.zhiai.util.Tools;
 import com.google.gson.reflect.TypeToken;
 import com.hyphenate.easeui.EaseConstant;
@@ -87,10 +91,29 @@ public class ReservationHistoryActivity extends BaseListActivity {
             ho.contentView.setText(rb.bespeak_content);
             ho.nameView.setText(rb.office_name + "-" + rb.doctor_name);
             if (rb.state.equals("2")) {
-                ho.statusView.setText("预约成功");
+                ho.videoView.setTag(rb);
+                switch (rb.operateTime){
+                    case 0:
+                        ho.videoView.setText("视频诊断");
+                        ho.videoView.setBackgroundResource(R.drawable.gray_frament_bg);
+                        ho.videoView.setTextColor(Color.GRAY);
+                        ho.statusView.setText("预约成功");
+                        break;
+                    case 1:
+                        ho.videoView.setText("视频诊断");
+                        ho.videoView.setBackgroundResource(R.drawable.red_frament_bg);
+                        ho.videoView.setTextColor(Color.WHITE);
+                        ho.statusView.setText("预约成功");
+                        break;
+                    case -1:
+                        ho.videoView.setBackgroundResource(R.drawable.red_frament_bg);
+                        ho.videoView.setTextColor(Color.WHITE);
+                        ho.videoView.setText("确认");
+                        ho.statusView.setText("预约完成");
+                        break;
+                }
                 ho.statusView.setTextColor(ContextCompat.getColor(context, R.color.main_color));
                 ho.videoView.setVisibility(View.VISIBLE);
-                ho.videoView.setTag(rb.doctor_id);
                 ho.videoView.setTag(R.string.title_user_profile, ho.nameView.getText().toString());
             } else if(rb.state.equals("4")){
                 ho.statusView.setText(R.string.patient_is_cancel);
@@ -120,17 +143,71 @@ public class ReservationHistoryActivity extends BaseListActivity {
 
             @Override
             public void onClick(View v) {
-                String id = (String) v.getTag();
-                if(id == null){
+                if(v.getTag() == null){
                     showToast("金额已原路退回,请注意查收");
                 }else{
-                    String title = (String) v.getTag(R.string.title_user_profile);
-                    Intent chatIntent = new Intent(context, ChatActivity.class);
-                    chatIntent.putExtra("title", title);
-                    chatIntent.putExtra(EaseConstant.EXTRA_USER_ID, id);
-                    startActivity(chatIntent);
+                    ReservationBean rb = (ReservationBean) v.getTag();
+                    switch (rb.operateTime){
+                        case 0:
+                            showToast("没到预约时间");
+                            break;
+                        case 1:
+                            String title = (String) v.getTag(R.string.title_user_profile);
+                            Intent chatIntent = new Intent(context, ChatActivity.class);
+                            chatIntent.putExtra("title", title);
+                            chatIntent.putExtra(EaseConstant.EXTRA_USER_ID, rb.doctor_id);
+                            startActivity(chatIntent);
+                            break;
+                        case -1:
+                            showComfirmDialog(rb.bespeak_id);
+                            break;
+                    }
                 }
             }
         }
     }
+
+    TipDialog tipDialog;
+    private void showComfirmDialog(String id){
+        if(tipDialog == null){
+            tipDialog = new TipDialog(this);
+            tipDialog.setText("提示", "确认完成后,将会把钱转给医生,是否确定?", "确定", "取消");
+            tipDialog.setTipComfirmListener(new TipDialog.ComfirmListener() {
+                @Override
+                public void comfirm() {
+                    tipDialog.dismiss();
+                    String id = (String) tipDialog.getTag();
+                    comfirmReservation(id);
+                }
+
+                @Override
+                public void cancel() {
+                    tipDialog.dismiss();
+                }
+            });
+        }
+        tipDialog.setTag(id);
+        tipDialog.show();
+    }
+
+    // 完成视频预约
+    private void comfirmReservation(String id){
+        MyCallbackInterface myCallbackInterface = new MyCallbackInterface() {
+            @Override
+            public void success(ResultBean response) {
+                dismissLoadDialog();
+                showToast(response.errorMsg);
+                loadData();
+            }
+
+            @Override
+            public void error() {
+                dismissLoadDialog();
+            }
+        };
+        showLoadDislog();
+        HttpUtils.getInstance().postEnqueue(this, myCallbackInterface, "base/updateState", "bespeak_id", id, "state", "3");
+    }
+
+
 }

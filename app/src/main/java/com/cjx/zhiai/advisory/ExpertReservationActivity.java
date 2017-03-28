@@ -25,6 +25,7 @@ import com.cjx.zhiai.util.JsonParser;
 import com.cjx.zhiai.util.Tools;
 import com.google.gson.reflect.TypeToken;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 /**
@@ -74,7 +75,8 @@ public class ExpertReservationActivity extends BaseActivity implements AdapterVi
         hospitalView.setText(doctor.hospital_name);
         departmentView.setText(doctor.office_name);
         postView.setText(doctor.position);
-        priceView.setText(String.format(getString(R.string.expert_reservation_format), String.valueOf(doctor.price)));
+        priceView.setText(String.format(getString(R.string.expert_reservation_format),
+                (new BigDecimal(doctor.price).divide(new BigDecimal("100"))).toString()));
         expertView.setText(String.format(getString(R.string.expert_be_expert_format), doctor.skilled));
         return linearLayout;
     }

@@ -51,6 +51,14 @@ public class OrderHistoryActivity extends BaseTabActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK && requestCode == 1){
+            refresh();
+        }
+    }
+
+    @Override
     protected void loadData(int position) {
         HttpUtils.getInstance().postEnqueue(this, getMyCallbackInterface(position, new TypeToken<ArrayList<OrderBean>>() {
         }.getType()), "HealingDrugs/selectOrderList", "page", String.valueOf(page), "limit", String.valueOf(limit), "type", stat[position]);
@@ -78,7 +86,7 @@ public class OrderHistoryActivity extends BaseTabActivity {
         }
         Intent intent = new Intent(this, OrderDetailActivity.class);
         intent.putExtra("order", ob);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
     class MyOrderAdapter extends BaseClassAdapter {

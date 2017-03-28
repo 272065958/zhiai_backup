@@ -15,6 +15,7 @@ import com.cjx.zhiai.bean.MedicineBean;
 import com.cjx.zhiai.sqlite.ShopCartDAO;
 import com.cjx.zhiai.util.Tools;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 /**
@@ -24,6 +25,7 @@ public class MedicineBuyActivity extends BaseActivity {
     MedicineBean medicineBean;
     TextView cartCountView;
     int cartCount;
+    BigDecimal decimal = new BigDecimal("100");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,10 +62,12 @@ public class MedicineBuyActivity extends BaseActivity {
 
         Tools.setImageInView(this, medicineBean.max_picture, imageView);
         nameView.setText(medicineBean.medicine_name);
-        associatorPriceView.setText(medicineBean.associator_price);
-        marketPriceView.setText(String.format(getString(R.string.price_format), medicineBean.market_price));
-        saleView.setText(String.format(getString(R.string.medicine_sale_format), medicineBean.sales_volume));
+        associatorPriceView.setText(String.format(getString(R.string.price_format), new BigDecimal(medicineBean.associator_price).divide(decimal)));
+
+        marketPriceView.setText(String.format(getString(R.string.price_format), new BigDecimal(medicineBean.market_price).divide(decimal)));
         periodView.setText(String.format(getString(R.string.price_format), medicineBean.guarantee_period));
+
+        saleView.setText(String.format(getString(R.string.medicine_sale_format), medicineBean.sales_volume));
         numberView.setText(medicineBean.ratify_number);
         producerView.setText(medicineBean.producer);
 
