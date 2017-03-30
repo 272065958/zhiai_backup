@@ -192,7 +192,7 @@ public class PatientActivity extends BaseListActivity {
             public void onClick(View v) {
                 PatientBean pb = (PatientBean) v.getTag(R.id.patient_content);
                 Intent intent = new Intent(context, PatientRecordActivity.class);
-                intent.putExtra("patient", pb);
+                intent.setAction(pb.bespeak_id);
                 startActivityForResult(intent, 1);
             }
         }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.cjx.zhiai.MyApplication;
 import com.cjx.zhiai.R;
+import com.cjx.zhiai.activity.PayActivity;
 import com.cjx.zhiai.advisory.ChatActivity;
 import com.cjx.zhiai.base.BaseActivity;
 import com.cjx.zhiai.base.BaseListActivity;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 
 /**
  * Created by cjx on 2016-12-05.
+ * 我的预约
  */
 public class ReservationHistoryActivity extends BaseListActivity {
     @Override
@@ -42,6 +44,14 @@ public class ReservationHistoryActivity extends BaseListActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            onRefresh();
+        }
+    }
+
+    @Override
     protected void loadData() {
         HttpUtils.getInstance().postEnqueue(this, getMycallback(new TypeToken<ArrayList<ReservationBean>>() {
                 }.getType()), "base/getHistory", "user_id", MyApplication.getInstance().user.user_id,
@@ -49,9 +59,9 @@ public class ReservationHistoryActivity extends BaseListActivity {
     }
 
     @Override
-    protected void onLoadResult(ArrayList<?> list){
-        for(Object obj : list){
-            ((ReservationBean)obj).format();
+    protected void onLoadResult(ArrayList<?> list) {
+        for (Object obj : list) {
+            ((ReservationBean) obj).format();
         }
         super.onLoadResult(list);
     }
@@ -90,40 +100,54 @@ public class ReservationHistoryActivity extends BaseListActivity {
             ho.timeView.setText(rb.bespeak_time);
             ho.contentView.setText(rb.bespeak_content);
             ho.nameView.setText(rb.office_name + "-" + rb.doctor_name);
-            if (rb.state.equals("2")) {
-                ho.videoView.setTag(rb);
-                switch (rb.operateTime){
-                    case 0:
-                        ho.videoView.setText("视频诊断");
-                        ho.videoView.setBackgroundResource(R.drawable.gray_frament_bg);
-                        ho.videoView.setTextColor(Color.GRAY);
-                        ho.statusView.setText("预约成功");
-                        break;
-                    case 1:
-                        ho.videoView.setText("视频诊断");
-                        ho.videoView.setBackgroundResource(R.drawable.red_frament_bg);
-                        ho.videoView.setTextColor(Color.WHITE);
-                        ho.statusView.setText("预约成功");
-                        break;
-                    case -1:
-                        ho.videoView.setBackgroundResource(R.drawable.red_frament_bg);
-                        ho.videoView.setTextColor(Color.WHITE);
-                        ho.videoView.setText("确认");
-                        ho.statusView.setText("预约完成");
-                        break;
-                }
-                ho.statusView.setTextColor(ContextCompat.getColor(context, R.color.main_color));
-                ho.videoView.setVisibility(View.VISIBLE);
-                ho.videoView.setTag(R.string.title_user_profile, ho.nameView.getText().toString());
-            } else if(rb.state.equals("4")){
-                ho.statusView.setText(R.string.patient_is_cancel);
-                ho.statusView.setTextColor(ContextCompat.getColor(context, R.color.text_secondary_color));
-                ho.videoView.setVisibility(View.VISIBLE);
-                ho.videoView.setText("金额去向");
-            } else {
-                ho.statusView.setTextColor(ContextCompat.getColor(context, R.color.text_main_color));
-                ho.videoView.setVisibility(View.GONE);
-                Tools.setPatientState(ho.statusView, rb.state);
+            ho.videoView.setTag(rb);
+            switch (rb.state) {
+                case "2":
+                    switch (rb.operateTime) {
+                        case 0:
+                            ho.videoView.setText("视频诊断");
+                            ho.videoView.setBackgroundResource(R.drawable.gray_frament_bg);
+                            ho.videoView.setTextColor(Color.GRAY);
+                            ho.statusView.setText("预约成功");
+                            break;
+                        case 1:
+                            ho.videoView.setText("视频诊断");
+                            ho.videoView.setBackgroundResource(R.drawable.red_frament_bg);
+                            ho.videoView.setTextColor(Color.WHITE);
+                            ho.statusView.setText("预约成功");
+                            break;
+                        case -1:
+                            ho.videoView.setBackgroundResource(R.drawable.red_frament_bg);
+                            ho.videoView.setTextColor(Color.WHITE);
+                            ho.videoView.setText("确认");
+                            ho.statusView.setText("预约完成");
+                            break;
+                    }
+                    ho.statusView.setTextColor(ContextCompat.getColor(context, R.color.main_color));
+                    ho.videoView.setVisibility(View.VISIBLE);
+                    ho.videoView.setTag(R.string.title_user_profile, ho.nameView.getText().toString());
+                    break;
+                case "4":
+                    ho.statusView.setText(R.string.patient_is_cancel);
+                    ho.statusView.setTextColor(ContextCompat.getColor(context, R.color.text_secondary_color));
+                    ho.videoView.setVisibility(View.VISIBLE);
+                    ho.videoView.setTextColor(Color.WHITE);
+                    ho.videoView.setBackgroundResource(R.drawable.red_frament_bg);
+                    ho.videoView.setText("金额去向");
+                    break;
+                case "5":
+                    ho.videoView.setVisibility(View.VISIBLE);
+                    ho.videoView.setTextColor(Color.WHITE);
+                    ho.videoView.setBackgroundResource(R.drawable.red_frament_bg);
+                    ho.videoView.setText("立即付款");
+                    ho.statusView.setText(R.string.patient_pre_pay);
+                    ho.statusView.setTextColor(ContextCompat.getColor(context, R.color.main_color));
+                    break;
+                default:
+                    ho.statusView.setTextColor(ContextCompat.getColor(context, R.color.text_main_color));
+                    ho.videoView.setVisibility(View.GONE);
+                    Tools.setPatientState(ho.statusView, rb.state);
+                    break;
             }
         }
 
@@ -143,33 +167,44 @@ public class ReservationHistoryActivity extends BaseListActivity {
 
             @Override
             public void onClick(View v) {
-                if(v.getTag() == null){
-                    showToast("金额已原路退回,请注意查收");
-                }else{
-                    ReservationBean rb = (ReservationBean) v.getTag();
-                    switch (rb.operateTime){
-                        case 0:
-                            showToast("没到预约时间");
-                            break;
-                        case 1:
-                            String title = (String) v.getTag(R.string.title_user_profile);
-                            Intent chatIntent = new Intent(context, ChatActivity.class);
-                            chatIntent.putExtra("title", title);
-                            chatIntent.putExtra(EaseConstant.EXTRA_USER_ID, rb.doctor_id);
-                            startActivity(chatIntent);
-                            break;
-                        case -1:
-                            showComfirmDialog(rb.bespeak_id);
-                            break;
-                    }
+                ReservationBean rb = (ReservationBean) v.getTag();
+                switch (((TextView) v).getText().toString()) {
+                    case "视频诊断":
+                        switch (rb.operateTime) {
+                            case 0:
+                                showToast("没到预约时间");
+                                break;
+                            case 1:
+                                String title = (String) v.getTag(R.string.title_user_profile);
+                                Intent chatIntent = new Intent(context, ChatActivity.class);
+                                chatIntent.putExtra("title", title);
+                                chatIntent.putExtra(EaseConstant.EXTRA_USER_ID, rb.doctor_id);
+                                startActivity(chatIntent);
+                                break;
+                        }
+                        break;
+                    case "金额去向":
+                        showToast("金额已原路退回,请注意查收");
+                        break;
+                    case "确认":
+                        showComfirmDialog(rb.bespeak_id);
+                        break;
+                    case "立即付款":
+                        Intent intent = new Intent(context, PayActivity.class);
+                        intent.putExtra("pay_price", rb.money);
+                        intent.putExtra("pay_tip", "预约支付");
+                        intent.putExtra("id", rb.bespeak_number);
+                        startActivityForResult(intent, 1);
+                        break;
                 }
             }
         }
     }
 
     TipDialog tipDialog;
-    private void showComfirmDialog(String id){
-        if(tipDialog == null){
+
+    private void showComfirmDialog(String id) {
+        if (tipDialog == null) {
             tipDialog = new TipDialog(this);
             tipDialog.setText("提示", "确认完成后,将会把钱转给医生,是否确定?", "确定", "取消");
             tipDialog.setTipComfirmListener(new TipDialog.ComfirmListener() {
@@ -191,7 +226,7 @@ public class ReservationHistoryActivity extends BaseListActivity {
     }
 
     // 完成视频预约
-    private void comfirmReservation(String id){
+    private void comfirmReservation(String id) {
         MyCallbackInterface myCallbackInterface = new MyCallbackInterface() {
             @Override
             public void success(ResultBean response) {

@@ -38,7 +38,6 @@ public class OrderActivity extends BaseActivity {
     //    final String transportPrice = "8";
     View integralView;
     TextView totalPriceView, allPriceView;
-    BigDecimal decimal = new BigDecimal("100");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +62,7 @@ public class OrderActivity extends BaseActivity {
             public void success(ResultBean response) {
                 try {
                     ((TextView) findViewById(R.id.integral)).setText(response.datas);
-                    int integral = Integer.parseInt(response.datas);
+                    float integral = Float.parseFloat(response.datas);
                     if (integral > 0) {
                         integralView.setClickable(true);
                         integralView.setTag(response.datas);
@@ -106,7 +105,7 @@ public class OrderActivity extends BaseActivity {
                         new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                 getResources().getDimensionPixelOffset(R.dimen.grid_spacing)));
             }
-            price = price.add(new BigDecimal(mb.associator_price).divide(decimal).multiply(new BigDecimal(mb.buyCount)));
+            price = price.add(new BigDecimal(mb.associator_price).multiply(new BigDecimal(mb.buyCount)));
         }
         String priceStr = price.toString();
         totalPriceView.setText(String.format(getString(R.string.price_format), priceStr));
@@ -138,7 +137,7 @@ public class OrderActivity extends BaseActivity {
 
         Tools.setImageInView(this, mb.min_picture, imageView);
         nameView.setText(mb.medicine_name);
-        priceView.setText(String.format(getString(R.string.price_format), new BigDecimal(mb.associator_price).divide(decimal)));
+        priceView.setText(String.format(getString(R.string.price_format), mb.associator_price));
         countView.setText(String.format(getString(R.string.count_format), mb.buyCount));
         return view;
     }
@@ -224,11 +223,9 @@ public class OrderActivity extends BaseActivity {
                 dismissLoadDialog();
             }
         };
-        int orderTotal = new BigDecimal(order_total).multiply(decimal).intValue();
-        int subTotal = new BigDecimal(subtotal).multiply(decimal).intValue();
         HttpUtils.getInstance().postEnqueue(this, callbackInterface, "HealingDrugs/saveOrder", "orderItemList", orderItemList,
-                "order_total", String.valueOf(orderTotal),
-                "subtotal", String.valueOf(subTotal),
+                "order_total", String.valueOf(order_total),
+                "subtotal", String.valueOf(subtotal),
                 "integral", integral);
     }
 }

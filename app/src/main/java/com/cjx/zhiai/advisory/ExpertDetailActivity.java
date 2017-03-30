@@ -17,6 +17,7 @@ import com.cjx.zhiai.bean.ResultBean;
 import com.cjx.zhiai.component.LoadListView;
 import com.cjx.zhiai.http.HttpUtils;
 import com.cjx.zhiai.http.MyCallbackInterface;
+import com.cjx.zhiai.util.HuanXinUtil;
 import com.cjx.zhiai.util.JsonParser;
 import com.cjx.zhiai.util.Tools;
 import com.google.gson.reflect.TypeToken;
@@ -58,6 +59,7 @@ public class ExpertDetailActivity extends BaseActivity implements View.OnClickLi
                     intent.putExtra("office_id", officeId);
                     startActivity(intent);
                 } else {
+                    HuanXinUtil.getInstance().setChatUser(doctorBean.user_id, doctorBean.head_image);
                     Intent chatIntent = new Intent(this, ChatActivity.class);
                     chatIntent.putExtra("title", doctorBean.office_name + "-" + doctorBean.user_real_name);
                     chatIntent.putExtra(EaseConstant.EXTRA_USER_ID, doctorBean.user_id);
@@ -134,6 +136,11 @@ public class ExpertDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void displayData(ArrayList<?> list) {
+        if(list != null && !list.isEmpty()){
+            for(Object obj : list){
+                ((ExpertCommentBean)obj).format();
+            }
+        }
         adapter.notifyDataSetChanged(list);
     }
 

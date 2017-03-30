@@ -29,7 +29,6 @@ public class AdvisoryImageActivity extends BaseSelectImageActivity implements Te
     EditText contentView;
     TextView countView;
     Button submitView;
-    ImageInsertView imageInsertView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -17,7 +17,6 @@ import com.cjx.zhiai.bean.ResultBean;
 import com.cjx.zhiai.component.ImageInsertView;
 import com.cjx.zhiai.http.HttpUtils;
 import com.cjx.zhiai.http.MyCallbackInterface;
-import com.cjx.zhiai.util.UploadImageTool;
 
 import java.util.ArrayList;
 
@@ -29,12 +28,10 @@ public class ScanCreateActivity extends BaseSelectImageActivity  implements Text
 
     EditText contentView;
     TextView countView, locationView;
-    ImageInsertView imageInsertView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_create);
-        selectType = UploadImageTool.IMAGE_TYPE_OTHER;
         setToolBar(true, null, R.string.scan_create_title);
 
         imageInsertView = (ImageInsertView) findViewById(R.id.image_insert_view);

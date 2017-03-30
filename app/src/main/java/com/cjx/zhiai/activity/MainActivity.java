@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,15 +25,28 @@ import android.widget.TextView;
 import com.cjx.zhiai.MyApplication;
 import com.cjx.zhiai.R;
 import com.cjx.zhiai.base.BaseActivity;
+import com.cjx.zhiai.bean.Code;
+import com.cjx.zhiai.bean.ResultBean;
+import com.cjx.zhiai.dialog.DownloadDialog;
 import com.cjx.zhiai.fragment.MainDoctorFragment;
 import com.cjx.zhiai.fragment.MainPeopleFragment;
 import com.cjx.zhiai.fragment.MyDoctorFragment;
 import com.cjx.zhiai.fragment.MyPeopleFragment;
 import com.cjx.zhiai.fragment.ScanFragment;
+import com.cjx.zhiai.http.HttpUtils;
+import com.cjx.zhiai.util.JsonParser;
 import com.cjx.zhiai.util.LocationUtil;
 import com.cjx.zhiai.util.Tools;
+import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Type;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
  * Created by cjx on 2016/6/28.
@@ -132,6 +146,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         viewPager.setOnPageChangeListener(this);
 
         setCurrentTab(0);
+        checkVersion();
     }
 
     @Override
@@ -207,7 +222,51 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     // 检测新版本
     private void checkVersion() {
+        try {
+            PackageInfo pi = getPackageManager().getPackageInfo(getPackageName(), 0);
+            HttpUtils.getInstance().postEnqueueWithUri(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            checkPermission();
+                        }
+                    });
+                }
 
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String body = response.body().string();
+                    final ResultBean rb = JsonParser.getInstance().getDatumResponse(body);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (rb != null && rb.errorCode == Code.SUCCESS) {
+                                // 删除缓存文件
+                                Type type = new TypeToken<LinkedTreeMap<String, Object>>() {
+                                }.getType();
+                                final LinkedTreeMap<String, Object> map = JsonParser.getInstance().fromJson(rb.datas, type);
+                                final DownloadDialog dialog = new DownloadDialog(MainActivity.this);
+                                dialog.setText("发现新版本", map.get("message").toString().replace(";", ";\n"), getString(R.string.button_sure), map.get("url").toString()).show();
+                                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                    @Override
+                                    public void onCancel(DialogInterface dialogInterface) {
+                                        dialog.onCancel();
+                                        checkPermission();
+                                    }
+                                });
+                            } else {
+                                checkPermission();
+                            }
+                        }
+                    });
+                    response.close();
+                }
+            }, "http://oms.kamfat.net/api/version/check", "version", String.valueOf(pi.versionCode), "client", "test");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     // 删除缓存路径的照片

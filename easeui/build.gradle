@@ -24,4 +24,6 @@ dependencies {
     compile files('libs/google-play-services.jar')
     compile files('libs/org.apache.http.legacy.jar')
     compile 'com.android.support:support-v4:25.3.0'
+    compile files('libs/HwPush_SDK_V2705_nomap.jar')
+    compile files('libs/MiPush_SDK_Client_2_2_19.jar')
 }

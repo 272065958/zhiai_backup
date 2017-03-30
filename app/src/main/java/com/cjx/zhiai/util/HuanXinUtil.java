@@ -24,9 +24,9 @@ import com.hyphenate.util.NetUtils;
  */
 public class HuanXinUtil {
 
-    static HuanXinUtil instance;
-    Context appContext;
-    public boolean isLogin = false;
+    private static HuanXinUtil instance;
+    private Context appContext;
+    private boolean isLogin = false;
 
     // 音视频通话状态
     public boolean isVoiceCalling;
@@ -34,8 +34,10 @@ public class HuanXinUtil {
     private String username;
 
     private CallReceiver callReceiver;
-    Handler handler;
-    EaseUI easeUI;
+    private Handler handler;
+
+    EaseUser chatUser, ownUser;
+
     private HuanXinUtil() {
 
     }
@@ -61,16 +63,21 @@ public class HuanXinUtil {
         handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
-                Toast.makeText(appContext, "登录聊天服务器失败!", Toast.LENGTH_SHORT).show();
+                switch (msg.what){
+                    case 0:
+                        Toast.makeText(appContext, "登录聊天服务器失败!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        break;
+                }
                 return false;
             }
         });
         //初始化
         if (EaseUI.getInstance().init(context, initOptions())) {
-
             // 设置开启debug模式
 //            EMClient.getInstance().setDebugMode(true);
-            easeUI = EaseUI.getInstance();
+            EaseUI easeUI = EaseUI.getInstance();
             easeUI.setUserProfileProvider(new EaseUI.EaseUserProfileProvider() {
 
                 @Override
@@ -78,7 +85,6 @@ public class HuanXinUtil {
                     return getUserInfo(username);
                 }
             });
-
             IntentFilter callFilter = new IntentFilter(EMClient.getInstance().callManager().getIncomingCallBroadcastAction());
             if(callReceiver == null){
                 callReceiver = new CallReceiver();
@@ -123,7 +129,7 @@ public class HuanXinUtil {
         EMClient.getInstance().login(acc, "1", new EMCallBack() {//回调
             @Override
             public void onSuccess() {
-                Log.e("TAG", "登录聊天服务器成功！");
+                handler.sendEmptyMessage(1);
                 isLogin = true;
             }
 
@@ -197,10 +203,26 @@ public class HuanXinUtil {
         }
     }
 
+    public void setChatUser(String username, String avatar){
+        if(chatUser == null || !chatUser.getUsername().equals(username)){
+            chatUser = new EaseUser(username);
+        }
+        chatUser.setAvatar(avatar);
+    }
+
+    public void setOwnUser(String username, String avatar){
+        if(ownUser == null || !ownUser.getUsername().equals(username)){
+            ownUser = new EaseUser(username);
+        }
+        ownUser.setAvatar(avatar);
+    }
+
     private EaseUser getUserInfo(String username){
-        EaseUser user = new EaseUser(username);
-        Log.e("TAG", "getUser "+username);
-        return user;
+        if(chatUser.getUsername().equals(username)){
+            return chatUser;
+        }else{
+            return ownUser;
+        }
     }
 
     /**

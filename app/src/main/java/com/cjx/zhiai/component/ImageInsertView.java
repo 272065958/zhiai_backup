@@ -25,6 +25,7 @@ public class ImageInsertView extends HorizontalScrollView implements View.OnClic
     boolean showDel = true;
     View hintView;
     int itemSize;
+
     public ImageInsertView(Context context) {
         super(context);
         init();
@@ -67,7 +68,7 @@ public class ImageInsertView extends HorizontalScrollView implements View.OnClic
 
     // 添加一张图片到view
     public void addImage(String path) {
-        if(hintView != null && hintView.getVisibility() == VISIBLE){
+        if (hintView != null && hintView.getVisibility() == VISIBLE) {
             hintView.setVisibility(GONE);
         }
         View currentImageView = View.inflate(getContext(), R.layout.select_image_view, null);
@@ -85,6 +86,18 @@ public class ImageInsertView extends HorizontalScrollView implements View.OnClic
             delView.setOnClickListener(delImageListener);
         }
         currentImageView.setTag(path);
+    }
+
+    // 获取当前选中的图片数量
+    public int getCount() {
+        int count = imageContentView.getChildCount();
+        if (addImageListener != null) {
+            count--;
+        }
+        if (hintView != null && imageContentView.indexOfChild(hintView) > -1) {
+            count--;
+        }
+        return count;
     }
 
     // 添加一个选择图片的view
@@ -106,7 +119,7 @@ public class ImageInsertView extends HorizontalScrollView implements View.OnClic
                 file.delete();
             }
             imageContentView.removeView(view);
-            if(hintView != null && imageContentView.getChildCount() == 2){
+            if (hintView != null && imageContentView.getChildCount() == 2) {
                 hintView.setVisibility(VISIBLE);
             }
         }

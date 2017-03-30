@@ -203,8 +203,7 @@ public class ExpertActivity extends BaseFilterActivity {
             if (doctor.price.equals("0")) {
                 ho.priceView.setText(R.string.expert_price_free);
             } else {
-                String price = (new BigDecimal(doctor.price).divide(new BigDecimal("100"))).toString();
-                ho.priceView.setText(String.format(getString(R.string.expert_price_format), price));
+                ho.priceView.setText(String.format(getString(R.string.expert_price_format), doctor.price));
             }
         }
 

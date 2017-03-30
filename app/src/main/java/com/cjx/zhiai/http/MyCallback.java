@@ -130,10 +130,10 @@ public class MyCallback implements Callback {
             }
             final ResultBean r = JsonParser.getInstance().getDatumResponse(response.body().string());
             if(r != null && r.errorCode.equals(Code.SUCCESS)){
-                HttpUtils.getInstance().enqueue(callback, request);
                 MyApplication app = (MyApplication) activity.getApplication();
                 app.setLogin(r.datas);
                 activity.sendBroadcast(new Intent(MyApplication.ACTION_USER_INFO_UPDATE)); //发送登录成功广播
+                HttpUtils.getInstance().enqueue(callback, request);
             }else{
                 activity.runOnUiThread(new Runnable() {
                     @Override

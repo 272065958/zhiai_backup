@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_view" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_view" />
 
     <RelativeLayout
+        android:id="@+id/detail_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
         android:background="@android:color/white"
-        android:paddingTop="@dimen/fab_margin"
-        android:paddingBottom="@dimen/fab_margin">
+        android:paddingBottom="@dimen/fab_margin"
+        android:paddingTop="@dimen/fab_margin">
 
         <ImageView
             android:id="@+id/discover_head"
@@ -80,11 +84,11 @@
             <EditText
                 android:id="@+id/patient_resean"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:maxLines="2"
-                android:ellipsize="end"
+                android:layout_weight="1"
                 android:background="@android:drawable/editbox_background_normal"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:textColor="@color/text_main_color"
                 android:textSize="@dimen/text_size_small" />
 
@@ -93,8 +97,8 @@
                 style="@style/header_operate_button"
                 android:layout_marginLeft="@dimen/fab_margin"
                 android:background="@drawable/black_fragment_bg"
-                android:text="@string/button_update"
-                android:onClick="update" />
+                android:onClick="update"
+                android:text="@string/button_update" />
         </LinearLayout>
 
         <View
@@ -109,11 +113,12 @@
 
         <FrameLayout
             android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_below="@id/image_line"
             android:layout_marginLeft="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
-            android:layout_marginTop="@dimen/fab_margin"
-            android:layout_below="@id/image_line"
-            android:layout_height="170dp">
+            android:layout_marginTop="@dimen/fab_margin">
+
             <EditText
                 android:id="@+id/advisory_content"
                 android:layout_width="match_parent"
@@ -121,8 +126,8 @@
                 android:background="@drawable/gray_rectangle_bg"
                 android:gravity="start"
                 android:hint="@string/patient_record_hint"
-                android:padding="@dimen/auto_margin"
                 android:maxLength="300"
+                android:padding="@dimen/auto_margin"
                 android:textColorHint="@color/text_secondary_color"
                 android:textSize="@dimen/text_size_middle" />
 
@@ -130,22 +135,35 @@
                 android:id="@+id/advisory_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_secondary_color"
-                android:textSize="@dimen/text_size_more_small"
                 android:layout_gravity="right|bottom"
                 android:layout_margin="@dimen/auto_margin"
-                android:text="0/300"/>
+                android:text="0/300"
+                android:textColor="@color/text_secondary_color"
+                android:textSize="@dimen/text_size_more_small" />
         </FrameLayout>
     </RelativeLayout>
 
-    <include layout="@layout/divider_view" />
+    <include
+        android:id="@+id/content_divider"
+        layout="@layout/divider_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_below="@id/detail_content" />
 
     <Button
         android:id="@+id/button_submit"
         style="@style/submit_button_style"
+        android:layout_below="@id/content_divider"
         android:layout_marginLeft="@dimen/fab_margin"
         android:layout_marginRight="@dimen/fab_margin"
         android:layout_marginTop="@dimen/fab_margin"
         android:onClick="onClick"
         android:text="@string/button_submit" />
-</LinearLayout>
+
+    <include
+        android:id="@+id/loading_view"
+        layout="@layout/loading_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+</RelativeLayout>

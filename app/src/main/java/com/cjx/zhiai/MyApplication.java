@@ -104,6 +104,7 @@ public class MyApplication extends Application {
                     user = (UserBean) JsonParser.getInstance().fromJson(userStr, UserBean.class);
                     if(user != null && huanxin != null){
                         huanxin.login(user.user_id);
+                        huanxin.setOwnUser(user.user_id, user.head_image);
                     }
                 }
                 editor.putString("userType", userType);

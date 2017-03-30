@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,7 +16,12 @@ import com.cjx.zhiai.bean.PatientBean;
 import com.cjx.zhiai.bean.ResultBean;
 import com.cjx.zhiai.http.HttpUtils;
 import com.cjx.zhiai.http.MyCallbackInterface;
+import com.cjx.zhiai.util.JsonParser;
 import com.cjx.zhiai.util.Tools;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by cjx on 2016-12-31.
@@ -23,15 +29,43 @@ import com.cjx.zhiai.util.Tools;
  */
 public class PatientRecordActivity extends BaseActivity implements TextWatcher {
     PatientBean pb;
-    TextView countView, button;
+    String content;
+    TextView countView, button, recordView;
     EditText contentView, reseanView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_record);
         setToolBar(true, null, getIntent().getIntExtra("title", R.string.main_manager));
-        pb = (PatientBean) getIntent().getSerializableExtra("patient");
-        initView();
+        loadContent();
+    }
+
+    private void loadContent(){
+        MyCallbackInterface callbackInterface = new MyCallbackInterface() {
+            @Override
+            public void success(ResultBean response) {
+                findViewById(R.id.loading_view).setVisibility(View.GONE);
+                Log.e("TAG", response.datas);
+                try {
+                    JSONObject json = new JSONObject(response.datas);
+                    if(json.has("video")){
+                        pb = JsonParser.getInstance().fromJson(json.getString("video"), new TypeToken<PatientBean>(){}.getType());
+                    }
+                    if(json.has("recipe")){
+                        content = json.getString("recipe");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                initView();
+            }
+
+            @Override
+            public void error() {
+                findViewById(R.id.loading_view).setVisibility(View.GONE);
+            }
+        };
+        HttpUtils.getInstance().postEnqueue(this, callbackInterface, "base/selectVF", "bespeak_id", getIntent().getAction());
     }
 
     @Override
@@ -59,18 +93,36 @@ public class PatientRecordActivity extends BaseActivity implements TextWatcher {
 
     private void initView() {
         reseanView = (EditText) findViewById(R.id.patient_resean);
+        recordView = (TextView) findViewById(R.id.patient_update);
+        reseanView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int count = s.length();
+                if (count == 0) {
+                    recordView.setClickable(false);
+                    recordView.setBackgroundResource(R.drawable.black_fragment_bg);
+                } else {
+                    recordView.setClickable(true);
+                    recordView.setBackgroundResource(R.drawable.red_rectangle_bg);
+                }
+            }
+        });
         countView = (TextView) findViewById(R.id.advisory_count);
         button = (TextView) findViewById(R.id.button_submit);
         button.setClickable(false);
         button.setBackgroundResource(R.drawable.black_fragment_bg);
         contentView = (EditText) findViewById(R.id.advisory_content);
         contentView.addTextChangedListener(this);
-        TextView recordView = (TextView) findViewById(R.id.patient_update);
-        if(TextUtils.isEmpty(pb.notes)){
-            recordView.setText(R.string.button_record);
-        }else{
-            reseanView.setText(pb.notes);
-        }
 
         ImageView headView = (ImageView) findViewById(R.id.discover_head);
         ImageView sexView = (ImageView) findViewById(R.id.discover_sex);
@@ -82,6 +134,18 @@ public class PatientRecordActivity extends BaseActivity implements TextWatcher {
         sexView.setImageResource(pb.sex.equals("f") ? R.drawable.woman : R.drawable.man);
         timeView.setText(String.format(getString(R.string.advisort_time_format), pb.bespeak_time));
         Tools.setPatientState(stateView, pb.state);
+
+        if(!TextUtils.isEmpty(content)){
+            contentView.setText(content);
+        }
+
+        if(TextUtils.isEmpty(pb.notes)){
+            recordView.setText(R.string.button_record);
+        }else{
+            reseanView.setText(pb.notes);
+            reseanView.setSelection(pb.notes.length());
+
+        }
     }
 
     // 记录备注

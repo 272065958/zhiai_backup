@@ -1,33 +1,31 @@
 package com.cjx.zhiai.base;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.ExifInterface;
-import android.net.Uri;
-import android.os.Build;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.cjx.zhiai.activity.CropImageActivity;
-import com.cjx.zhiai.activity.ImageSelectActivity;
-import com.cjx.zhiai.dialog.ItemSelectDialog;
+import com.cjx.zhiai.component.ImageInsertView;
+import com.cjx.zhiai.dialog.ImageGetDialog;
 import com.cjx.zhiai.util.Tools;
 import com.cjx.zhiai.util.UploadImageTool;
-
-import java.io.File;
 
 /**
  * Created by cjx on 2016-11-29.
  * 选择拍照或者相册照片的基类
  */
-public abstract class BaseSelectImageActivity extends BaseActivity implements View.OnClickListener, ItemSelectDialog.OnItemClickListener {
-    final int RESULT_IMAGE_SELECT = 102, REQUEST_IMAGE_CAPTURE = 101, REQUEST_IMAGE_CROP = 103;
+public abstract class BaseSelectImageActivity extends BaseActivity implements View.OnClickListener {
+    final int RESULT_IMAGE_SELECT = 102, REQUEST_IMAGE_CAPTURE = 101, REQUEST_IMAGE_CROP = 103, REQUEST_CAMERA_PERMISSION = 104;
 
-    String mCurrentPhotoPath, cropPath;
+    final int IMAGE_COUNT = 9;
+    String cropPath;
     protected String selectType = UploadImageTool.IMAGE_TYPE_OTHER;
-    ItemSelectDialog selectDialog;
+    ImageGetDialog selectDialog;
     UploadImageTool uploadTools;
+    protected ImageInsertView imageInsertView;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != RESULT_OK)
@@ -51,10 +49,10 @@ public abstract class BaseSelectImageActivity extends BaseActivity implements Vi
             case REQUEST_IMAGE_CAPTURE:
                 switch (selectType) {
                     case UploadImageTool.IMAGE_TYPE_OTHER:
-                        uploadTools.upload(new String[]{mCurrentPhotoPath});
+                        uploadTools.upload(new String[]{selectDialog.getCurrentPhotoPath()});
                         break;
                     case UploadImageTool.IMAGE_TYPE_USER:
-                        startCropIntent(mCurrentPhotoPath);
+                        startCropIntent(selectDialog.getCurrentPhotoPath());
                         break;
                 }
                 break;
@@ -66,13 +64,30 @@ public abstract class BaseSelectImageActivity extends BaseActivity implements Vi
 
     @Override
     public void onClick(View v) {
-        showSelectDialog();
+        int count = imageInsertView.getCount();
+        Log.e("TAG", "current count = "+count);
+        if(count >= IMAGE_COUNT){
+            showToast("选择图片不能超过"+IMAGE_COUNT+"张");
+            return ;
+        }
+        showSelectDialog(IMAGE_COUNT - count);
     }
 
-    private void showSelectDialog() {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                showToast("您不允许使用相机功能");
+            } else {
+                selectDialog.startCamera();
+            }
+        }
+    }
+
+    private void showSelectDialog(int count) {
         if (selectDialog == null) {
-            selectDialog = new ItemSelectDialog(this);
-            selectDialog.setItemsByArray(new String[]{"拍照", "选择照片"}, this);
+            selectDialog = new ImageGetDialog(this);
+            selectDialog.setRequestParams(REQUEST_IMAGE_CAPTURE, RESULT_IMAGE_SELECT, selectType, REQUEST_CAMERA_PERMISSION);
             uploadTools = new UploadImageTool(this, selectType, new UploadImageTool.UploadResult() {
                 @Override
                 public void onResult(String string) {
@@ -80,42 +95,8 @@ public abstract class BaseSelectImageActivity extends BaseActivity implements Vi
                 }
             });
         }
+        selectDialog.setMaxCount(count);
         selectDialog.show();
-    }
-
-    @Override
-    public void click(int position) {
-        if (position == 0) {
-            // 调用自定义相机
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                if (mCurrentPhotoPath == null) {
-                    mCurrentPhotoPath = Tools.getTempPath(BaseSelectImageActivity.this) +
-                            "IMG_" + System.currentTimeMillis() + ".jpg";
-                }
-                File file = new File(mCurrentPhotoPath);
-                Uri uri;
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-                    uri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider",
-                            file);
-                }else{
-                    uri = Uri.fromFile(file);
-                }
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            } else {
-                Toast.makeText(BaseSelectImageActivity.this, "no system camera find", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            Intent intent = new Intent(this, ImageSelectActivity.class);
-            switch (selectType) {
-                case UploadImageTool.IMAGE_TYPE_USER:
-                    intent.setAction("");
-                    break;
-            }
-            startActivityForResult(intent, RESULT_IMAGE_SELECT);
-        }
-        selectDialog.dismiss();
     }
 
     private void startCropIntent(String filePath) {

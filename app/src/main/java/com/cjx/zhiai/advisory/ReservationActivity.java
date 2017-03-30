@@ -19,10 +19,9 @@ import com.cjx.zhiai.http.MyCallbackInterface;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.math.BigDecimal;
-
 /**
  * Created by cjx on 2017-01-04.
+ * 提交预约挂号资料
  */
 public class ReservationActivity extends BaseActivity {
     EditText remarkView;
@@ -74,8 +73,7 @@ public class ReservationActivity extends BaseActivity {
                 }
                 if (bespeakNumber != null) {
                     Intent intent = new Intent(ReservationActivity.this, PayActivity.class);
-                    String price = (new BigDecimal(doctorBean.price).divide(new BigDecimal("100"))).toString();
-                    intent.putExtra("pay_price", price);
+                    intent.putExtra("pay_price", doctorBean.price);
                     intent.putExtra("pay_tip", "预约支付");
                     intent.putExtra("id", bespeakNumber);
                     startActivity(intent);
@@ -93,6 +91,6 @@ public class ReservationActivity extends BaseActivity {
         };
         HttpUtils.getInstance().postEnqueue(this, callbackInterface, "base/saveConsultInfo", "patient_id",
                 MyApplication.getInstance().user.user_id, "doctor_id", doctorBean.user_id, "type", "1",
-                "content", content, "bespeak_time", date + "=" + time, "money", String.valueOf(doctorBean.price), "office_id", officeId);
+                "content", content, "bespeak_time", date + "=" + time, "money", doctorBean.price, "office_id", officeId);
     }
 }

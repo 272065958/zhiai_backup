@@ -60,7 +60,7 @@ public class ImageSelectActivity extends BaseActivity implements OnClickListener
     SelectImageAdapter imageAdapter;
     Dialog loadingDialog;
 
-    int screenWidth = 0;
+    int screenWidth = 0, maxCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,6 +175,7 @@ public class ImageSelectActivity extends BaseActivity implements OnClickListener
             uploadTv.setOnClickListener(this);
             uploadTv.setVisibility(View.VISIBLE);
             uploadTv.setText(String.format(getString(R.string.select_photo_upload), 0));
+            maxCount = getIntent().getIntExtra("maxCount", 9);
         }
         screenWidth = (MyApplication.getInstance()).getScreen_width();
 
@@ -463,7 +464,7 @@ public class ImageSelectActivity extends BaseActivity implements OnClickListener
         int height = 0, padding;
         String dir;
 
-        public SelectImageAdapter(String dir, String[] photos, Activity context,
+        SelectImageAdapter(String dir, String[] photos, Activity context,
                                   int height, boolean isSelect) {
             this.photos = photos;
             this.context = context;
@@ -568,7 +569,7 @@ public class ImageSelectActivity extends BaseActivity implements OnClickListener
             return view;
         }
 
-        public void recycle(View v) {
+        void recycle(View v) {
             if (v.getTag() == null) {
                 return;
             }
@@ -584,7 +585,7 @@ public class ImageSelectActivity extends BaseActivity implements OnClickListener
             View select;
         }
 
-        public void destroy() {
+        void destroy() {
             if (select != null) {
                 select.clear();
             }
@@ -597,19 +598,23 @@ public class ImageSelectActivity extends BaseActivity implements OnClickListener
             notifyDataSetChanged();
         }
 
-        public int clickAt(View view, int position) {
+        int clickAt(View view, int position) {
             String url = dir + "/" + getItem(position);
             if (select.contains(url)) {
                 select.remove(url);
                 ((ViewGroup) view).getChildAt(1).setSelected(false);
             } else {
+                int size = select.size();
+                if(size >= maxCount){
+                    return size;
+                }
                 select.add(url);
                 ((ViewGroup) view).getChildAt(1).setSelected(true);
             }
             return select.size();
         }
 
-        public HashSet<String> getSelects() {
+        HashSet<String> getSelects() {
             return select;
         }
     }

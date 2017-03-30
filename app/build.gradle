@@ -26,9 +26,6 @@ android {
     }
     buildTypes {
         release {
-//            minifyEnabled true
-//            shrinkResources true
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField 'String','SERVER_API_URI','"http://apemoon.vicp.net:8083/apemoonZhiAi/"'
             buildConfigField 'String','IMAGE_URI','"http://apemoon.vicp.net:"'
         }

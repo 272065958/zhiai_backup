@@ -15,6 +15,8 @@ public class ReservationBean {
     public String state;
     public String bespeak_time;
     public String bespeak_content;
+    public String money;
+    public String bespeak_number;
     public int operateTime = 0;
     public void format(){
         bespeak_time = bespeak_time.replace("=", " ");

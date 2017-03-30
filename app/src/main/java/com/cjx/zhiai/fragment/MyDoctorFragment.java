@@ -2,27 +2,23 @@ package com.cjx.zhiai.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.ExifInterface;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.cjx.zhiai.MyApplication;
 import com.cjx.zhiai.R;
 import com.cjx.zhiai.activity.CropImageActivity;
-import com.cjx.zhiai.activity.ImageSelectActivity;
 import com.cjx.zhiai.base.BaseActivity;
 import com.cjx.zhiai.bean.UserBean;
-import com.cjx.zhiai.dialog.ItemSelectDialog;
+import com.cjx.zhiai.dialog.ImageGetDialog;
 import com.cjx.zhiai.my.HelpActivity;
 import com.cjx.zhiai.my.IncomeActivity;
 import com.cjx.zhiai.my.SettingActivity;
@@ -30,18 +26,16 @@ import com.cjx.zhiai.my.UpdateDoctorInfoActivity;
 import com.cjx.zhiai.util.Tools;
 import com.cjx.zhiai.util.UploadImageTool;
 
-import java.io.File;
-
 /**
  * Created by cjx on 2016-11-26.
  * 个人中心
  */
-public class MyDoctorFragment extends Fragment implements View.OnClickListener, ItemSelectDialog.OnItemClickListener {
-    final int RESULT_IMAGE_SELECT = 102, REQUEST_IMAGE_CAPTURE = 101, REQUEST_IMAGE_CROP = 103;
+public class MyDoctorFragment extends Fragment implements View.OnClickListener {
+    final int RESULT_IMAGE_SELECT = 102, REQUEST_IMAGE_CAPTURE = 101, REQUEST_IMAGE_CROP = 103, REQUEST_CAMERA_PERMISSION = 104;
 
     final int RESULT_SETTING = 1;
 
-    String mCurrentPhotoPath, cropPath;
+    String cropPath;
     View view;
     ImageView headView;
     UploadImageTool uploadTools;
@@ -76,7 +70,7 @@ public class MyDoctorFragment extends Fragment implements View.OnClickListener, 
                 }
                 break;
             case REQUEST_IMAGE_CAPTURE:
-                startCropIntent(mCurrentPhotoPath);
+                startCropIntent(selectDialog.getCurrentPhotoPath());
                 break;
             case REQUEST_IMAGE_CROP:
                 uploadTools.upload(new String[]{cropPath});
@@ -116,36 +110,6 @@ public class MyDoctorFragment extends Fragment implements View.OnClickListener, 
         }
     }
 
-    @Override
-    public void click(int position) {
-        if (position == 0) {
-            // 调用自定义相机
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                if (mCurrentPhotoPath == null) {
-                    mCurrentPhotoPath = Tools.getTempPath(getActivity()) + "IMG_" + System.currentTimeMillis() + ".jpg";
-                }
-                File file = new File(mCurrentPhotoPath);
-                Uri uri;
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-                    uri = FileProvider.getUriForFile(getActivity(), getActivity().getApplicationContext().getPackageName() + ".provider",
-                            file);
-                }else{
-                    uri = Uri.fromFile(file);
-                }
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            } else {
-                Toast.makeText(getActivity(), "no system camera find", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            Intent intent = new Intent(getActivity(), ImageSelectActivity.class);
-            intent.setAction("");
-            startActivityForResult(intent, RESULT_IMAGE_SELECT);
-        }
-        selectDialog.dismiss();
-    }
-
     private void startCropIntent(String filePath) {
         int degree = 0;
         try {
@@ -181,12 +145,23 @@ public class MyDoctorFragment extends Fragment implements View.OnClickListener, 
         return Tools.getTempPath(getActivity()) + "IMG_" + System.currentTimeMillis() + ".jpg";
     }
 
-    ItemSelectDialog selectDialog;
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                ((BaseActivity)getActivity()).showToast("您不允许使用相机功能");
+            } else {
+                selectDialog.startCamera();
+            }
+        }
+    }
+
+    ImageGetDialog selectDialog;
 
     private void showSelectDialog() {
         if (selectDialog == null) {
-            selectDialog = new ItemSelectDialog(getContext());
-            selectDialog.setItemsByArray(new String[]{"拍照", "选择照片"}, this);
+            selectDialog = new ImageGetDialog(getContext());
+            selectDialog.setRequestParams(REQUEST_IMAGE_CAPTURE, RESULT_IMAGE_SELECT, UploadImageTool.IMAGE_TYPE_USER, REQUEST_CAMERA_PERMISSION);
             uploadTools = new UploadImageTool((BaseActivity) getActivity(), UploadImageTool.IMAGE_TYPE_DOCTOR, new UploadImageTool.UploadResult() {
                 @Override
                 public void onResult(String string) {

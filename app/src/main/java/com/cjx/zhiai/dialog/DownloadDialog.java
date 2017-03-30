@@ -14,10 +14,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import net.kamfat.kamfatoa.R;
-import net.kamfat.kamfatoa.http.HttpUtils;
-import net.kamfat.kamfatoa.http.ProgressResponseListener;
-import net.kamfat.kamfatoa.util.Tools;
+import com.cjx.zhiai.R;
+import com.cjx.zhiai.base.BaseDialog;
+import com.cjx.zhiai.http.HttpUtils;
+import com.cjx.zhiai.http.ProgressResponseListener;
+import com.cjx.zhiai.util.Tools;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,6 +28,7 @@ import java.io.InputStream;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+
 
 /**
  * Created by cjx on 2016/9/2.
