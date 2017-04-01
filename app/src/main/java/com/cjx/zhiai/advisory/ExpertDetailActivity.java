@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cjx.zhiai.MyApplication;
 import com.cjx.zhiai.R;
 import com.cjx.zhiai.base.BaseActivity;
 import com.cjx.zhiai.base.MyBaseAdapter;
@@ -64,6 +65,8 @@ public class ExpertDetailActivity extends BaseActivity implements View.OnClickLi
                     chatIntent.putExtra("title", doctorBean.office_name + "-" + doctorBean.user_real_name);
                     chatIntent.putExtra(EaseConstant.EXTRA_USER_ID, doctorBean.user_id);
                     startActivity(chatIntent);
+                    // 添加一条咨询记录
+                    advisoryOnLine(doctorBean.user_id);
                 }
                 break;
         }
@@ -142,6 +145,22 @@ public class ExpertDetailActivity extends BaseActivity implements View.OnClickLi
             }
         }
         adapter.notifyDataSetChanged(list);
+    }
+
+    private void advisoryOnLine(String id){
+        MyCallbackInterface callbackInterface = new MyCallbackInterface() {
+            @Override
+            public void success(ResultBean response) {
+
+            }
+
+            @Override
+            public void error() {
+
+            }
+        };
+        HttpUtils.getInstance().postEnqueue(this, callbackInterface, "base/saveConsultInfo", "type", "2",
+                "doctor_id", id, "patient_id", MyApplication.getInstance().user.user_id, "office_id", officeId);
     }
 
     class CommentAdapter extends MyBaseAdapter {
